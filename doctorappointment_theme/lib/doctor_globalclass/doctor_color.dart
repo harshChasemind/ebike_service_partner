@@ -5,8 +5,7 @@ class DoctorColor{
   static const white = Colors.white;
   static const black = Colors.black;
   static const transparent = Colors.transparent;
-  static const primary = Color(0xff283891);
-  static const primary2 = Color(0xff0d3761);
+  static const primary = Color(0xff1C2A3A);
   static const lightDark = Color(0xff4B5563);
   static const textgrey = Color(0xff9CA3AF);
   static const lightblack = Color(0xff23262F);
@@ -16,5 +15,4 @@ class DoctorColor{
   static const red = Color(0xffE52323);
   static const lightgray = Color(0xffF3F4F6);
   static const background = Color(0xfff6f8f8);
-  static const blueBG = Color(0xff283891);
 }
