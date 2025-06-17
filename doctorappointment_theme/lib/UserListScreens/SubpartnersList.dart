@@ -121,7 +121,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
                           final partner = partners[index];
                           return GestureDetector(
                             onTap: (){
-                              Get.to(DoctorDetails(title: "Sub-Partner Details",));
+                              Get.to(DoctorDetails(title: widget.title!,));
                             },
                             child: Container(
                               margin: const EdgeInsets.symmetric(vertical: 8),

@@ -47,47 +47,83 @@ class _DoctorDashboardState extends State<DoctorDashboard> {
   }
 
   Future<bool> onbackpressed() async {
-    return await showDialog(
+    return await showModalBottomSheet(
         context: context,
-        builder: (context) => AlertDialog(
-              backgroundColor:
-                  themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
-              surfaceTintColor:
-                  themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
-              title: Center(
-                child: Text("Doctor Appointment".tr,
-                    textAlign: TextAlign.end,
-                    style: ibold.copyWith(fontSize: 18)),
-              ),
-              content: Text(
-                "Are_you_sure_to_exit_from_this_app".tr,
-                style: iregular.copyWith(fontSize: 13),
-              ),
-              actionsAlignment: MainAxisAlignment.end,
-              actions: [
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor:DoctorColor.primary),
-                    onPressed: () {
-                      SystemNavigator.pop();
-                    },
-                    child: Text(
-                      "Yes",
-                      style: iregular.copyWith(fontSize: 13,
-                          color: DoctorColor.white),
-                    )),
-                ElevatedButton(
-                  onPressed: () async {
-                    Get.back();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: DoctorColor.primary),
-                  child: Text("No",
-                      style: iregular.copyWith(fontSize: 13,
-                          color: DoctorColor.white)),
-                ),
-              ],
-            ));
+        backgroundColor: themedata.isdark ?DoctorColor.black : DoctorColor.background,
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30))),
+        builder: (BuildContext context) {
+          return SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/56),
+                child: Column(
+                  children: [
+                    Text(
+                      "E-Bike Service".tr,
+                      style: isemibold.copyWith(fontSize: 20),
+                    ),
+                    SizedBox(height: height/96,),
+                    const Divider(),
+                    SizedBox(height: height/96,),
+                    Text(
+                      "Are you sure you want to exit app".tr,
+                      style: iregular.copyWith(fontSize: 16),
+                    ),
+                    SizedBox(height: height/36,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          splashColor: DoctorColor.transparent,
+                          highlightColor: DoctorColor.transparent,
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Container(
+                            height: height / 20,
+                            width: width/2.2,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: DoctorColor.bgcolor),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: width/22),
+                              child: Center(
+                                child: Text("Cancel".tr,
+                                    style: imedium.copyWith(
+                                        fontSize: 16, color: DoctorColor.black)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          splashColor: DoctorColor.transparent,
+                          highlightColor: DoctorColor.transparent,
+                          onTap: () {
+                            // Get.to(() => const DoctorSignin());
+                            SystemNavigator.pop();
+                          },
+                          child: Container(
+                            height: height / 20,
+                            width: width/2.2,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: DoctorColor.primary),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: width/22),
+                              child: Center(
+                                child: Text("Yes".tr,
+                                    style: imedium.copyWith(
+                                        fontSize: 16, color: DoctorColor.white)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                )
+            ),
+          );
+        });
   }
 
   Widget _bottomTabBar() {

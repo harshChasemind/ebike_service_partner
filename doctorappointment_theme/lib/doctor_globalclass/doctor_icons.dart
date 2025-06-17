@@ -97,7 +97,10 @@ class DoctorPngimage {
   static String filter = "assets/assetN/filter.png";
   static String iconsp = "assets/assetN/iconsp.png";
   static String iconSO = "assets/assetN/iconSO.png";
-
+  static String referral = "assets/assetN/imgreferral.png";
+  static String copy = "assets/assetN/iconCopy.png";
+  static String earncoin = "assets/assetN/imgearncoin.png";
+  static String iconReferral = "assets/assetN/iconReferral.png";
 
 
 

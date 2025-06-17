@@ -6,6 +6,8 @@ import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
 
+import 'FullScreenImageViewer.dart';
+
 class DoctorDetails extends StatefulWidget {
   final String title; // Declare the parameter
 
@@ -58,6 +60,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     height = size.height;
     width = size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         surfaceTintColor: DoctorColor.white,
         title: Text(widget.title.tr,style: isemibold.copyWith(fontSize: 20,color: themedata.isdark?DoctorColor.white:DoctorColor.black),),
@@ -262,6 +265,137 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               Text("Working_Time".tr,style: isemibold.copyWith(fontSize: 20,),),
               SizedBox(height: height/56,),
               Text("Monday-Friday, 08.00 AM-18.00 pM".tr,style: iregular.copyWith(fontSize: 14,),),
+              SizedBox(
+                height: height / 36,
+              ),
+              Text("Kyc".tr,style: isemibold.copyWith(fontSize: 20,),),
+              SizedBox(height: height/56,),
+              Text("Aadhar Card".tr,style: iregular.copyWith(fontSize: 16,),),
+              SizedBox(height: height/56,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => FullScreenImageViewer(
+                        imagePath: 'assets/assetN/AadharcardDummy.png', // or from network
+                        tag: 'aadhar_front',
+                      ));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Container(
+                        // height: height / 3,
+                        width: width / 2.3,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(0),
+                          color: DoctorColor.bgcolor,
+                          border: Border.all(color: DoctorColor.border, width: 0.7),
+                        ),
+                        child: Center(
+                          child: Hero(
+                            tag: 'aadhar_front',
+                            child: Image.asset("assets/assetN/AadharcardDummy.png" , fit: BoxFit.fitWidth,)
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => FullScreenImageViewer(
+                        imagePath: 'assets/images/aadhar_front.jpg', // or from network
+                        tag: 'aadhar_front2',
+                      ));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Container(
+                        width: width / 2.3,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(0),
+                          color: DoctorColor.bgcolor,
+                          border: Border.all(color: DoctorColor.border, width: 0.7),
+                        ),
+                        child: Center(
+                          child: Hero(
+                              tag: 'aadhar_front2',
+                              child: Image.asset("assets/assetN/AadharcardDummy.png" , fit: BoxFit.fitWidth,)
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: height / 70,
+              ),
+              Text("Pan Card".tr,style: iregular.copyWith(fontSize: 16,),),
+              SizedBox(height: height/56,),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => FullScreenImageViewer(
+                    imagePath: 'assets/assetN/PanCardDummy.png', // or from network
+                    tag: 'aadhar_front3',
+                  ));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(0.0),
+                  child: Container(
+                    width: width / 2.3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(0),
+                      color: DoctorColor.bgcolor,
+                      border: Border.all(color: DoctorColor.border, width: 0.7),
+                    ),
+                    child: Center(
+                      child: Hero(
+                          tag: 'aadhar_front3',
+                          child: Image.asset("assets/assetN/PanCardDummy.png" , fit: BoxFit.fitWidth,)
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: height / 70,
+              ),
+              Visibility(
+                visible: widget.title == "Total Sub-Partners",
+                child: Column(
+                  children: [
+                    Text("Business certificate".tr,style: iregular.copyWith(fontSize: 16,),),
+                    SizedBox(height: height/56,),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(() => FullScreenImageViewer(
+                          imagePath: 'assets/assetN/BusinessDummy.png', // or from network
+                          tag: 'aadhar_front3',
+                        ));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(0.0),
+                        child: Container(
+                          width: width / 2.3,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(0),
+                            color: DoctorColor.bgcolor,
+                            border: Border.all(color: DoctorColor.border, width: 0.7),
+                          ),
+                          child: Center(
+                            child: Hero(
+                                tag: 'aadhar_front3',
+                                child: Image.asset("assets/assetN/BusinessDummy.png" , fit: BoxFit.fitWidth,)
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
               SizedBox(
                 height: height / 36,
               ),

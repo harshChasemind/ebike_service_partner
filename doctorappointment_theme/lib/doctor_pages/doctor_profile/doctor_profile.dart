@@ -15,6 +15,7 @@ import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'doctor_Referral.dart';
 import 'doctor_patients.dart';
 import 'ebikewallet.dart';
 import 'mykyc.dart';
@@ -229,6 +230,29 @@ class _DoctorProfileState extends State<DoctorProfile> {
                     Image.asset(DoctorPngimage.iconWallet,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/26,),
                     Text("Wallet".tr,style: iregular.copyWith(fontSize: 16,),),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios,size: height/46,),
+                  ],
+                ),
+              ),
+              SizedBox(height: height/120,),
+              const Divider(),
+               SizedBox(height: height/120,),
+              InkWell(
+                splashColor: DoctorColor.transparent,
+                highlightColor: DoctorColor.transparent,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return DoctorReferral();
+                    },
+                  ));
+                },
+                child: Row(
+                  children: [
+                    Image.asset(DoctorPngimage.iconReferral,height: height/30,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    SizedBox(width: width/26,),
+                    Text("Referral".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios,size: height/46,),
                   ],

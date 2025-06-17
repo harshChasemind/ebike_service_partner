@@ -1,3 +1,4 @@
+import 'package:doctorappointment/doctor_pages/doctor_filer/doctor_filter.dart';
 import 'package:doctorappointment/doctor_pages/doctor_home/doctor_list.dart';
 import 'package:doctorappointment/doctor_pages/doctor_profile/ebikeHistory.dart';
 import 'package:doctorappointment/doctor_pages/doctor_profile/withdrawMoney.dart';
@@ -76,20 +77,20 @@ class _EbikewalletState extends State<Ebikewallet> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
-                          readOnly: true,
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return const DoctorList();
-                              },
-                            ));
-                          },
+                          // readOnly: true,
+                          // onTap: () {
+                          //   Navigator.push(context, MaterialPageRoute(
+                          //     builder: (context) {
+                          //       return const DoctorList();
+                          //     },
+                          //   ));
+                          // },
                           scrollPadding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).viewInsets.bottom),
                           style: iregular.copyWith(
                               fontSize: 14, color: DoctorColor.textgrey),
                           decoration: InputDecoration(
-                            hintText: 'Search Engineer...'.tr,
+                            hintText: 'Search ...'.tr,
                             fillColor: themedata.isdark
                                 ? DoctorColor.lightblack
                                 : DoctorColor.bgcolor,
@@ -101,6 +102,19 @@ class _EbikewalletState extends State<Ebikewallet> {
                                 height: height / 36,
                               ),
                             ),
+                            suffixIcon:  GestureDetector(
+                              onTap: (){
+                                Get.to(DoctorFilter());
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Image.asset(
+                                  DoctorPngimage.filter,
+                                  height: height / 36,
+                                ),
+                              ),
+                            ),
+
                             hintStyle: iregular.copyWith(
                                 fontSize: 14, color: DoctorColor.textgrey),
                             enabledBorder: OutlineInputBorder(

@@ -59,108 +59,110 @@ class _DoctorReferralState extends State<DoctorReferral> {
         //   ),
         // ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20),
-
-            // Invite Image
-            Center(
-              child: Image.asset(
-                DoctorPngimage.referral, // Update this path if needed
-                height: 200,
-              ),
-            ),
-
-            const SizedBox(height: 28),
-
-            // Title
-            Text(
-              "Invite Your Friends and get \n₹100",
-              style: isemibold.copyWith(fontSize: 24),
-              textAlign: TextAlign.center,
-            ),
-
-            const SizedBox(height: 15),
-
-            // Subtitle
-            Text(
-              "Share the code below and you will get ₹100",
-              style: iregular.copyWith(color: Colors.grey, fontSize: 14),
-              textAlign: TextAlign.center,
-            ),
-
-            const SizedBox(height: 140),
-
-            // Referral Code Box
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12,),
-                decoration: BoxDecoration(
-                  color: DoctorColor.bgcolor,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.grey.shade300),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
+        
+              // Invite Image
+              Center(
+                child: Image.asset(
+                  DoctorPngimage.referral, // Update this path if needed
+                  height: 200,
                 ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        initialValue: "mir20222305874657",
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
+              ),
+        
+              const SizedBox(height: 28),
+        
+              // Title
+              Text(
+                "Invite Your Friends and get \n₹100",
+                style: isemibold.copyWith(fontSize: 24),
+                textAlign: TextAlign.center,
+              ),
+        
+              const SizedBox(height: 15),
+        
+              // Subtitle
+              Text(
+                "Share the code below and you will get ₹100",
+                style: iregular.copyWith(color: Colors.grey, fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+        
+              const SizedBox(height: 140),
+        
+              // Referral Code Box
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12,),
+                  decoration: BoxDecoration(
+                    color: DoctorColor.bgcolor,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey.shade300),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          initialValue: "mir20222305874657",
+                          readOnly: true,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          style: isemibold.copyWith(fontSize: 14),
                         ),
-                        style: isemibold.copyWith(fontSize: 14),
                       ),
-                    ),
-                    IconButton(
-                      icon: Image.asset(
-                        DoctorPngimage.copy, // Replace with your filter image asset
-                        height: height / 36,
+                      IconButton(
+                        icon: Image.asset(
+                          DoctorPngimage.copy, // Replace with your filter image asset
+                          height: height / 36,
+                        ),
+                        onPressed: () {
+                          // Add copy to clipboard logic if needed
+                        },
                       ),
-                      onPressed: () {
-                        // Add copy to clipboard logic if needed
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Invite Friends Button
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) => const InviteSuccessPopup(),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: DoctorColor.primary,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                  ),
-                  child: Text(
-                    "Invite Friends",
-                    style: isemibold.copyWith(color: Colors.white),
+                    ],
                   ),
                 ),
               ),
-            ),
-
-          ],
+        
+              const SizedBox(height: 20),
+        
+              // Invite Friends Button
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => const InviteSuccessPopup(),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: DoctorColor.primary,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                    child: Text(
+                      "Invite Friends",
+                      style: isemibold.copyWith(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+        
+            ],
+          ),
         ),
       ),
     );
