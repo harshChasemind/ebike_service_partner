@@ -7,7 +7,9 @@ import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
 
 class DoctorDetails extends StatefulWidget {
-  const DoctorDetails({Key? key}) : super(key: key);
+  final String title; // Declare the parameter
+
+  const DoctorDetails({Key? key, required this.title}) : super(key: key);
 
   @override
   State<DoctorDetails> createState() => _DoctorDetailsState();
@@ -26,17 +28,17 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: DoctorColor.white,
-        title: Text("Category Details".tr,style: isemibold.copyWith(fontSize: 20,color: themedata.isdark?DoctorColor.white:DoctorColor.black),),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: width/36),
-            child: Image.asset(
-              DoctorPngimage.unlike,
-              height: height / 46,
-              color: themedata.isdark?DoctorColor.white:DoctorColor.black,
-            ),
-          ),
-        ],
+        title: Text(widget.title.tr,style: isemibold.copyWith(fontSize: 20,color: themedata.isdark?DoctorColor.white:DoctorColor.black),),
+        // actions: [
+        //   Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: width/36),
+        //     child: Image.asset(
+        //       DoctorPngimage.unlike,
+        //       height: height / 46,
+        //       color: themedata.isdark?DoctorColor.white:DoctorColor.black,
+        //     ),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -61,7 +63,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.asset(DoctorPngimage.c,height: height/7,width: height/7,fit: BoxFit.fill,),
+                        child: Image.asset(DoctorPngimage.up1,height: height/7,width: height/7,fit: BoxFit.fill,),
                       ),
                       SizedBox(width: width/36,),
                       Column(
@@ -81,9 +83,14 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               width: width / 2,
                               color: DoctorColor.bgcolor),
                           SizedBox(height: height/96,),
-                          Text(
-                            "Cardiologist".tr,
-                            style: isemibold.copyWith(fontSize: 14),
+                          Row(
+                            children: [
+                              Image.asset(DoctorPngimage.icCall , height: 15, width: 15,) ,
+                              Text(
+                                "Cardiologist".tr,
+                                style: isemibold.copyWith(fontSize: 14),
+                              ),
+                            ],
                           ),
                           SizedBox(height: height/96,),
                           Row(

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../UserListScreens/SubpartnersList.dart';
 import '../../doctor_theme/doctor_themecontroller.dart';
 
 // ignore: must_be_immutable
@@ -33,7 +34,7 @@ class _DoctorDashboardState extends State<DoctorDashboard> {
 
   final List<Widget> _pages = const [
     DoctorHome(),
-    DoctorNotification(),
+    SubpartnerList(),
     DoctorBookings(),
     DoctorProfile()
   ];

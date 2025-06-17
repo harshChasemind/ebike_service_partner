@@ -286,7 +286,7 @@ class _DoctorHomeState extends State<DoctorHome> {
                         return const DoctorList();
                       },));*/
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return const DoctorDetails();
+                        return const DoctorDetails(title: "",);
                       },));
                     },
                       child: Column(
