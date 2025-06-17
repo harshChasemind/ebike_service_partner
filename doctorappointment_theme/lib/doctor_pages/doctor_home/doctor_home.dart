@@ -1,3 +1,4 @@
+import 'package:doctorappointment/UserListScreens/SubpartnersList.dart';
 import 'package:doctorappointment/doctor_pages/doctor_home/doctor_list.dart';
 import 'package:doctorappointment/doctor_theme/doctor_themecontroller.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
 
 import '../doctor_profile/doctor_notification.dart';
+import '../doctor_profile/ebikewallet.dart';
 import 'doctor_details.dart';
 
 class DoctorHome extends StatefulWidget {
@@ -29,21 +31,21 @@ class _DoctorHomeState extends State<DoctorHome> {
     DoctorPngimage.c2,
     DoctorPngimage.c3,
     DoctorPngimage.c4,
-    DoctorPngimage.c5,
-    DoctorPngimage.c6,
-    DoctorPngimage.c7,
-    DoctorPngimage.c8,
+    // DoctorPngimage.c5,
+    // DoctorPngimage.c6,
+    // DoctorPngimage.c7,
+    // DoctorPngimage.c8,
   ];
 
   List category = [
-    "Anaesth..",
-    "Ophthalm.",
-    "Pulmono..",
-    "General",
-    "Neurology",
-    "Gastroen..",
-    "Laborato..",
-    "Vaccinat.."
+    "Total Sub -Partners",
+    "Shop Owners",
+    "Freelancers",
+    "Wallet Balance",
+    // "Neurology",
+    // "Gastroen..",
+    // "Laborato..",
+    // "Vaccinat.."
   ];
 
   List img2 = [
@@ -63,7 +65,7 @@ class _DoctorHomeState extends State<DoctorHome> {
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor:
-            themedata.isdark ? DoctorColor.black : DoctorColor.white,
+        themedata.isdark ? DoctorColor.black : DoctorColor.white,
         leadingWidth: width / 1,
         leading: Padding(
           padding: EdgeInsets.symmetric(horizontal: width / 36),
@@ -130,9 +132,9 @@ class _DoctorHomeState extends State<DoctorHome> {
                         width: 10,
                         height: 10,
                         decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle
-                      ),),
+                            color: Colors.red,
+                            shape: BoxShape.circle
+                        ),),
                     )
                   ],
                 ),
@@ -159,7 +161,7 @@ class _DoctorHomeState extends State<DoctorHome> {
                   style: iregular.copyWith(
                       fontSize: 14, color: DoctorColor.black),
                   decoration: InputDecoration(
-                    hintText: 'Search doctor...'.tr,
+                    hintText: 'Search...'.tr,
                     fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
                     filled: true,
                     prefixIcon: Padding(
@@ -169,91 +171,100 @@ class _DoctorHomeState extends State<DoctorHome> {
                         height: height / 36,
                       ),
                     ),
+                    suffixIcon: IconButton(
+                      icon: Image.asset(
+                        DoctorPngimage.filter, // Replace with your filter image asset
+                        height: height / 36,
+                      ),
+                      onPressed: () {
+                        // TODO: Open filter bottom sheet, dialog, or navigate
+                      },
+                    ),
                     hintStyle: iregular.copyWith(
                         fontSize: 14, color: DoctorColor.textgrey),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            const BorderSide(color: DoctorColor.border)),
+                        const BorderSide(color: DoctorColor.border)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                            const BorderSide(color: DoctorColor.border)),
+                        const BorderSide(color: DoctorColor.border)),
                   )),
               SizedBox(
                 height: height / 36,
               ),
-              StatefulBuilder(
-                builder: (context, setState) {
-                  return InkWell(
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: height / 4,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            //color: themedata.isdark?Colors.white10:DoctorColor.bgcolor
-                          ),
-                          child: PageView.builder(
-                            controller: pageController,
-                            onPageChanged: (index) {
-                              selectedIndex = index;
-                              setState(() {});
-                            },
-                            itemCount: 4,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: width / 120),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.asset(
-                                      DoctorPngimage.banner,
-                                      width: width / 1,
-                                      height: height / 3.8,
-                                      fit: BoxFit.fill,
-                                    )),
-                              );
-                            },
-                          ),
-                        ),
-                        Positioned.fill(
-                          bottom: 10,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: List<Widget>.generate(
-                                4,
-                                    (index) => Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: width / 96),
-                                  child: InkWell(
-                                    onTap: () {
-                                      pageController.animateToPage(index,
-                                          duration: const Duration(
-                                              milliseconds: 300),
-                                          curve: Curves.easeIn);
-                                    },
-                                    child: CircleAvatar(
-                                      radius: 4,
-                                      backgroundColor: selectedIndex == index
-                                          ? DoctorColor.white
-                                          : (themedata.isdark
-                                          ? Colors.white10
-                                          : Colors.white38),
-                                    ),
-                                  ),
-                                )),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: height / 36,
-              ),
+              // StatefulBuilder(
+              //   builder: (context, setState) {
+              //     return InkWell(
+              //       child: Stack(
+              //         children: [
+              //           Container(
+              //             height: height / 4,
+              //             decoration: BoxDecoration(
+              //               borderRadius: BorderRadius.circular(10),
+              //               //color: themedata.isdark?Colors.white10:DoctorColor.bgcolor
+              //             ),
+              //             child: PageView.builder(
+              //               controller: pageController,
+              //               onPageChanged: (index) {
+              //                 selectedIndex = index;
+              //                 setState(() {});
+              //               },
+              //               itemCount: 4,
+              //               itemBuilder: (context, index) {
+              //                 return Padding(
+              //                   padding: EdgeInsets.symmetric(
+              //                       horizontal: width / 120),
+              //                   child: ClipRRect(
+              //                       borderRadius: BorderRadius.circular(10),
+              //                       child: Image.asset(
+              //                         DoctorPngimage.banner,
+              //                         width: width / 1,
+              //                         height: height / 3.8,
+              //                         fit: BoxFit.fill,
+              //                       )),
+              //                 );
+              //               },
+              //             ),
+              //           ),
+              //           Positioned.fill(
+              //             bottom: 10,
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.center,
+              //               crossAxisAlignment: CrossAxisAlignment.end,
+              //               children: List<Widget>.generate(
+              //                   4,
+              //                       (index) => Padding(
+              //                     padding: EdgeInsets.symmetric(
+              //                         horizontal: width / 96),
+              //                     child: InkWell(
+              //                       onTap: () {
+              //                         pageController.animateToPage(index,
+              //                             duration: const Duration(
+              //                                 milliseconds: 300),
+              //                             curve: Curves.easeIn);
+              //                       },
+              //                       child: CircleAvatar(
+              //                         radius: 4,
+              //                         backgroundColor: selectedIndex == index
+              //                             ? DoctorColor.white
+              //                             : (themedata.isdark
+              //                             ? Colors.white10
+              //                             : Colors.white38),
+              //                       ),
+              //                     ),
+              //                   )),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     );
+              //   },
+              // ),
+              // SizedBox(
+              //   height: height / 36,
+              // ),
               Row(
                 children: [
                   Text(
@@ -270,43 +281,133 @@ class _DoctorHomeState extends State<DoctorHome> {
               SizedBox(
                 height: height / 56,
               ),
-              GridView.builder(
-                itemCount: img.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: (height / 6.5) / (width / 2.6)),
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: (){
-                      /*Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return const DoctorList();
-                      },));*/
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return const DoctorDetails(title: "",);
-                      },));
-                    },
-                      child: Column(
-                    children: [
-                      Image.asset(
-                        img[index],
-                        height: height / 12,
-                        width: height / 12,
-                        fit: BoxFit.fill,
-                      ),
-                      SizedBox(
-                        height: height / 120,
-                      ),
-                      Text(
-                        category[index],
-                        style: ibold.copyWith(fontSize: 12),
-                      ),
-                    ],
-                  ));
-                },
+              Container(
+                width: width / 1.2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                        onTap: (){
+                          /*Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return const DoctorList();
+                        },));*/
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return  SubpartnerList(title: "Total Sub-Partners",);
+                          },));
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              DoctorPngimage.c,
+                              height: height / 12,
+                              width: height / 12,
+                              fit: BoxFit.fill,
+                            ),
+                            SizedBox(
+                              height: height / 120,
+                            ),
+                            Text(
+                              "Total Sub-Partners",
+                              style: ibold.copyWith(fontSize: 12),
+                            ),
+                          ],
+                        )),
+                    InkWell(
+                        onTap: (){
+                          /*Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return const DoctorList();
+                        },));*/
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return  SubpartnerList(title: "Shop Owners",);
+                          },));
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              DoctorPngimage.c2,
+                              height: height / 12,
+                              width: height / 12,
+                              fit: BoxFit.fill,
+                            ),
+                            SizedBox(
+                              height: height / 120,
+                            ),
+                            Text(
+                              "Shop Owners",
+                              style: ibold.copyWith(fontSize: 12),
+                            ),
+                          ],
+                        ))
+
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: height / 36,
+              ),
+              Container(
+                width: width / 1.2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: InkWell(
+                          onTap: (){
+                            /*Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return const DoctorList();
+                          },));*/
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return  SubpartnerList(title: "Freelancers",);
+                            },));
+                          },
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                DoctorPngimage.c3,
+                                height: height / 12,
+                                width: height / 12,
+                                fit: BoxFit.fill,
+                              ),
+                              SizedBox(
+                                height: height / 120,
+                              ),
+                              Text(
+                                "Freelancers",
+                                style: ibold.copyWith(fontSize: 12),
+                              ),
+                            ],
+                          )),
+                    ),
+                    InkWell(
+                        onTap: (){
+                          /*Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return const DoctorList();
+                        },));*/
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return  Ebikewallet();
+                          },));
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              DoctorPngimage.c4,
+                              height: height / 12,
+                              width: height / 12,
+                              fit: BoxFit.fill,
+                            ),
+                            SizedBox(
+                              height: height / 120,
+                            ),
+                            Text(
+                              "Wallet balance",
+                              style: ibold.copyWith(fontSize: 12),
+                            ),
+                          ],
+                        ))
+
+                  ],
+                ),
               ),
               /*SizedBox(
                 height: height / 36,

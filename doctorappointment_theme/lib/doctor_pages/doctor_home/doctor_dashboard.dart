@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 
 import '../../UserListScreens/SubpartnersList.dart';
 import '../../doctor_theme/doctor_themecontroller.dart';
+import '../doctor_profile/ebikewallet.dart';
+import 'OrderHistory.dart';
 
 // ignore: must_be_immutable
 class DoctorDashboard extends StatefulWidget {
@@ -32,10 +34,10 @@ class _DoctorDashboardState extends State<DoctorDashboard> {
   PageController pageController = PageController();
   int _selectedItemIndex = 0;
 
-  final List<Widget> _pages = const [
+  final List<Widget> _pages = [
     DoctorHome(),
-    SubpartnerList(),
-    DoctorBookings(),
+    Ebikewallet(),
+    Orderhistory(),
     DoctorProfile()
   ];
 
@@ -118,7 +120,7 @@ class _DoctorDashboardState extends State<DoctorDashboard> {
         ),
         BottomNavigationBarItem(
           icon: Image.asset(
-            DoctorPngimage.notification,
+            DoctorPngimage.iconWallet,
             height: height / 36,
             color: DoctorColor.textgrey,
           ),
@@ -126,7 +128,7 @@ class _DoctorDashboardState extends State<DoctorDashboard> {
             radius: 25,
             backgroundColor: DoctorColor.lightgray,
             child: Image.asset(
-              DoctorPngimage.notification,
+              DoctorPngimage.iconWallet2,
               height: height / 36,
               color: DoctorColor.primary,
             ),

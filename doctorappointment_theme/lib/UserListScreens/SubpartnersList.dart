@@ -10,7 +10,8 @@ import 'package:nb_utils/nb_utils.dart';
 import '../doctor_pages/doctor_home/doctor_details.dart';
 
 class SubpartnerList extends StatefulWidget {
-  const SubpartnerList({super.key});
+  String? title;
+   SubpartnerList({super.key , required this.title});
 
   @override
   State<SubpartnerList> createState() => _SubpartnerListState();
@@ -73,7 +74,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
         appBar: AppBar(
           surfaceTintColor:
               themedata.isdark ? DoctorColor.black : DoctorColor.white,
-          title: Text("Sub-Partner"),
+          title: Text(widget.title! , style: imedium.copyWith(fontSize: 16),),
           leading: Icon(
             Icons.arrow_back,
             size: 20,

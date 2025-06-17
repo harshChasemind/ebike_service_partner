@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:doctorappointment/UserListScreens/SubpartnersList.dart';
 import 'package:doctorappointment/doctor_pages/doctor_authentication/doctor_onboarding.dart';
 import 'package:doctorappointment/doctor_pages/doctor_profile/doctor_cms.dart';
 import 'package:doctorappointment/doctor_pages/doctor_profile/doctor_editprofile.dart';
@@ -10,8 +13,11 @@ import 'package:doctorappointment/doctor_globalclass/doctor_color.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'doctor_patients.dart';
+import 'ebikewallet.dart';
+import 'mykyc.dart';
 
 class DoctorProfile extends StatefulWidget {
   const DoctorProfile({Key? key}) : super(key: key);
@@ -26,17 +32,30 @@ class _DoctorProfileState extends State<DoctorProfile> {
   double width = 0.00;
   final themedata = Get.put(DoctorThemecontroler());
   bool isdark = true;
+  File? _pickedImage;
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _pickedImage = File(image.path);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
     return Scaffold(
-     appBar:AppBar(
-       automaticallyImplyLeading: false,
-       surfaceTintColor: DoctorColor.white,
-       title: Text("Profile".tr,style: isemibold.copyWith(fontSize: 20,color: themedata.isdark?DoctorColor.white:DoctorColor.black),),
-     ),
+      backgroundColor: Colors.white,
+      appBar:AppBar(
+        automaticallyImplyLeading: false,
+        surfaceTintColor: DoctorColor.white,
+        title: Text("Profile".tr,style: isemibold.copyWith(fontSize: 20,color: themedata.isdark?DoctorColor.white:DoctorColor.black),),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
@@ -48,21 +67,26 @@ class _DoctorProfileState extends State<DoctorProfile> {
                     CircleAvatar(
                       radius: 80,
                       backgroundColor: DoctorColor.transparent,
-                      backgroundImage: AssetImage(DoctorPngimage.profileimg),
+                      backgroundImage:  _pickedImage != null
+                          ? FileImage(_pickedImage!)
+                          : AssetImage(DoctorPngimage.profileimg),
                     ),
                     Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: Container(
-                          height: height/26,
-                          width: height/26,
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5),bottomRight: Radius.circular(5)),
-                              color: themedata.isdark?DoctorColor.white :DoctorColor.black
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(DoctorPngimage.edit,height: height/46,color: themedata.isdark?DoctorColor.black :DoctorColor.white),
+                        right: 20,
+                        bottom: 5,
+                        child: GestureDetector(
+                          onTap: _pickImage,
+                          child: Container(
+                            height: height/26,
+                            width: height/26,
+                            decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5),bottomRight: Radius.circular(5)),
+                                color: themedata.isdark?DoctorColor.white :DoctorColor.black
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(DoctorPngimage.edit,height: height/46,color: themedata.isdark?DoctorColor.black :DoctorColor.white),
+                            ),
                           ),
                         ))
                   ],
@@ -85,7 +109,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                      Image.asset(DoctorPngimage.useredit,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.useredit,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/26,),
                     Text("Edit_Profile".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -95,31 +119,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
               ),
               SizedBox(height: height/120,),
               const Divider(),
-              //patient
-              SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                   Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const DoctorPatients();
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.unlike,height: height/46,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/20,),
-                    Text("Patients".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-              //report
               SizedBox(height: height/120,),
               InkWell(
                 splashColor: DoctorColor.transparent,
@@ -127,16 +126,15 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return const DoctorReports();
+                      return SubpartnerList(title: "My Sub-Partners");
                     },
                   ));
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.report_gmailerrorred, size: height/40, color: themedata.isdark?DoctorColor.white:DoctorColor.black,),
-                    // Image.asset(DoctorPngimage.unlike,height: height/46,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconsp,height: height/46,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/20,),
-                    Text("Report".tr,style: iregular.copyWith(fontSize: 16,),),
+                    Text("My Sub-Partners".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios,size: height/46,),
                   ],
@@ -144,23 +142,21 @@ class _DoctorProfileState extends State<DoctorProfile> {
               ),
               SizedBox(height: height/120,),
               const Divider(),
-
-              SizedBox(height: height/120,),
               InkWell(
                 splashColor: DoctorColor.transparent,
                 highlightColor: DoctorColor.transparent,
                 onTap: () {
-                   Navigator.push(context, MaterialPageRoute(
+                  Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return const DoctorNotification();
+                      return SubpartnerList(title: "Freelancer");
                     },
                   ));
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.icnotification,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/26,),
-                    Text("Notifications".tr,style: iregular.copyWith(fontSize: 16,),),
+                    Image.asset(DoctorPngimage.iconSO,height: 20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    SizedBox(width: width/20,),
+                    Text("My Shop owners/Freelancer".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios,size: height/46,),
                   ],
@@ -168,23 +164,71 @@ class _DoctorProfileState extends State<DoctorProfile> {
               ),
               SizedBox(height: height/120,),
               const Divider(),
-
-              SizedBox(height: height/120,),
               InkWell(
                 splashColor: DoctorColor.transparent,
                 highlightColor: DoctorColor.transparent,
                 onTap: () {
-                   Navigator.push(context, MaterialPageRoute(
+                  Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return DoctorCms("about");
+                      return Mykyc();
                     },
                   ));
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.setting,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconKYC,height: 20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    SizedBox(width: width/20,),
+                    Text("My KYC".tr,style: iregular.copyWith(fontSize: 16,),),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios,size: height/46,),
+                  ],
+                ),
+              ),
+              SizedBox(height: height/120,),
+              const Divider(),
+
+
+              /*SizedBox(height: height/120,),
+              InkWell(
+                splashColor: DoctorColor.transparent,
+                highlightColor: DoctorColor.transparent,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return const DoctorFavorites();
+                    },
+                  ));
+                },
+                child: Row(
+                  children: [
+                    Image.asset(DoctorPngimage.unlike,height: height/46,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    SizedBox(width: width/20,),
+                    Text("Favorite".tr,style: iregular.copyWith(fontSize: 16,),),
+                    const Spacer(),
+                    Icon(Icons.arrow_forward_ios,size: height/46,),
+                  ],
+                ),
+              ),
+              SizedBox(height: height/120,),
+              const Divider(),*/
+
+
+              SizedBox(height: height/120,),
+              InkWell(
+                splashColor: DoctorColor.transparent,
+                highlightColor: DoctorColor.transparent,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return Ebikewallet();
+                    },
+                  ));
+                },
+                child: Row(
+                  children: [
+                    Image.asset(DoctorPngimage.iconWallet,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/26,),
-                    Text("Settings".tr,style: iregular.copyWith(fontSize: 16,),),
+                    Text("Wallet".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
                     Icon(Icons.arrow_forward_ios,size: height/46,),
                   ],
@@ -198,7 +242,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 splashColor: DoctorColor.transparent,
                 highlightColor: DoctorColor.transparent,
                 onTap: () {
-                   Navigator.push(context, MaterialPageRoute(
+                  Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
                       return DoctorCms("privacy");
                     },
@@ -221,7 +265,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 splashColor: DoctorColor.transparent,
                 highlightColor: DoctorColor.transparent,
                 onTap: () {
-                   Navigator.push(context, MaterialPageRoute(
+                  Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
                       return DoctorCms("terms");
                     },
@@ -467,7 +511,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           splashColor: DoctorColor.transparent,
                           highlightColor: DoctorColor.transparent,
                           onTap: () {
-                           // Get.to(() => const DoctorSignin());
+                            // Get.to(() => const DoctorSignin());
                             Get.to(() => const DoctorOnboarding());
                           },
                           child: Container(

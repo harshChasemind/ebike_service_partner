@@ -20,6 +20,38 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   double height = 0.00;
   double width = 0.00;
   final themedata = Get.put(DoctorThemecontroler());
+  List<Map<String, String>> reviewList = [
+    {
+      "name": "Priyank Sharma",
+      "image": DoctorPngimage.up1,
+      "rating": "4.8",
+      "review": "Quick and reliable service. Ravi fixed my car within an hour!"
+    },
+    {
+      "name": "Aman Verma",
+      "image": DoctorPngimage.up2,
+      "rating": "4.5",
+    "review": "Good work and fair pricing. The staff was professional and polite."
+    },
+    {
+      "name": "Nishant Singh",
+      "image": DoctorPngimage.up3,
+      "rating": "4.9",
+      "review": "Very knowledgeable mechanic. My engine noise issue was resolved perfectly."
+    },
+    {
+      "name": "Rakesh Mehta",
+      "image": DoctorPngimage.up1,
+      "rating": "4.7",
+      "review": "Great experience! Fast service and honest feedback about my car."
+    },
+    {
+      "name": "Keshav Das",
+      "image": DoctorPngimage.up2,
+      "rating": "4.6",
+      "review": "Excellent service. They even cleaned the car after repairs. Highly recommended!"
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -59,61 +91,95 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/80),
-                  child: Row(
+                  child: Column(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.asset(DoctorPngimage.up1,height: height/7,width: height/7,fit: BoxFit.fill,),
-                      ),
-                      SizedBox(width: width/36,),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
                         children: [
-                          SizedBox(
-                            width: width/2.35,
-                            child: Text(
-                              "Anaesthesia".tr,
-                              style: ibold.copyWith(fontSize: 16),
-                            ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.asset(DoctorPngimage.up1,height: height/7,width: height/7,fit: BoxFit.fill,),
+                          ),
+                          SizedBox(width: width/36,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width/2.35,
+                                child: Text(
+                                  "Anaesthesia".tr,
+                                  style: ibold.copyWith(fontSize: 16),
+                                ),
+                              ),
+
+                              SizedBox(height: height/96,),
+                              Container(
+                                  height: height / 500,
+                                  width: width / 2,
+                                  color: DoctorColor.bgcolor),
+                              SizedBox(height: height/96,),
+                              Row(
+                                children: [
+                                  Image.asset(DoctorPngimage.icCall , height: 15, width: 15,) ,
+                                  SizedBox(width: 10,),
+                                  Text(
+                                    "9962554825".tr,
+                                    style: isemibold.copyWith(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: height/96,),
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    DoctorPngimage.location,
+                                    height: height / 46,
+                                    color: themedata.isdark
+                                        ? DoctorColor.white
+                                        : DoctorColor.black,
+                                  ),
+                                  SizedBox(
+                                    width: width / 46,
+                                  ),
+                                  Text(
+                                    "Golden Cardiology Center".tr,
+                                    style: iregular.copyWith(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
 
-                          SizedBox(height: height/96,),
-                          Container(
-                              height: height / 500,
-                              width: width / 2,
-                              color: DoctorColor.bgcolor),
-                          SizedBox(height: height/96,),
-                          Row(
-                            children: [
-                              Image.asset(DoctorPngimage.icCall , height: 15, width: 15,) ,
-                              Text(
-                                "Cardiologist".tr,
-                                style: isemibold.copyWith(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: height/96,),
-                          Row(
-                            children: [
-                              Image.asset(
-                                DoctorPngimage.location,
-                                height: height / 46,
-                                color: themedata.isdark
-                                    ? DoctorColor.white
-                                    : DoctorColor.black,
-                              ),
-                              SizedBox(
-                                width: width / 46,
-                              ),
-                              Text(
-                                "Golden Cardiology Center".tr,
-                                style: iregular.copyWith(fontSize: 14),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
-
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(height: 0.6, color: Colors.black54,),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Row(
+                              children: [
+                                Image.asset(DoctorPngimage.iconsp , height: 30, width: 30,),
+                                SizedBox(width: 10,),
+                                Text("Sub-Partner" , style: imedium.copyWith(fontSize: 16),)
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(height: 20, width: 20, decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: Colors.green
+                              ),),
+                              SizedBox(width: 10,),
+                              Text("Active" , style: iregular.copyWith(fontSize: 16),)
+                            ],
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -130,12 +196,12 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         child: Image.asset(
                           DoctorPngimage.user2,
                           height: height / 30,
-                          color: DoctorColor.black,
+                          color: DoctorColor.primary,
                         ),
                       ),
                       SizedBox(height: height/96,),
                       Text("2,000+".tr,style: isemibold.copyWith(fontSize: 14),),
-                      Text("patients".tr,style: iregular.copyWith(fontSize: 14),),
+                      Text("Engineers".tr,style: iregular.copyWith(fontSize: 14),),
                     ],
                   ),
                   Column(
@@ -146,12 +212,12 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         child: Image.asset(
                           DoctorPngimage.medal,
                           height: height / 30,
-                          color: DoctorColor.black,
+                          color: DoctorColor.primary,
                         ),
                       ),
                       SizedBox(height: height/96,),
                       Text("10+".tr,style: isemibold.copyWith(fontSize: 14),),
-                      Text("experience".tr,style: iregular.copyWith(fontSize: 14),),
+                      Text("Experience".tr,style: iregular.copyWith(fontSize: 14),),
                     ],
                   ),
                   Column(
@@ -162,12 +228,12 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         child: Image.asset(
                           DoctorPngimage.starfill,
                           height: height / 30,
-                          color: DoctorColor.black,
+                          color: DoctorColor.primary,
                         ),
                       ),
                       SizedBox(height: height/96,),
                       Text("5".tr,style: isemibold.copyWith(fontSize: 14),),
-                      Text("rating".tr,style: iregular.copyWith(fontSize: 14),),
+                      Text("Rating".tr,style: iregular.copyWith(fontSize: 14),),
                     ],
                   ),
                   Column(
@@ -178,20 +244,20 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         child: Image.asset(
                           DoctorPngimage.messages,
                           height: height / 30,
-                          color: DoctorColor.black,
+                          color: DoctorColor.primary,
                         ),
                       ),
                       SizedBox(height: height/96,),
                       Text("1,872".tr,style: isemibold.copyWith(fontSize: 14),),
-                      Text("reviews".tr,style: iregular.copyWith(fontSize: 14),),
+                      Text("Reviews".tr,style: iregular.copyWith(fontSize: 14),),
                     ],
                   )
                 ],
               ),
               SizedBox(height: height/36,),
-              Text("About Anaesthesia".tr,style: isemibold.copyWith(fontSize: 20,),),
+              Text("About me".tr,style: isemibold.copyWith(fontSize: 20,),),
               SizedBox(height: height/56,),
-              Text("Dr. David Patel, a dedicated cardiologist, brings a wealth of experience to Golden Gate Cardiology Center in Golden Gate, CA. view more".tr,style: iregular.copyWith(fontSize: 14,),),
+              Text("Mr. Dhaval Gangani is a highly skilled Mechanical Engineer specializing in machine design, thermal systems, and industrial automation....view more".tr,style: iregular.copyWith(fontSize: 14,),),
               SizedBox(height: height/36,),
               Text("Working_Time".tr,style: isemibold.copyWith(fontSize: 20,),),
               SizedBox(height: height/56,),
@@ -215,96 +281,99 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               SizedBox(
                 height: height / 36,
               ),
-              SizedBox(
-                height: height/6,
-                child: ListView.separated(
-                  itemCount: 3,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundImage: AssetImage(DoctorPngimage.d1),
-                              ),
-                              SizedBox(width: width/36,),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Emily Anderson".tr,
-                                    style: ibold.copyWith(fontSize: 16),
-                                  ),
-                                  SizedBox(height: height/120,),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "5.0".tr,
-                                        style: isemibold.copyWith(fontSize: 12),
-                                      ),
-                                      SizedBox(
-                                        width: width / 46,
-                                      ),
-                                      Image.asset(
-                                        DoctorPngimage.star5,
-                                        height: height / 56,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(height: height/56,),
-                          SizedBox(
-                            width: width/1.08,
-                            child: Text(
-                              "Dr. Patel is a true professional who genuinely cares about his patients. I highly recommend Dr. Patel to".tr,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: iregular.copyWith(fontSize: 14),
+              ListView.separated(
+                physics: ScrollPhysics(),
+                itemCount: reviewList.length,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundImage: AssetImage(reviewList[index]['image']!),
                             ),
+                            SizedBox(width: width/36,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  reviewList[index]['name']!,
+                                  style: ibold.copyWith(fontSize: 16),
+                                ),
+                                SizedBox(height: height/120,),
+                                Row(
+                                  children: [
+                                    Text(
+                                      reviewList[index]['rating']!,
+                                      style: isemibold.copyWith(fontSize: 12),
+                                    ),
+                                    SizedBox(
+                                      width: width / 46,
+                                    ),
+                                    Image.asset(
+                                      DoctorPngimage.star5,
+                                      height: height / 56,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(height: height/56,),
+                        SizedBox(
+                          width: width/1.08,
+                          child: Text(
+                            reviewList[index]['review']!,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: iregular.copyWith(fontSize: 14),
                           ),
-                        ],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(width: width/36,);
-                    },
-                    ),
-              ),
+                        ),
+                      ],
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(width: width/36,);
+                  },
+                  ),
               SizedBox(
                 height: height / 36,
               ),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const DoctorBookAppointment();
-                    },
-                  ));
-                },
-                child: Container(
-                  height: height / 15,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: DoctorColor.primary),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width/22),
-                    child: Center(
-                      child: Text("Book_Appointment".tr,
-                          style: imedium.copyWith(
-                              fontSize: 16, color: DoctorColor.white)),
-                    ),
-                  ),
-                ),
-              ),
+
             ],
+          ),
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 30.0),
+        child: InkWell(
+          splashColor: DoctorColor.transparent,
+          highlightColor: DoctorColor.transparent,
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return const DoctorBookAppointment();
+              },
+            ));
+          },
+          child: Container(
+            height: height / 15,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: DoctorColor.primary),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: width/22),
+              child: Center(
+                child: Text("Book_Appointment".tr,
+                    style: imedium.copyWith(
+                        fontSize: 16, color: DoctorColor.white)),
+              ),
+            ),
           ),
         ),
       ),
