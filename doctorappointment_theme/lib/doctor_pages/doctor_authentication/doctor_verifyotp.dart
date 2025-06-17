@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../doctor_home/doctor_dashboard.dart';
+import 'doctor_signup.dart';
 
 class DoctorVerifyotp extends StatefulWidget {
   const DoctorVerifyotp({Key? key}) : super(key: key);
@@ -34,11 +35,11 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
         padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
         child: Column(
           children: [
-            Center(child: Image.asset(DoctorPngimage.logo,height: height/8,color: DoctorColor.primary,)),
+            Center(child: Image.asset(DoctorPngimage.iconEbike,height: height/8,color: DoctorColor.primary,)),
             SizedBox(height: height/36,),
             Text("Verify_Code".tr,style: isemibold.copyWith(fontSize: 20),),
             SizedBox(height: height/96,),
-            Text("Enter the the code we just sent you on your registered Email".tr,textAlign: TextAlign.center,style: iregular.copyWith(fontSize: 14),).paddingSymmetric(horizontal: 40),
+            Text("Enter the the code we just sent you on your registered Mobile No.".tr,textAlign: TextAlign.center,style: iregular.copyWith(fontSize: 14),).paddingSymmetric(horizontal: 40),
             SizedBox(height: height/26,),
             Form(
                 child: Row(
@@ -202,21 +203,28 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
               splashColor: DoctorColor.transparent,
               highlightColor: DoctorColor.transparent,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(
+                /*  Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return DoctorDashboard("0");
+                      return const DoctorSignup();
                     },
-                  ));
+                  ));*/
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DoctorSignup(),
+                  ),
+                      (Route<dynamic> route) => false, // remove all previous routes
+                );
               },
               child: Container(
                 height: height / 15,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: DoctorColor.primary),
+                    color: DoctorColor.blueBG),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: width/22),
                   child: Center(
-                    child: Text("Verify".tr,
+                    child: Text("Verify Otp".tr,
                         style: imedium.copyWith(
                             fontSize: 16, color: DoctorColor.white)),
                   ),

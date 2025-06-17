@@ -34,13 +34,13 @@ class _DoctorSigninState extends State<DoctorSignin> {
             children: [
               SizedBox(height: height/24,),
               Image.asset(
-                DoctorPngimage.icAppLogoDark,
+                DoctorPngimage.iconEbike,
                 fit: BoxFit.cover,
               ),
               SizedBox(height: height/36,),
-              Text("Hi_Welcome_Back".tr,style: isemibold.copyWith(fontSize: 20),),
+              Text("Welcome to Bike Service!".tr,style: isemibold.copyWith(fontSize: 20),),
               SizedBox(height: height/96,),
-              Text("Hope_youre_doing_fine".tr,style: iregular.copyWith(fontSize: 14),),
+              Text("Enter your Mobile, we will send you a verification code.".tr,textAlign: TextAlign.center,style: iregular.copyWith(fontSize: 14),),
               SizedBox(height: height/26,),
               TextFormField(
                   scrollPadding: EdgeInsets.only(
@@ -52,7 +52,7 @@ class _DoctorSigninState extends State<DoctorSignin> {
                     filled: true,
                     prefixIcon: Padding(
                       padding: const EdgeInsets.all(15),
-                      child: Image.asset(DoctorPngimage.icCall,height: height/36,),
+                      child: Image.asset(DoctorPngimage.iconMobile,height: height/36,),
                     ),
                     hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
                     enabledBorder: OutlineInputBorder(
@@ -88,22 +88,23 @@ class _DoctorSigninState extends State<DoctorSignin> {
                 splashColor: DoctorColor.transparent,
                 highlightColor: DoctorColor.transparent,
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const DoctorVerifyotp();
-                    },
-                  ));
                   /*Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
                       return DoctorDashboard("0");
                     },
                   ));*/
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return const DoctorVerifyotp();
+                    },
+                  ));
+
                 },
                 child: Container(
                   height: height / 15,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: DoctorColor.primary),
+                      color: DoctorColor.blueBG),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: width/22),
                     child: Center(
@@ -114,92 +115,92 @@ class _DoctorSigninState extends State<DoctorSignin> {
                   ),
                 ),
               ),
-              SizedBox(height: height/26,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                      height: height / 500,
-                      width: width / 2.85,
-                      color: DoctorColor.border),
-                  Text(
-                    "or".tr,
-                    style: imedium.copyWith(
-                        fontSize: 16, color: DoctorColor.textgrey),
-                  ),
-                  Container(
-                      height: height / 500,
-                      width: width / 2.85,
-                      color: DoctorColor.border),
-                ],
-              ),
-              SizedBox(height: height/36,),
-              /*Container(
-                width: width / 1,
-                height: height / 14,
-                decoration: BoxDecoration(
-                    border: Border.all(color:DoctorColor.border),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      DoctorPngimage.google,
-                      height: height / 36,
-                    ),
-                    SizedBox(
-                      width: width / 26,
-                    ),
-                    Text(
-                      "Continue_with_Google".tr,
-                      style: imedium.copyWith(fontSize: 14),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/56,),
-              Container(
-                width: width / 1,
-                height: height / 14,
-                decoration: BoxDecoration(
-                    border: Border.all(color:DoctorColor.border),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      DoctorPngimage.facebook,
-                      height: height / 30,
-                    ),
-                    SizedBox(
-                      width: width / 26,
-                    ),
-                    Text(
-                      "Continue_with_Facebook".tr,
-                      style: imedium.copyWith(fontSize: 14),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/36,),*/
-              InkWell(
-                  splashColor: DoctorColor.transparent,
-                  highlightColor: DoctorColor.transparent,
-                  onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            return const DoctorForgotpassword();
-                          },
-                        ));
-                  },
-                  child: Text(
-                    "Forgot_password".tr,
-                    style: imedium.copyWith(
-                        fontSize: 14, color: Colors.blue),
-                  )),
-              SizedBox(height: height/46,),
+              // SizedBox(height: height/26,),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     Container(
+              //         height: height / 500,
+              //         width: width / 2.85,
+              //         color: DoctorColor.border),
+              //     Text(
+              //       "or".tr,
+              //       style: imedium.copyWith(
+              //           fontSize: 16, color: DoctorColor.textgrey),
+              //     ),
+              //     Container(
+              //         height: height / 500,
+              //         width: width / 2.85,
+              //         color: DoctorColor.border),
+              //   ],
+              // ),
+              // SizedBox(height: height/36,),
+              // /*Container(
+              //   width: width / 1,
+              //   height: height / 14,
+              //   decoration: BoxDecoration(
+              //       border: Border.all(color:DoctorColor.border),
+              //       borderRadius: BorderRadius.circular(10)),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       Image.asset(
+              //         DoctorPngimage.google,
+              //         height: height / 36,
+              //       ),
+              //       SizedBox(
+              //         width: width / 26,
+              //       ),
+              //       Text(
+              //         "Continue_with_Google".tr,
+              //         style: imedium.copyWith(fontSize: 14),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(height: height/56,),
+              // Container(
+              //   width: width / 1,
+              //   height: height / 14,
+              //   decoration: BoxDecoration(
+              //       border: Border.all(color:DoctorColor.border),
+              //       borderRadius: BorderRadius.circular(10)),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Image.asset(
+              //         DoctorPngimage.facebook,
+              //         height: height / 30,
+              //       ),
+              //       SizedBox(
+              //         width: width / 26,
+              //       ),
+              //       Text(
+              //         "Continue_with_Facebook".tr,
+              //         style: imedium.copyWith(fontSize: 14),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(height: height/36,),*/
+              // InkWell(
+              //     splashColor: DoctorColor.transparent,
+              //     highlightColor: DoctorColor.transparent,
+              //     onTap: () {
+              //         Navigator.push(context, MaterialPageRoute(
+              //             builder: (context) {
+              //               return const DoctorForgotpassword();
+              //             },
+              //           ));
+              //     },
+              //     child: Text(
+              //       "Forgot_password".tr,
+              //       style: imedium.copyWith(
+              //           fontSize: 14, color: Colors.blue),
+              //     )),
+              /*SizedBox(height: height/46,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -226,7 +227,7 @@ class _DoctorSigninState extends State<DoctorSignin> {
                             fontSize: 14, color: Colors.blue),
                       )),
                 ],
-              )
+              )*/
             ],
           ),
         ),
