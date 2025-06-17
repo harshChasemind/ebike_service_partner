@@ -32,16 +32,16 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
     pages = [
       Column(
         children: [
-          Image.asset(DoctorPngimage.srcreen1,height: height/1.65,width: width/1,fit: BoxFit.fill,),
+          Image.asset(DoctorPngimage.intro1,height: height/1.65,width: width/1,fit: BoxFit.fill,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
             child: Column(
               children: [
-                Text("Meet Doctors Online".tr,
+                Text("Meet Engineers Online".tr,
                     style: ibold.copyWith(
                         fontSize: 18,)),
                 SizedBox(height: height/96,),
-                Text("Connect with Specialized Doctors Online for Convenient and Comprehensive Medical Consultations.".tr,
+                Text("We Provide Professional Bikes services at a very friendly price".tr,
                     textAlign: TextAlign.center,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -54,16 +54,16 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
       ),
       Column(
         children: [
-          Image.asset(DoctorPngimage.screen2,height: height/1.65,width: width/1,fit: BoxFit.fill,),
+          Image.asset(DoctorPngimage.intro2,height: height/1.65,width: width/1,fit: BoxFit.fill,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
             child: Column(
               children: [
-                Text("Connect with Specialists".tr,
+                Text("Connect with Experince Team".tr,
                     style: ibold.copyWith(
                       fontSize: 18,)),
                 SizedBox(height: height/96,),
-                Text("Connect with Specialized Doctors Online for Convenient and Comprehensive Medical Consultations.".tr,
+                Text("Connect with Specialized Engineering Online for Convenient and Comprehensive Bike Services".tr,
                     textAlign: TextAlign.center,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -76,16 +76,16 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
       ),
       Column(
         children: [
-          Image.asset(DoctorPngimage.screen3,height: height/1.65,width: width/1,fit: BoxFit.fill,),
+          Image.asset(DoctorPngimage.intro4,height: height/1.65,width: width/1,fit: BoxFit.fill,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
             child: Column(
               children: [
-                Text("Thousands of Online Specialists".tr,
+                Text("Thousands of Online Mechanical Engineering".tr,textAlign: TextAlign.center,
                     style: ibold.copyWith(
                       fontSize: 18,)),
                 SizedBox(height: height/96,),
-                Text("Connect with Specialized Doctors Online for Convenient and Comprehensive Medical Consultations.".tr,
+                Text("Explore a Vast Array of Online Mechanical Engineering, Offering an Extensive Range of Expertise Services.".tr,
                     textAlign: TextAlign.center,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -126,13 +126,34 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
             bottom: height / 14,
             left: 8,
             right: 8,
-            child: DotIndicator(
-                unselectedIndicatorColor: themedata.isdark?Colors.white10:DoctorColor.grey,
-                pageController: pageController,
-                pages: pages,
-                dotSize: 8.00,
-                currentDotSize: 10.00,
-                indicatorColor: DoctorColor.primary),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                pages.length,
+                    (index) {
+                  // Ensure we safely get current page index
+                  int currentPage = 0;
+                  if (pageController.hasClients && pageController.page != null) {
+                    currentPage = pageController.page!.round();
+                  }
+
+                  bool isSelected = currentPage == index;
+
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                    width: isSelected ? 30.0 : 8.0,
+                    height: isSelected ? 10.0 : 8.0,
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? DoctorColor.blueBG
+                          : (themedata.isdark ? Colors.white10 : DoctorColor.grey),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
           Positioned(
             bottom: height / 8,
@@ -142,17 +163,27 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
               splashColor: DoctorColor.transparent,
               highlightColor: DoctorColor.transparent,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return const DoctorSignin();
-                  },
-                ));
+                if (selectedIndex < pages.length - 1) {
+                  selectedIndex++;
+                  pageController.animateToPage(
+                    selectedIndex,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.ease,
+                  );
+                  setState(() {});
+                } else {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return const DoctorSignin();
+                    },
+                  ));
+                }
               },
               child: Container(
                 height: height / 15,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: DoctorColor.primary),
+                    color: DoctorColor.blueBG),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: width/22),
                   child: Center(
@@ -172,6 +203,7 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
               splashColor: DoctorColor.transparent,
               highlightColor: DoctorColor.transparent,
               onTap: () {
+                Get.to(DoctorSignin());
                 /* Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
                     return const KidsSignin();
