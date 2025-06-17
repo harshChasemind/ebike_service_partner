@@ -24,14 +24,14 @@ class DoctorPngimage {
   static String notification = "assets/doctor_asset/doctor_pngimage/notification.png";
   static String search = "assets/doctor_asset/doctor_pngimage/search.png";
   static String banner = "assets/doctor_asset/doctor_pngimage/banner.png";
-  static String c = "assets/doctor_asset/doctor_pngimage/c.png";
-  static String c2 = "assets/doctor_asset/doctor_pngimage/c2.png";
-  static String c3 = "assets/doctor_asset/doctor_pngimage/c3.png";
-  static String c4 = "assets/doctor_asset/doctor_pngimage/c4.png";
-  static String c5 = "assets/doctor_asset/doctor_pngimage/c5.png";
-  static String c6 = "assets/doctor_asset/doctor_pngimage/c6.png";
-  static String c7 = "assets/doctor_asset/doctor_pngimage/c7.png";
-  static String c8 = "assets/doctor_asset/doctor_pngimage/c8.png";
+  // static String c = "assets/doctor_asset/doctor_pngimage/c.png";
+  // static String c2 = "assets/doctor_asset/doctor_pngimage/c2.png";
+  // static String c3 = "assets/doctor_asset/doctor_pngimage/c3.png";
+  // static String c4 = "assets/doctor_asset/doctor_pngimage/c4.png";
+  // static String c5 = "assets/doctor_asset/doctor_pngimage/c5.png";
+  // static String c6 = "assets/doctor_asset/doctor_pngimage/c6.png";
+  // static String c7 = "assets/doctor_asset/doctor_pngimage/c7.png";
+  // static String c8 = "assets/doctor_asset/doctor_pngimage/c8.png";
   static String m1 = "assets/doctor_asset/doctor_pngimage/m1.png";
   static String unlike = "assets/doctor_asset/doctor_pngimage/unlike.png";
   static String star5 = "assets/doctor_asset/doctor_pngimage/star5.png";
@@ -93,10 +93,19 @@ class DoctorPngimage {
   static String icSplash = "assets/assetN/1.jpg";
   static String iconBuilding = "assets/assetN/iconBuilding.png";
   static String iconBusiness = "assets/assetN/iconBusiness.png";
+  static String filter = "assets/assetN/filter.png";
+  static String c = "assets/assetN/iconsubpartner.png";
+  static String c2 = "assets/assetN/iconshopowner.png";
+  static String c3 = "assets/assetN/iconfreelancer.png";
+  static String c4 = "assets/assetN/iconwbalance.png";
+  static String referral = "assets/assetN/imgreferral.png";
+  static String copy = "assets/assetN/imgcopy.png";
+  static String earncoin = "assets/assetN/imgearncoin.png";
 
 
 
   static String icCall = "assets/doctor_asset/doctor_pngimage/ic_call.png";
   static String icAppLogoDark = "assets/doctor_asset/doctor_pngimage/icAppLogoDark.png";
   static String icAppLogoWhite = "assets/doctor_asset/doctor_pngimage/icAppLogoWhite.png";
+
 }
