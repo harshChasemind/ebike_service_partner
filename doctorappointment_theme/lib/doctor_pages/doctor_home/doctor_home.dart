@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import '../doctor_profile/doctor_notification.dart';
 import '../doctor_profile/ebikewallet.dart';
 import 'doctor_details.dart';
+import 'newAccountadd.dart';
 
 class DoctorHome extends StatefulWidget {
   const DoctorHome({Key? key}) : super(key: key);
@@ -281,38 +282,68 @@ class _DoctorHomeState extends State<DoctorHome> {
               SizedBox(
                 height: height / 56,
               ),
-              Container(
-                width: width / 1.2,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                        onTap: (){
-                          /*Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return const DoctorList();
-                        },));*/
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return  SubpartnerList(title: "Total Sub-Partners",);
-                          },));
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              DoctorPngimage.c,
-                              height: height / 12,
-                              width: height / 12,
-                              fit: BoxFit.fill,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  InkWell(
+                      onTap: (){
+                        /*Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return const DoctorList();
+                      },));*/
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return  SubpartnerList(title: "Total Sub-Partners",);
+                        },));
+                      },
+                      child: Container(
+                        width: width / 2.5,
+                        decoration: BoxDecoration(
+                          color: DoctorColor.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 8,
+                              offset: Offset(2, 4), // changes position of shadow
                             ),
-                            SizedBox(
-                              height: height / 120,
-                            ),
-                            Text(
-                              "Total Sub-Partners",
-                              style: ibold.copyWith(fontSize: 12),
-                            ),
-                          ],
-                        )),
-                    InkWell(
+                          ]
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                DoctorPngimage.c,
+                                height: height / 12,
+                                width: height / 12,
+                                fit: BoxFit.fill,
+                              ),
+                              SizedBox(
+                                height: height / 120,
+                              ),
+                              Text(
+                                "Total Sub-Partners",
+                                style: ibold.copyWith(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+                  Container(
+                    width: width / 2.5,
+                    decoration: BoxDecoration(
+                        color: DoctorColor.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 8,
+                            offset: Offset(2, 4), // changes position of shadow
+                          ),
+                        ]
+                    ),
+                    child: InkWell(
                         onTap: (){
                           /*Navigator.push(context, MaterialPageRoute(builder: (context) {
                           return const DoctorList();
@@ -321,37 +352,52 @@ class _DoctorHomeState extends State<DoctorHome> {
                             return  SubpartnerList(title: "Shop Owners",);
                           },));
                         },
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              DoctorPngimage.c2,
-                              height: height / 12,
-                              width: height / 12,
-                              fit: BoxFit.fill,
-                            ),
-                            SizedBox(
-                              height: height / 120,
-                            ),
-                            Text(
-                              "Shop Owners",
-                              style: ibold.copyWith(fontSize: 12),
-                            ),
-                          ],
-                        ))
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                DoctorPngimage.c2,
+                                height: height / 12,
+                                width: height / 12,
+                                fit: BoxFit.fill,
+                              ),
+                              SizedBox(
+                                height: height / 120,
+                              ),
+                              Text(
+                                "Shop Owners",
+                                style: ibold.copyWith(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        )),
+                  )
 
-                  ],
-                ),
+                ],
               ),
               SizedBox(
                 height: height / 36,
               ),
-              Container(
-                width: width / 1.2,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: width / 2.5,
+                    decoration: BoxDecoration(
+                        color: DoctorColor.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 8,
+                            offset: Offset(2, 4), // changes position of shadow
+                          ),
+                        ]
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                           onTap: (){
                             /*Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -379,35 +425,53 @@ class _DoctorHomeState extends State<DoctorHome> {
                             ],
                           )),
                     ),
-                    InkWell(
-                        onTap: (){
-                          /*Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return const DoctorList();
-                        },));*/
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return  Ebikewallet();
-                          },));
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              DoctorPngimage.c4,
-                              height: height / 12,
-                              width: height / 12,
-                              fit: BoxFit.fill,
-                            ),
-                            SizedBox(
-                              height: height / 120,
-                            ),
-                            Text(
-                              "Wallet balance",
-                              style: ibold.copyWith(fontSize: 12),
-                            ),
-                          ],
-                        ))
+                  ),
+                  Container(
+                    width: width / 2.5,
+                    decoration: BoxDecoration(
+                        color: DoctorColor.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 8,
+                            offset: Offset(2, 4), // changes position of shadow
+                          ),
+                        ]
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                          onTap: (){
+                            /*Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return const DoctorList();
+                          },));*/
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return  Ebikewallet();
+                            },));
+                          },
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                DoctorPngimage.c4,
+                                height: height / 12,
+                                width: height / 12,
+                                fit: BoxFit.fill,
+                              ),
+                              SizedBox(
+                                height: height / 120,
+                              ),
+                              Text(
+                                "Wallet balance",
+                                style: ibold.copyWith(fontSize: 12),
+                              ),
+                            ],
+                          )),
+                    ),
+                  )
 
-                  ],
-                ),
+                ],
               ),
               /*SizedBox(
                 height: height / 36,
@@ -569,6 +633,20 @@ class _DoctorHomeState extends State<DoctorHome> {
               )*/
             ],
           ),
+        ),
+      ),
+      floatingActionButton: GestureDetector(
+        onTap: (){
+          Get.to(PartnerAccount());
+        },
+        child: Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+            color: DoctorColor.primary,
+            borderRadius: BorderRadius.circular(100)
+          ),
+          child: Icon(Icons.add , color: Colors.white, size: 30,),
         ),
       ),
     );

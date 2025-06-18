@@ -137,7 +137,7 @@ class _EbikewalletState extends State<Ebikewallet> {
                               Get.to(Withdrawmoney());
                             },
                             child: Container(
-                              width: width / 3,
+                              width: width / 2.5,
                               decoration: BoxDecoration(
                                 color: DoctorColor.blueBG,
                                 borderRadius: BorderRadius.circular(16)
@@ -155,11 +155,12 @@ class _EbikewalletState extends State<Ebikewallet> {
                       ),
 
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
                             width: width/2.5,
                             decoration: BoxDecoration(
+                              color: Colors.grey[100],
                               border: Border.all(color: DoctorColor.primary2 , width: 0.7),
                               borderRadius: BorderRadius.circular(10)
                             ),
@@ -168,7 +169,7 @@ class _EbikewalletState extends State<Ebikewallet> {
                               child: Column(
                                 children: [
                                   Text("\u20B9500" , style: ibold.copyWith(fontSize: 16 , color: DoctorColor.primary2),),
-                                  Text("Available Balance" , style: iregular.copyWith(fontSize: 10 , color: DoctorColor.black),),
+                                  Text("Available Balance" , style: iregular.copyWith(fontSize: 12 , color: DoctorColor.black),),
                                 ],
                               ),
                             ),
@@ -176,6 +177,7 @@ class _EbikewalletState extends State<Ebikewallet> {
                           Container(
                             width: width/2.5,
                             decoration: BoxDecoration(
+                                color: Colors.grey[100],
                               border: Border.all(color: DoctorColor.primary2 , width: 0.7),
                               borderRadius: BorderRadius.circular(10)
                             ),
@@ -184,7 +186,7 @@ class _EbikewalletState extends State<Ebikewallet> {
                               child: Column(
                                 children: [
                                   Text("\u20B9200" , style: ibold.copyWith(fontSize: 16 , color: DoctorColor.primary2),),
-                                  Text("Total Expend" , style: iregular.copyWith(fontSize: 10 , color: DoctorColor.black),),
+                                  Text("Total commission" , style: iregular.copyWith(fontSize: 12 , color: DoctorColor.black),),
                                 ],
                               ),
                             ),
@@ -253,7 +255,7 @@ class _EbikewalletState extends State<Ebikewallet> {
                                 ),
                                 child: Image.asset(DoctorPngimage.iconTS , height: 40, width: 40,),
                               ),
-                              SizedBox(width: 12),
+                              SizedBox(width: 5),
                               // Name and time
                               Expanded(
                                 child: Column(
@@ -261,16 +263,12 @@ class _EbikewalletState extends State<Ebikewallet> {
                                   children: [
                                     Text(
                                       transactions[index]['name'],
-                                      style:
-                                      TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                      style: isemibold.copyWith(fontSize: 14 ,),
                                     ),
                                     SizedBox(height: 4),
                                     Text(
                                       transactions[index]['time'],
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.grey[600],
-                                      ),
+                                      style: iregular.copyWith(fontSize: 12 , color: Colors.grey)
                                     ),
                                   ],
                                 ),
@@ -278,11 +276,7 @@ class _EbikewalletState extends State<Ebikewallet> {
                               // Amount
                               Text(
                                 transactions[index]['amount'],
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black87,
-                                ),
+                                style: isemibold.copyWith(fontSize: 14)
                               ),
                             ],
                           ),

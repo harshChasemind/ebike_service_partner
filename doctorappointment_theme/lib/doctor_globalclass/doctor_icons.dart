@@ -1,5 +1,5 @@
 class DoctorPngimage {
-  static String splash = "assets/doctor_asset/doctor_pngimage/splash.png";
+  static String splash = "assets/assetN/2.jpg";
   static String srcreen1 = "assets/doctor_asset/doctor_pngimage/srcreen1.png";
   static String screen2 = "assets/doctor_asset/doctor_pngimage/screen2.png";
   static String screen3 = "assets/doctor_asset/doctor_pngimage/screen3.png";
@@ -24,7 +24,7 @@ class DoctorPngimage {
   static String notification = "assets/doctor_asset/doctor_pngimage/notification.png";
   static String search = "assets/doctor_asset/doctor_pngimage/search.png";
   static String banner = "assets/doctor_asset/doctor_pngimage/banner.png";
-  static String c = "assets/assetN/iconSubpartner.png";
+  static String c = "assets/assetN/iconsubP.png";
   static String c2 = "assets/assetN/iconshopowner.png";
   static String c3 = "assets/assetN/iconfreelancer.png";
   static String c4 = "assets/assetN/iconwbalance.png";

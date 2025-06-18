@@ -114,7 +114,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
                     children: [
                       ListView.builder(
                         shrinkWrap: true,
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(16),
                         physics: ScrollPhysics(),
                         itemCount: partners.length,
                         itemBuilder: (context, index) {
@@ -124,7 +124,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
                               Get.to(DoctorDetails(title: widget.title!,));
                             },
                             child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 8),
+                              margin: const EdgeInsets.symmetric(vertical: 15),
                               decoration: BoxDecoration(
                                 color: Colors.white, // or any background color you need
                                 borderRadius: BorderRadius.circular(12),
@@ -139,70 +139,76 @@ class _SubpartnerListState extends State<SubpartnerList> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(12),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                child: Column(
                                   children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.asset(
-                                        partner['image']!,
-                                        height: 70,
-                                        width: 70,
-                                        fit: BoxFit.cover,
-                                      ),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.asset(
+                                            partner['image']!,
+                                            height: 70,
+                                            width: 70,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                partner['name']!,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Row(
+                                                children: [
+                                                  Image.asset(DoctorPngimage.icCall , height: height / 45,),
+                                                  const SizedBox(width: 4),
+                                                  Text(partner['phone']!),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Row(
+                                                children: [
+                                                  Image.asset(DoctorPngimage.location , height: height / 45,),
+                                                  const SizedBox(width: 4),
+                                                  Text(partner['location']!),
+                                                ],
+                                              ),
+
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            partner['name']!,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Row(
-                                            children: [
-                                              const Icon(Icons.phone, size: 14),
-                                              const SizedBox(width: 4),
-                                              Text(partner['phone']!),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Row(
-                                            children: [
-                                              const Icon(Icons.location_on, size: 14),
-                                              const SizedBox(width: 4),
-                                              Text(partner['location']!),
-                                            ],
-                                          ),
-                                          const Divider(height: 16),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: const [
-                                                  Icon(Icons.handshake, size: 16),
-                                                  SizedBox(width: 4),
-                                                  Text("Sub-Partner"),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: const [
-                                                  Icon(Icons.circle, size: 12, color: Colors.green),
-                                                  SizedBox(width: 4),
-                                                  Text("Active"),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                    const Divider(height: 16),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children:  [
+                                            Image.asset(DoctorPngimage.iconsp , height: height / 60,),
+                                            SizedBox(width: 4),
+                                            Text("Sub-Partner"),
+                                          ],
+                                        ),
+                                        Row(
+                                          children:  [
+                                            Icon(Icons.circle, size: 12, color: Colors.green),
+                                            SizedBox(width: 4),
+                                            Text("Active"),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ],
+
                                 ),
                               ),
                             ),

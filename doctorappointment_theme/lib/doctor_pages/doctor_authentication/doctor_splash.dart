@@ -37,14 +37,14 @@ class _DoctorSplashState extends State<DoctorSplash> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
           ),
-          Center(
-            child: Image.asset(
-              DoctorPngimage.icAppLogoWhite,
-              fit: BoxFit.cover,
-              width: 130,
-              // height: 100,
-            ),
-          ),
+          // Center(
+          //   child: Image.asset(
+          //     DoctorPngimage.icAppLogoWhite,
+          //     fit: BoxFit.cover,
+          //     width: 130,
+          //     // height: 100,
+          //   ),
+          // ),
         ],
       ),
     );

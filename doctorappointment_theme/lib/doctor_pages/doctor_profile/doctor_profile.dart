@@ -133,7 +133,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.iconsp,height: height/46,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconsp,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/20,),
                     Text("My Sub-Partners".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -143,6 +143,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
               ),
               SizedBox(height: height/120,),
               const Divider(),
+              SizedBox(height: height/120,),
               InkWell(
                 splashColor: DoctorColor.transparent,
                 highlightColor: DoctorColor.transparent,
@@ -155,7 +156,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.iconSO,height: 20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconSO,height: height / 36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/20,),
                     Text("My Shop owners/Freelancer".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -165,6 +166,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
               ),
               SizedBox(height: height/120,),
               const Divider(),
+              SizedBox(height: height/120,),
               InkWell(
                 splashColor: DoctorColor.transparent,
                 highlightColor: DoctorColor.transparent,
@@ -177,7 +179,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.iconKYC,height: 20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconKYC,height: height / 36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/20,),
                     Text("My KYC".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),

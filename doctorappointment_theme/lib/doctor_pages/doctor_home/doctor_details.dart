@@ -5,7 +5,7 @@ import 'package:doctorappointment/doctor_globalclass/doctor_color.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'FullScreenImageViewer.dart';
 
 class DoctorDetails extends StatefulWidget {
@@ -109,7 +109,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               SizedBox(
                                 width: width/2.35,
                                 child: Text(
-                                  "Anaesthesia".tr,
+                                  "E-Bike Service".tr,
                                   style: ibold.copyWith(fontSize: 16),
                                 ),
                               ),
@@ -124,14 +124,25 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                 children: [
                                   Image.asset(DoctorPngimage.icCall , height: 15, width: 15,) ,
                                   SizedBox(width: 10,),
-                                  Text(
-                                    "9962554825".tr,
-                                    style: isemibold.copyWith(fontSize: 14),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final Uri dialUri = Uri(scheme: 'tel', path: '9962554825');
+                                      if (await canLaunchUrl(dialUri)) {
+                                        await launchUrl(dialUri);
+                                      } else {
+                                        Get.snackbar("Error", "Could not open dialer");
+                                      }
+                                    },
+                                    child: Text(
+                                      "9962554825".tr,
+                                      style: isemibold.copyWith(fontSize: 14),
+                                    ),
                                   ),
                                 ],
                               ),
                               SizedBox(height: height/96,),
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Image.asset(
                                     DoctorPngimage.location,
@@ -143,9 +154,12 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                   SizedBox(
                                     width: width / 46,
                                   ),
-                                  Text(
-                                    "Golden Cardiology Center".tr,
-                                    style: iregular.copyWith(fontSize: 14),
+                                  Container(
+                                    width: width / 1.8,
+                                    child: Text(
+                                      "Shivaji Nagar, Jodhpur, Rajasthan 342001, India".tr,
+                                      style: iregular.copyWith(fontSize: 14),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -167,13 +181,13 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                               children: [
                                 Image.asset(DoctorPngimage.iconsp , height: 30, width: 30,),
                                 SizedBox(width: 10,),
-                                Text("Sub-Partner" , style: imedium.copyWith(fontSize: 16),)
+                                Text("Sub-Partner" , style: imedium.copyWith(fontSize: 14),)
                               ],
                             ),
                           ),
                           Row(
                             children: [
-                              Container(height: 20, width: 20, decoration: BoxDecoration(
+                              Container(height: 15, width: 1, decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
                                 color: Colors.green
                               ),),

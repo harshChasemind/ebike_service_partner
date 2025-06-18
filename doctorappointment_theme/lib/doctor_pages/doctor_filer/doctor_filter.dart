@@ -97,7 +97,7 @@ class _DoctorFilterState extends State<DoctorFilter> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -110,8 +110,21 @@ class _DoctorFilterState extends State<DoctorFilter> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'From',
-                      prefixIcon: const Icon(Icons.calendar_today, size: 20),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Image.asset(DoctorPngimage.calendar,height: height/36,),
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: Colors.black45),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+
                     ),
                   ),
                 ),
@@ -120,8 +133,21 @@ class _DoctorFilterState extends State<DoctorFilter> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'To',
-                      prefixIcon: const Icon(Icons.calendar_today, size: 20),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Image.asset(DoctorPngimage.calendar,height: height/36,),
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: Colors.black45),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+
                     ),
                   ),
                 ),
@@ -134,12 +160,23 @@ class _DoctorFilterState extends State<DoctorFilter> {
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
               value: 'Repair',
-              items: ['Repair', 'Install', 'Inspect']
+              style:iregular.copyWith(fontSize: 14,color: Colors.black45),
+
+        items: ['Repair', 'Install', 'Inspect']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
               onChanged: (val) {},
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: DoctorColor.border)),
+                // hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.grey),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: DoctorColor.border)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: DoctorColor.border)),
               ),
             ),
             const SizedBox(height: 16),
@@ -149,12 +186,22 @@ class _DoctorFilterState extends State<DoctorFilter> {
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
               value: 'Completed',
+              style: iregular.copyWith(fontSize: 14,color: Colors.black45),
               items: ['Pending', 'In Progress', 'Completed']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
               onChanged: (val) {},
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: DoctorColor.border)),
+                // hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.grey),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: DoctorColor.border)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: DoctorColor.border)),
               ),
             ),
             const SizedBox(height: 16),
@@ -168,7 +215,16 @@ class _DoctorFilterState extends State<DoctorFilter> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Min ₹',
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: Colors.black45),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
                     ),
                   ),
                 ),
@@ -177,7 +233,16 @@ class _DoctorFilterState extends State<DoctorFilter> {
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Max ₹',
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: Colors.black45),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
                     ),
                   ),
                 ),
@@ -190,12 +255,22 @@ class _DoctorFilterState extends State<DoctorFilter> {
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
               hint: const Text("Text Search"),
+              style: iregular.copyWith(fontSize: 14,color: Colors.black45),
               items: ['User A', 'User B']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
               onChanged: (val) {},
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: DoctorColor.border)),
+                hintStyle: iregular.copyWith(fontSize: 14,color: Colors.grey),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: DoctorColor.border)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color: DoctorColor.border)),
               ),
             ),
 
