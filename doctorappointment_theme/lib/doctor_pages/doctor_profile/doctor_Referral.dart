@@ -4,6 +4,7 @@ import 'package:doctorappointment/doctor_globalclass/doctor_color.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:doctorappointment/doctor_theme/doctor_themecontroller.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class DoctorReferral extends StatefulWidget {
@@ -93,7 +94,7 @@ class _DoctorReferralState extends State<DoctorReferral> {
                 textAlign: TextAlign.center,
               ),
         
-              const SizedBox(height: 140),
+              const SizedBox(height: 20),
         
               // Referral Code Box
               Padding(
@@ -101,67 +102,59 @@ class _DoctorReferralState extends State<DoctorReferral> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12,),
                   decoration: BoxDecoration(
-                    color: DoctorColor.bgcolor,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.grey.shade300),
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: TextFormField(
-                          initialValue: "mir20222305874657",
-                          readOnly: true,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                          style: isemibold.copyWith(fontSize: 14),
-                        ),
+                      Text(
+                        "mir20222305874657",
+                        style: isemibold.copyWith(fontSize: 14 , color: DoctorColor.greyText),
                       ),
                       IconButton(
                         icon: Image.asset(
                           DoctorPngimage.copy, // Replace with your filter image asset
-                          height: height / 36,
+                          height: height / 30,
                         ),
                         onPressed: () {
-                          // Add copy to clipboard logic if needed
+                          Clipboard.setData(ClipboardData(text: "mir20222305874657"));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Copied to clipboard")),
+                          );
                         },
                       ),
                     ],
                   ),
                 ),
               ),
-        
-              const SizedBox(height: 20),
-        
-              // Invite Friends Button
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) => const InviteSuccessPopup(),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: DoctorColor.primary,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                    ),
-                    child: Text(
-                      "Invite Friends",
-                      style: isemibold.copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-        
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => const InviteSuccessPopup(),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: DoctorColor.primary,
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+            ),
+            child: Text(
+              "Invite Friends",
+              style: isemibold.copyWith(color: Colors.white),
+            ),
           ),
         ),
       ),

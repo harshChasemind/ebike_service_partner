@@ -90,39 +90,39 @@ class _PartnerAccountState extends State<PartnerAccount> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: DoctorColor.border)),
                   )),
-              SizedBox(height: height/36,),
-
-
-              // Select Type Dropdown
-              Container(
-                decoration: BoxDecoration(
-                  color: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: DoctorColor.border),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                  hint: Text(
-                    'Select Type',
-                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
-                  ),
-                  value: selectedType,
-                  items: types.map((type) {
-                    return DropdownMenuItem(
-                      value: type,
-                      child: Text(type, style: iregular.copyWith(fontSize: 14)),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedType = value;
-                    });
-                  },
-                ),
-              ),
+              // SizedBox(height: height/36,),
+              //
+              //
+              // // Select Type Dropdown
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+              //     borderRadius: BorderRadius.circular(10),
+              //     border: Border.all(color: DoctorColor.border),
+              //   ),
+              //   padding: const EdgeInsets.symmetric(horizontal: 12),
+              //   child: DropdownButtonFormField<String>(
+              //     decoration: const InputDecoration(
+              //       border: InputBorder.none,
+              //     ),
+              //     hint: Text(
+              //       'Select Type',
+              //       style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+              //     ),
+              //     value: selectedType,
+              //     items: types.map((type) {
+              //       return DropdownMenuItem(
+              //         value: type,
+              //         child: Text(type, style: iregular.copyWith(fontSize: 14)),
+              //       );
+              //     }).toList(),
+              //     onChanged: (value) {
+              //       setState(() {
+              //         selectedType = value;
+              //       });
+              //     },
+              //   ),
+              // ),
               SizedBox(height: height/36,),
               TextFormField(
                   scrollPadding: EdgeInsets.only(

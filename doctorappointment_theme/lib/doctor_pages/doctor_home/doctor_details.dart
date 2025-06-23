@@ -155,7 +155,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                                     width: width / 46,
                                   ),
                                   Container(
-                                    width: width / 1.8,
+                                    width: width / 1.9,
                                     child: Text(
                                       "Shivaji Nagar, Jodhpur, Rajasthan 342001, India".tr,
                                       style: iregular.copyWith(fontSize: 14),
@@ -187,7 +187,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                           ),
                           Row(
                             children: [
-                              Container(height: 15, width: 1, decoration: BoxDecoration(
+                              Container(height: 15, width: 15, decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
                                 color: Colors.green
                               ),),

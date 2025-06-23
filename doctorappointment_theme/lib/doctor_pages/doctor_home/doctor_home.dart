@@ -64,6 +64,7 @@ class _DoctorHomeState extends State<DoctorHome> {
     height = size.height;
     width = size.width;
     return Scaffold(
+      backgroundColor : Colors.white,
       appBar: AppBar(
         surfaceTintColor:
         themedata.isdark ? DoctorColor.black : DoctorColor.white,
@@ -407,22 +408,25 @@ class _DoctorHomeState extends State<DoctorHome> {
                               return  SubpartnerList(title: "Freelancers",);
                             },));
                           },
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                DoctorPngimage.c3,
-                                height: height / 12,
-                                width: height / 12,
-                                fit: BoxFit.fill,
-                              ),
-                              SizedBox(
-                                height: height / 120,
-                              ),
-                              Text(
-                                "Freelancers",
-                                style: ibold.copyWith(fontSize: 12),
-                              ),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  DoctorPngimage.c3,
+                                  height: height / 12,
+                                  width: height / 12,
+                                  fit: BoxFit.fill,
+                                ),
+                                SizedBox(
+                                  height: height / 120,
+                                ),
+                                Text(
+                                  "Freelancers",
+                                  style: ibold.copyWith(fontSize: 12),
+                                ),
+                              ],
+                            ),
                           )),
                     ),
                   ),

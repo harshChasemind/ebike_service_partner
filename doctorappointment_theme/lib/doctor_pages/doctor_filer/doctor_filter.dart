@@ -114,6 +114,10 @@ class _DoctorFilterState extends State<DoctorFilter> {
                         padding: const EdgeInsets.all(15),
                         child: Image.asset(DoctorPngimage.calendar,height: height/36,),
                       ),
+                      suffixIcon:  Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Icon(Icons.keyboard_arrow_down , color: DoctorColor.grey,),
+                      ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -136,6 +140,10 @@ class _DoctorFilterState extends State<DoctorFilter> {
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Image.asset(DoctorPngimage.calendar,height: height/36,),
+                      ),
+                      suffixIcon:  Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Icon(Icons.keyboard_arrow_down , color: DoctorColor.grey,),
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -160,13 +168,18 @@ class _DoctorFilterState extends State<DoctorFilter> {
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
               value: 'Repair',
+              icon:  Icon(Icons.keyboard_arrow_down , color: DoctorColor.grey,),
               style:iregular.copyWith(fontSize: 14,color: Colors.black45),
 
-        items: ['Repair', 'Install', 'Inspect']
+              items: ['Repair', 'Install', 'Inspect']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
               onChanged: (val) {},
               decoration: InputDecoration(
+                // suffixIcon:  Padding(
+                //   padding: const EdgeInsets.all(15),
+                //   child: Icon(Icons.keyboard_arrow_down , color: DoctorColor.grey,),
+                // ),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                     borderSide: const BorderSide(color: DoctorColor.border)),
@@ -187,6 +200,7 @@ class _DoctorFilterState extends State<DoctorFilter> {
             DropdownButtonFormField<String>(
               value: 'Completed',
               style: iregular.copyWith(fontSize: 14,color: Colors.black45),
+              icon:  Icon(Icons.keyboard_arrow_down , color: DoctorColor.grey,),
               items: ['Pending', 'In Progress', 'Completed']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
@@ -255,6 +269,7 @@ class _DoctorFilterState extends State<DoctorFilter> {
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
               hint: const Text("Text Search"),
+              icon:  Icon(Icons.keyboard_arrow_down , color: DoctorColor.grey,),
               style: iregular.copyWith(fontSize: 14,color: Colors.black45),
               items: ['User A', 'User B']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
@@ -280,34 +295,43 @@ class _DoctorFilterState extends State<DoctorFilter> {
             Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.grey),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: DoctorColor.greyBG,
+                      // border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                    child: const Text(
-                      "Reset",
-                      style: TextStyle(color: Colors.black), // Reset button text black
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        child: Text(
+                          "Reset",
+                          style: imedium,
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: DoctorColor.primary,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: DoctorColor.primary,
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                    child: const Text(
-                      "Apply",
-                      style: TextStyle(color: Colors.white), // Apply button text white
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        child: Text(
+                          "Apply",
+                          style: imedium.copyWith(color: DoctorColor.white),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ],
-            ),
+            )
 
           ],
         ),

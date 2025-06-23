@@ -110,7 +110,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.useredit,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.useredit,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/26,),
                     Text("Edit_Profile".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -133,7 +133,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.iconsp,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconsp,height: height/36, width: width/20, color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/20,),
                     Text("My Sub-Partners".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -156,7 +156,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.iconSO,height: height / 36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconSO,height: height / 36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/20,),
                     Text("My Shop owners/Freelancer".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -179,7 +179,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.iconKYC,height: height / 36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconKYC,height: height / 36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/20,),
                     Text("My KYC".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -229,7 +229,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.iconWallet,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconWallet,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/26,),
                     Text("Wallet".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -252,7 +252,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.iconReferral,height: height/30,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.iconReferral,height: height/30,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/26,),
                     Text("Referral".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -276,7 +276,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.imgprivacy,height: height/32,color:themedata.isdark?DoctorColor.white:DoctorColor.black,),
+                    Image.asset(DoctorPngimage.imgprivacy,height: height/32,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black,),
                     SizedBox(width: width/26,),
                     Text("Help and Support".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -299,7 +299,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.security,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.security,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/26,),
                     Text("Terms_Conditions".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),
@@ -368,7 +368,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 },
                 child: Row(
                   children: [
-                    Image.asset(DoctorPngimage.logout,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                    Image.asset(DoctorPngimage.logout,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
                     SizedBox(width: width/26,),
                     Text("Log Out".tr,style: iregular.copyWith(fontSize: 16,),),
                     const Spacer(),

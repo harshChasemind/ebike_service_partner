@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../doctor_pages/doctor_home/doctor_details.dart';
+import '../doctor_pages/doctor_home/newAccountadd.dart';
 
 class SubpartnerList extends StatefulWidget {
   String? title;
@@ -112,9 +113,51 @@ class _SubpartnerListState extends State<SubpartnerList> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      TextFormField(
+                        /*readOnly: true,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return const DoctorList();
+                    },));
+                  },*/
+                          scrollPadding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          style: iregular.copyWith(
+                              fontSize: 14, color: DoctorColor.black),
+                          decoration: InputDecoration(
+                            hintText: 'Search...'.tr,
+                            fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
+                            filled: true,
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Image.asset(
+                                DoctorPngimage.search,
+                                height: height / 36,
+                              ),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Image.asset(
+                                DoctorPngimage.filter, // Replace with your filter image asset
+                                height: height / 36,
+                              ),
+                              onPressed: () {
+                                // TODO: Open filter bottom sheet, dialog, or navigate
+                              },
+                            ),
+                            hintStyle: iregular.copyWith(
+                                fontSize: 14, color: DoctorColor.textgrey),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                const BorderSide(color: DoctorColor.border)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                const BorderSide(color: DoctorColor.border)),
+                          )),
                       ListView.builder(
                         shrinkWrap: true,
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(12),
                         physics: ScrollPhysics(),
                         itemCount: partners.length,
                         itemBuilder: (context, index) {
@@ -215,6 +258,21 @@ class _SubpartnerListState extends State<SubpartnerList> {
                           );
                         },
                       )
-                    ]))));
+                    ]))),
+      floatingActionButton: GestureDetector(
+        onTap: (){
+          Get.to(PartnerAccount());
+        },
+        child: Container(
+          height: 60,
+          width: 60,
+          decoration: BoxDecoration(
+              color: DoctorColor.primary,
+              borderRadius: BorderRadius.circular(100)
+          ),
+          child: Icon(Icons.add , color: Colors.white, size: 35,),
+        ),
+      ),
+    );
   }
 }
