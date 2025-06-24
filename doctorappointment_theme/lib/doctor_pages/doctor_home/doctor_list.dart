@@ -147,7 +147,7 @@ class _DoctorListState extends State<DoctorList> {
                       highlightColor: DoctorColor.transparent,
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return const DoctorDetails(title: 'jay',);
+                          return const SubPartnerDetails(title: 'jay',);
                         },));
                       },
                       child: Container(

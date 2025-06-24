@@ -188,6 +188,7 @@ class ApiService {
 
   static Future<dynamic> callUserRegister(Map<String, dynamic> registerJson) async {
     print("register Success $registerJson");
+    print("POST $baseUrl/app/user/list_my_freelancers");
     var responseData;
     try {
       final response = await http.post(
@@ -290,6 +291,36 @@ class ApiService {
     }
     catch(e){
       print("Error in register $e");
+    }
+  }
+
+  /// sub-partner Details
+  static Future<dynamic> SubPartnerDetails(Map<String, String> data) async {
+    print("Sending SubPartner Request: $data");
+    print("POST $baseUrl/app/user/sub_partner_detail");
+
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/sub_partner_detail'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        // body: data,
+      );
+
+      print("API Response: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final decoded = convert.jsonDecode(response.body);
+        return decoded;
+      } else {
+        print("Failed: Status Code ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      print("Error in SubPartnerDetails: $e");
+      return null;
     }
   }
 }

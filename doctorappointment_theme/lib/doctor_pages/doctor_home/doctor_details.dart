@@ -6,54 +6,35 @@ import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../ApiService/ApiService.dart';
 import 'FullScreenImageViewer.dart';
 
-class DoctorDetails extends StatefulWidget {
+class SubPartnerDetails extends StatefulWidget {
   final String title; // Declare the parameter
 
-  const DoctorDetails({Key? key, required this.title}) : super(key: key);
+  const SubPartnerDetails({Key? key, required this.title}) : super(key: key);
 
   @override
-  State<DoctorDetails> createState() => _DoctorDetailsState();
+  State<SubPartnerDetails> createState() => _SubPartnerDetailsState();
 }
 
-class _DoctorDetailsState extends State<DoctorDetails> {
+class _SubPartnerDetailsState extends State<SubPartnerDetails> {
   dynamic size;
   double height = 0.00;
   double width = 0.00;
   final themedata = Get.put(DoctorThemecontroler());
+  final controller = Get.put(SubPartnerDetailsController());
+
+  @override
+  void initState() {
+    super.initState();
+    // Replace '1' with actual user ID
+    controller.fetchSubPartners('1');
+  }
+
   List<Map<String, String>> reviewList = [
-    {
-      "name": "Priyank Sharma",
-      "image": DoctorPngimage.up1,
-      "rating": "4.8",
-      "review": "Quick and reliable service. Ravi fixed my car within an hour!"
-    },
-    {
-      "name": "Aman Verma",
-      "image": DoctorPngimage.up2,
-      "rating": "4.5",
-    "review": "Good work and fair pricing. The staff was professional and polite."
-    },
-    {
-      "name": "Nishant Singh",
-      "image": DoctorPngimage.up3,
-      "rating": "4.9",
-      "review": "Very knowledgeable mechanic. My engine noise issue was resolved perfectly."
-    },
-    {
-      "name": "Rakesh Mehta",
-      "image": DoctorPngimage.up1,
-      "rating": "4.7",
-      "review": "Great experience! Fast service and honest feedback about my car."
-    },
-    {
-      "name": "Keshav Das",
-      "image": DoctorPngimage.up2,
-      "rating": "4.6",
-      "review": "Excellent service. They even cleaned the car after repairs. Highly recommended!"
-    },
   ];
+
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -528,3 +509,28 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     );
   }
 }
+
+class SubPartnerDetailsController extends GetxController {
+  var isLoading = false.obs;
+  var subPartners = [].obs;
+
+  Future<void> fetchSubPartners(String userId) async {
+    isLoading.value = true;
+
+    final response = await ApiService.SubPartnerDetails({
+      "user_id": userId,
+    });
+
+    isLoading.value = false;
+
+    if (response != null && response is Map && response['statusCode'] == 200) {
+      subPartners.value = response['data'];
+    } else if (response != null && response.containsKey('message')) {
+      Get.snackbar("Error", response['message']);
+    } else {
+      Get.snackbar("Error", "Failed to fetch sub partners");
+    }
+  }
+}
+
+

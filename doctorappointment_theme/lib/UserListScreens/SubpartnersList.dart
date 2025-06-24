@@ -117,7 +117,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
                     final partner = controller.subPartners[index];
 
                     return GestureDetector(
-                      onTap: () => Get.to(() => DoctorDetails(title: partner['name'] ?? '')),
+                      onTap: () => Get.to(() => SubPartnerDetails(title: partner['name'] ?? '')),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
@@ -240,7 +240,7 @@ class SubPartnerController extends GetxController {
 
     isLoading.value = false;
 
-    if (response != null && response is Map && response['status'] == true) {
+    if (response != null && response is Map && response['statusCode'] == 200) {
       subPartners.value = response['data'];
     } else if (response != null && response.containsKey('message')) {
       Get.snackbar("Error", response['message']);
