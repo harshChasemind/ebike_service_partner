@@ -7,19 +7,23 @@ import 'package:doctorappointment/doctor_pages/doctor_home/doctor_dashboard.dart
 import 'package:doctorappointment/doctor_theme/doctor_themecontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 
-class DoctorEditprofile extends StatefulWidget {
-  const DoctorEditprofile({Key? key}) : super(key: key);
+import '../../ApiService/ApiService.dart';
+
+class AddShopOwnerAccount extends StatefulWidget {
+  const AddShopOwnerAccount({Key? key}) : super(key: key);
 
   @override
-  State<DoctorEditprofile> createState() => _DoctorEditprofileState();
+  State<AddShopOwnerAccount> createState() => _AddShopOwnerAccountState();
 }
 
-class _DoctorEditprofileState extends State<DoctorEditprofile> {
+class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
   dynamic size;
   double height = 0.00;
   double width = 0.00;
   final themedata = Get.put(DoctorThemecontroler());
+  final controller = Get.put(DoctorAddShopOwnerController());
 
 // Define at the top of _DoctorSignupState
   String? selectedType;
@@ -34,44 +38,25 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
     height = size.height;
     width = size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        surfaceTintColor: DoctorColor.white,
-        title: Text("Edit Profile".tr,style: isemibold.copyWith(fontSize: 20),),
-        leading: Navigator.of(context).canPop() ? IconButton(onPressed: (){
-          Navigator.of(context).pop();
-        }, icon: Icon(Icons.arrow_back)) : null,
-        // actions: [
-        //   Padding(
-        //     padding: EdgeInsets.symmetric(horizontal: width/36),
-        //     child: Container(
-        //         decoration: BoxDecoration(
-        //             borderRadius: BorderRadius.circular(5),
-        //             color: DoctorColor.lightDark),
-        //         child: Padding(
-        //           padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/150),
-        //           child: Text("1 New".tr,style: isemibold.copyWith(fontSize: 14,color: DoctorColor.white),),
-        //         )),
-        //   ),
-        // ],
+        leading: GestureDetector(
+            onTap: (){
+              Get.back();
+            },
+            child: Icon(Icons.arrow_back)),
+        title: Text("Add Shop Owner" , style: isemibold.copyWith(fontSize: 16),),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
-          child: Padding(
-            padding: const EdgeInsets.only(right: 10 , left : 10 , bottom: 10 , top :10),
+          child: Form(
+            key: controller.formKey,
             child: Column(
               children: [
-                // SizedBox(height: height/28,),
-                // Image.asset(
-                //   DoctorPngimage.iconEbike,
-                //   fit: BoxFit.cover,
-                // ),
-                // SizedBox(height: height/36,),
-                // Text("Create_Account".tr,style: isemibold.copyWith(fontSize: 20),),
-                // SizedBox(height: height/96,),
-                // Text("We_are_here_to_help_you".tr,style: iregular.copyWith(fontSize: 14),),
-                // SizedBox(height: height/26,),
                 TextFormField(
+                    controller: controller._nameController,
+                    validator: (value) => controller.validateNotEmpty(value, "Name"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
@@ -94,6 +79,8 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                 SizedBox(height: height/36,),
 
                 TextFormField(
+                    controller: controller.emailController,
+                    validator: controller.validateEmail,
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
@@ -113,10 +100,10 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
                     )),
-                SizedBox(height: height/36,),
-
-
-                // Select Type Dropdown
+                // SizedBox(height: height/36,),
+                //
+                //
+                // // Select Type Dropdown
                 // Container(
                 //   decoration: BoxDecoration(
                 //     color: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
@@ -146,8 +133,10 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                 //     },
                 //   ),
                 // ),
-                // SizedBox(height: height/36,),
+                SizedBox(height: height/36,),
                 TextFormField(
+                    controller: controller._mobileController,
+                    validator: controller.validateMobile,
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
@@ -222,6 +211,8 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                 //     )),
                 SizedBox(height: height/36,),
                 TextFormField(
+                    controller:controller._addressController,
+                    validator: (value) => controller.validateNotEmpty(value, "Address"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
@@ -243,6 +234,8 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                     )),
                 SizedBox(height: height/36,),
                 TextFormField(
+                    controller:controller._cityController,
+                    validator: (value) => controller.validateNotEmpty(value, "City"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
@@ -264,6 +257,8 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                     )),
                 SizedBox(height: height/36,),
                 TextFormField(
+                    controller:controller._stateController,
+                    validator: (value) => controller.validateNotEmpty(value, "State"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
@@ -285,6 +280,8 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                     )),
                 SizedBox(height: height/36,),
                 TextFormField(
+                    controller:controller._pincodeController,
+                    validator: (value) => controller.validateNotEmpty(value, "Pincode"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
@@ -310,11 +307,21 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                   splashColor: DoctorColor.transparent,
                   highlightColor: DoctorColor.transparent,
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return  DoctorDashboard(0);
-                      },
-                    ));
+                    if (controller.formKey.currentState!.validate()) {
+                      // If valid, go to next screen
+                      controller.userRegister(
+                          context: context,
+                          name: controller._nameController.text,
+                          email: controller.emailController.text,
+                          mobile: controller._mobileController.text,
+                          usertype: selectedType == "Shop Owner" ? "shop_owner" : "partner" ,
+                          // dob: controller._dateController.text,
+                          gender: selectedGender ?? "male",
+                          address: controller._addressController.text,
+                          city: controller._cityController.text,
+                          state: controller._stateController.text,
+                          pincode: controller._pincodeController.text.toInt());
+                    }
                   },
                   child: Container(
                     height: height / 15,
@@ -324,7 +331,7 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: width/22),
                       child: Center(
-                        child: Text("Save".tr,
+                        child: Text("Create_Account".tr,
                             style: imedium.copyWith(
                                 fontSize: 16, color: DoctorColor.white)),
                       ),
@@ -434,5 +441,84 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
         ),
       ),
     );
+  }
+}
+
+
+class DoctorAddShopOwnerController extends GetxController {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _mobileController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _stateController = TextEditingController();
+  final TextEditingController _pincodeController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  var isLoading = false.obs;
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email is required';
+    }
+    if (!GetUtils.isEmail(value)) {
+      return 'Enter a valid email';
+    }
+    return null;
+  }
+  String? validateMobile(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Mobile number is required';
+    } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+      return 'Enter a valid 10-digit mobile number';
+    }
+    return null;
+  }
+
+  String? validateNotEmpty(String? value, String fieldName) {
+    if (value == null || value.trim().isEmpty) {
+      return "$fieldName is required";
+    }
+    return null;
+  }
+  Future<void>userRegister(
+      {
+        required BuildContext context,
+        required String name,
+        required String email,
+        required String mobile,
+        required String usertype,
+        required String gender,
+        required String address,
+        required String city,
+        required String state,
+        required int pincode,
+      }) async {
+    Map<String , Object> registerUserJson = {
+      "name": name,
+      "email": email,
+      "user_type": "shop_owner",
+      "mobile_number" : mobile,
+      "gender": gender,
+      "address": address,
+      "city": city,
+      "state": state,
+      "pincode": pincode.toString(),
+    };
+    isLoading.value = true;
+    final response = await ApiService.callAddSubPartner(registerUserJson);
+    isLoading.value = false;
+
+    if (response != null && response['statusCode'] == 200) {
+      Get.to(DoctorDashboard(0));
+    } else {
+      Get.snackbar("Error", response['message'] ?? "OTP verification failed");
+    }
+  }
+
+
+  void submitForm() {
+    if (formKey.currentState!.validate()) {
+      // Do something with the valid email
+      print('Valid email: ${emailController.text}');
+    }
   }
 }

@@ -8,24 +8,25 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../ApiService/ApiService.dart';
+import '../doctor_pages/doctor_home/add_freelancer.dart';
 import '../doctor_pages/doctor_home/doctor_details.dart';
 import '../doctor_pages/doctor_home/add_sub_partner.dart';
 
-class SubpartnerList extends StatefulWidget {
+class FreelancerList extends StatefulWidget {
   final String title;
-  const SubpartnerList({super.key, required this.title});
+  const FreelancerList({super.key, required this.title});
 
   @override
-  State<SubpartnerList> createState() => _SubpartnerListState();
+  State<FreelancerList> createState() => _FreelancerListState();
 }
 
-class _SubpartnerListState extends State<SubpartnerList> {
+class _FreelancerListState extends State<FreelancerList> {
   dynamic size;
   double height = 0.00;
   double width = 0.00;
 
   final themedata = Get.put(DoctorThemecontroler());
-  final controller = Get.put(SubPartnerController());
+  final controller = Get.put(FreelancersController());
 
   @override
   void initState() {
@@ -44,7 +45,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         surfaceTintColor: themedata.isdark ? DoctorColor.black : DoctorColor.white,
-        title: const Text("Sub-Partner"),
+        title: const Text("Freelancers"),
         leading: const Icon(Icons.arrow_back, size: 20),
         actions: [
           Stack(
@@ -73,7 +74,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
         }
 
         if (controller.subPartners.isEmpty) {
-          return const Center(child: Text("No Sub Partners found"));
+          return const Center(child: Text("No Freelancers found"));
         }
 
         return SingleChildScrollView(
@@ -211,7 +212,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
         );
       }),
       floatingActionButton: GestureDetector(
-        onTap: () => Get.to(() => const PartnerAccount()),
+        onTap: () => Get.to(() => const AddFreeancerAccount()),
         child: Container(
           height: 60,
           width: 60,
@@ -227,14 +228,14 @@ class _SubpartnerListState extends State<SubpartnerList> {
 }
 
 
-class SubPartnerController extends GetxController {
+class FreelancersController extends GetxController {
   var isLoading = false.obs;
   var subPartners = [].obs;
 
   Future<void> fetchSubPartners(String userId) async {
     isLoading.value = true;
 
-    final response = await ApiService.SubPartner({
+    final response = await ApiService.Freelancers({
       "user_id": userId,
     });
 

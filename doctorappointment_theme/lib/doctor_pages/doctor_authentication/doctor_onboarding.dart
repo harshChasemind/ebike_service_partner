@@ -24,6 +24,7 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
   var pageController = PageController();
   List<Widget> pages = [];
   var selectedIndex = 0;
+  String? userId;
 
   init() {
     size = MediaQuery.of(context).size;
@@ -163,21 +164,21 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
               splashColor: DoctorColor.transparent,
               highlightColor: DoctorColor.transparent,
               onTap: () {
-                if (selectedIndex < pages.length - 1) {
-                  selectedIndex++;
-                  pageController.animateToPage(
-                    selectedIndex,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.ease,
-                  );
-                  setState(() {});
-                } else {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const DoctorSignin();
-                    },
-                  ));
-                }
+                // if (selectedIndex < pages.length - 1) {
+                //   selectedIndex++;
+                //   pageController.animateToPage(
+                //     selectedIndex,
+                //     duration: const Duration(milliseconds: 500),
+                //     curve: Curves.ease,
+                //   );
+                //   setState(() {});
+                // } else {
+                //   Navigator.push(context, MaterialPageRoute(
+                //     builder: (context) {
+                //       return DoctorSignin();
+                //     },
+                //   ));
+                // }
               },
               child: Container(
                 height: height / 15,
@@ -203,7 +204,7 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
               splashColor: DoctorColor.transparent,
               highlightColor: DoctorColor.transparent,
               onTap: () {
-                Get.to(DoctorSignin());
+                Get.to(DoctorSignin(userId));
                 /* Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
                     return const KidsSignin();

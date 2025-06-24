@@ -65,11 +65,11 @@ class _DoctorForgotpasswordState extends State<DoctorForgotpassword> {
               splashColor: DoctorColor.transparent,
               highlightColor: DoctorColor.transparent,
               onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const DoctorVerifyotp();
-                    },
-                  ));
+                  // Navigator.push(context, MaterialPageRoute(
+                  //   builder: (context) {
+                  //     return DoctorVerifyotp(userId);
+                  //   },
+                  // ));
               },
               child: Container(
                 height: height / 15,

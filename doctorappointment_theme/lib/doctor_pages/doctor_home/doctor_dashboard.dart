@@ -17,7 +17,7 @@ import 'OrderHistory.dart';
 
 // ignore: must_be_immutable
 class DoctorDashboard extends StatefulWidget {
-  String? index;
+  final int index;
 
   DoctorDashboard(this.index, {super.key});
 

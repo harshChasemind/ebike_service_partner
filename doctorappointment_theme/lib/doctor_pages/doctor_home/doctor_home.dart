@@ -7,10 +7,12 @@ import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
 
+import '../../UserListScreens/Freelancers.dart';
+import '../../UserListScreens/ShopOwners.dart';
 import '../doctor_profile/doctor_notification.dart';
 import '../doctor_profile/ebikewallet.dart';
 import 'doctor_details.dart';
-import 'newAccountadd.dart';
+import 'add_sub_partner.dart';
 
 class DoctorHome extends StatefulWidget {
   const DoctorHome({Key? key}) : super(key: key);
@@ -350,7 +352,7 @@ class _DoctorHomeState extends State<DoctorHome> {
                           return const DoctorList();
                         },));*/
                           Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return  SubpartnerList(title: "Shop Owners",);
+                            return  ShopOwnersList(title: "Shop Owners",);
                           },));
                         },
                         child: Padding(
@@ -405,7 +407,7 @@ class _DoctorHomeState extends State<DoctorHome> {
                             return const DoctorList();
                           },));*/
                             Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return  SubpartnerList(title: "Freelancers",);
+                              return  FreelancerList(title: "Freelancers",);
                             },));
                           },
                           child: Padding(

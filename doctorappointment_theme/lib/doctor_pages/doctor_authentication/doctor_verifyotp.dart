@@ -5,12 +5,17 @@ import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:doctorappointment/doctor_theme/doctor_themecontroller.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../ApiService/ApiService.dart';
 import '../doctor_home/doctor_dashboard.dart';
 import 'doctor_signup.dart';
 
 class DoctorVerifyotp extends StatefulWidget {
-  const DoctorVerifyotp({Key? key}) : super(key: key);
+  String userId = "";
+  String mobileNumber = "";
+  DoctorVerifyotp({Key? key , required this.userId , required this.mobileNumber}) : super(key: key);
 
   @override
   State<DoctorVerifyotp> createState() => _DoctorVerifyotpState();
@@ -21,6 +26,9 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
   double height = 0.00;
   double width = 0.00;
   final themedata = Get.put(DoctorThemecontroler());
+  TextEditingController _otpController = TextEditingController();
+  final controller = Get.put(DoctorVerifyOtpController());
+  String _otp = "";
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -41,222 +49,105 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
             SizedBox(height: height/96,),
             Text("Enter the the code we just sent you on your registered Mobile No.".tr,textAlign: TextAlign.center,style: iregular.copyWith(fontSize: 14),).paddingSymmetric(horizontal: 40),
             SizedBox(height: height/26,),
-            Form(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: height / 15,
-                      width: height / 15,
-                      child: TextFormField(
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                        onSaved: (pin1) {},
-                          decoration: InputDecoration(
-                            fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                            filled: true,
-                            hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: DoctorColor.border)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: DoctorColor.border)),
-                          ),
-                        style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: height / 15,
-                      width: height / 15,
-                      child: TextFormField(
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                        onSaved: (pin2) {},
-                        decoration: InputDecoration(
-                          fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                          filled: true,
-                          hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: DoctorColor.border)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: DoctorColor.border)),
-                        ),
-                        style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: height / 15,
-                      width: height / 15,
-                      child: TextFormField(
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                        onSaved: (pin3) {},
-                        decoration: InputDecoration(
-                          fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                          filled: true,
-                          hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: DoctorColor.border)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: DoctorColor.border)),
-                        ),
-                        style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: height / 15,
-                      width: height / 15,
-                      child: TextFormField(
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                        onSaved: (pin4) {},
-                        decoration: InputDecoration(
-                          fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                          filled: true,
-                          hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: DoctorColor.border)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: DoctorColor.border)),
-                        ),
-                        style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    /*SizedBox(
-                      height: height / 15,
-                      width: height / 15,
-                      child: TextFormField(
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                        onSaved: (pin5) {},
-                        decoration: InputDecoration(
-                          fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                          filled: true,
-                          hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: DoctorColor.border)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: DoctorColor.border)),
-                        ),
-                        style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),*/
-
-                  ],
-                )).paddingSymmetric(horizontal: 20),
-            SizedBox(height: height/26,),
-            InkWell(
-              splashColor: DoctorColor.transparent,
-              highlightColor: DoctorColor.transparent,
-              onTap: () {
-                /*  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const DoctorSignup();
-                    },
-                  ));*/
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DoctorSignup(),
-                  ),
-                      (Route<dynamic> route) => false, // remove all previous routes
-                );
-              },
-              child: Container(
-                height: height / 15,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: DoctorColor.blueBG),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width/22),
-                  child: Center(
-                    child: Text("Verify Otp".tr,
-                        style: imedium.copyWith(
-                            fontSize: 16, color: DoctorColor.white)),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: height/36,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                Text(
-                  "Didnt_get_the_Code".tr,
-                  style: iregular.copyWith(fontSize: 14),
-                ),
-                SizedBox(
-                  width: width / 96,
-                ),
-                InkWell(
-                    splashColor: DoctorColor.transparent,
-                    highlightColor: DoctorColor.transparent,
-                    onTap: () {
-                      /*Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return const DoctorSignup();
-                        },
-                      ));*/
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: PinCodeTextField(
+                    cursorColor: DoctorColor.textgrey,
+                    length: 4,
+                    textStyle: isemibold.copyWith(
+                      color: DoctorColor.textgrey,
+                      fontSize: 28,
+                    ),
+                    obscureText: false,
+                    controller: _otpController,
+                    animationType: AnimationType.fade,
+                    pinTheme: PinTheme(
+                      fieldHeight: 55,
+                      fieldWidth: 60,
+                      borderRadius: BorderRadius.circular(10),
+                      shape: PinCodeFieldShape.box,
+                      activeFillColor: DoctorColor.bgcolor,
+                      inactiveFillColor: DoctorColor.bgcolor,
+                      selectedFillColor: DoctorColor.bgcolor,
+                      activeColor: DoctorColor.border,
+                      inactiveColor: DoctorColor.border,
+                      selectedColor: DoctorColor.primary,
+                    ),
+                    keyboardType: TextInputType.number,
+                    animationDuration: const Duration(milliseconds: 300),
+                    autoFocus: false,
+                    onCompleted: (v) {
+                      print("Completed: $v");
+                      _otp = v;
                     },
-                    child: Text(
-                      "Resend".tr,
-                      style: imedium.copyWith(
-                          fontSize: 14, color: Colors.blue),
-                    )),
+                    onChanged: (value) {
+                      print("OTP Changed: $value");
+                      _otp = value;
+                    },
+                    beforeTextPaste: (text) {
+                      print("Allowing to paste: $text");
+                      return true;
+                    },
+                    appContext: context,
+                  ),
+                ),
+                SizedBox(height: height/26,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    String otpText = _otpController.text.trim();
+
+                    // ✅ Basic validation: length + digits
+                    if (otpText.length < 4 || !RegExp(r'^\d{4}$').hasMatch(otpText)) {
+                      Get.snackbar("Invalid OTP", "Please enter a 4-digit numeric OTP");
+                      return;
+                    }
+
+                    controller.verifyOtp(
+                      context: context,
+                      mobileNumber: widget.mobileNumber,
+                      otp: otpText,
+                    );
+                  },
+                  child: Container(
+                    height: height / 15,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: DoctorColor.blueBG),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width/22),
+                      child: Center(
+                        child: Text("Verify Otp".tr,
+                            style: imedium.copyWith(
+                                fontSize: 16, color: DoctorColor.white)),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: height/36,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Didnt_get_the_Code".tr, style: iregular.copyWith(fontSize: 14)),
+                    SizedBox(width: width / 96),
+                    InkWell(
+                      splashColor: DoctorColor.transparent,
+                      highlightColor: DoctorColor.transparent,
+                      onTap: () {
+                        if (widget.userId != null && widget.userId!.isNotEmpty) {
+                          controller.resendOtp(widget.userId!, context);
+                        } else {
+                          Get.snackbar("Error", "User ID not available");
+                        }
+                      },
+                      child: Text("Resend".tr,
+                          style: imedium.copyWith(fontSize: 14, color: Colors.blue)),
+                    )
+                  ],
+                ),
               ],
             )
           ],
@@ -264,4 +155,77 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
       ),
     );
   }
+}
+class DoctorVerifyOtpController extends GetxController{
+  final formKey = GlobalKey<FormState>();
+  // final otpController = TextEditingController();
+  var isLoading = false.obs;
+  Future<void>verifyOtp(
+      {
+        required BuildContext context,
+        required String mobileNumber,
+        required String otp,
+      }) async {
+    Map<String , Object> otpVerifyJson = {
+      "mobile_number": mobileNumber,
+      "otp": otp,
+    };
+    isLoading.value = true;
+    final response = await ApiService.callOtpVerify(otpVerifyJson);
+    isLoading.value = false;
+
+    if (response != null && response['statusCode'] == 200) {
+      String token = response['data']['token'];
+      int isRegisterd = response['data']['is_registered'];
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setString("token", token);
+      ApiService.token = token;
+      print("token=== ${ApiService.token}");
+      if(isRegisterd == 0){
+        Get.to(DoctorSignup());
+      }else{
+        Get.to(DoctorDashboard(0));
+      }
+      // Get.offAll(() => DoctorDashboard()); // or any screen you want
+    } else {
+      Get.snackbar("Error", response['message'] ?? "OTP verification failed");
+    }
+  }
+
+
+  // var isLoading = false.obs;
+
+  Future<void> resendOtp(String userId, BuildContext context) async {
+    isLoading.value = true;
+    final response = await ApiService.resendOTP({"_id": userId});
+    isLoading.value = false;
+
+    if (response != null && response['statusCode'] == 200) {
+      Get.snackbar("Success", "OTP resent successfully");
+    } else if (response != null && response.containsKey('message')) {
+      Get.snackbar("Error", response['message']);
+    } else {
+      Get.snackbar("Error", "Something went wrong while resending OTP");
+    }
+  }
+
+  // Future<void> verifyOtp(String userId, String otp, BuildContext context) async {
+  //   isLoading.value = true;
+  //   final response = await ApiService.resendOTP({"_id": userId, "otp": otp});
+  //   isLoading.value = false;
+  //
+  //   if (response != null && response['statusCode'] == 200) {
+  //     Get.snackbar("Success", "OTP verified successfully");
+  //     Get.offAll(() => DoctorDashboard(0)); // ← Make sure constructor accepts String
+  //   } else {
+  //     Get.snackbar("Error", response['message'] ?? "OTP verification failed");
+  //   }
+  // }
+
+
+// @override
+// void onClose() {
+//   otpController.dispose();
+//   super.onClose();
+// }
 }

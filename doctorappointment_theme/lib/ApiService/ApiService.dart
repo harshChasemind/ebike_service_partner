@@ -1,0 +1,295 @@
+import 'dart:convert' as JSON;
+import 'dart:convert' as convert;
+import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class ApiService {
+  static String imageurl = "https://tendfriend.s3.us-east-2.amazonaws.com/";
+  static const String baseUrl = "https://e-bike.69clubs.site";
+  static String token = "";
+
+// static String My_Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk5NTUxM2E0M2MwYTFkODRlY2U2YTEiLCJ1c2VyTmFtZSI6ImZmZ3kiLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXN0IiwiZW1haWwiOiJmZ3JAbWFpbGluYXRvci5jb20iLCJtb2JpbGUiOjg4NTU2NjY1ODgsImFjY291bnRUeXBlIjoxLCJyZWdpc3RlclN0YXR1cyI6MSwic3RhdHVzIjoxLCJpc3VzZXJ2ZXJpZmllZCI6ZmFsc2UsInByb2ZpbGVfaW1hZ2UiOiJuby11c2VyLnBuZyIsImp0aSI6IjYzOTk1NTEzYTQzYzBhMWQ4NGVjZTZhMV8wNDk4ODQiLCJpYXQiOjE2NzA5OTMxNzEsImV4cCI6MTY3MzU4NTE3MX0.mFtaQXY0y2Ty2TnPD2N3TWdNoVZBWxIf9mI3R5RlWRY";
+// final String My_Token = ColorConstant.token;
+  Map<String, String> HeaderNoToken = {'Content-Type': 'application/json'};
+
+//For Login APi
+  static Future<dynamic> login(Map<String, String> mobileNumber) async {
+    print("Login Success $mobileNumber");
+    print("$baseUrl/app/user/login");
+    var responseData;
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/login'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        body: mobileNumber, // key-value format for x-www-form-urlencoded
+      );
+      print("Login Success" + response.body);
+      if (response.statusCode == 200) {
+        responseData = JSON.jsonDecode(response.body);
+        return responseData;
+      }
+    } catch (e) {
+      print("Error in login $e");
+    }
+  }
+
+  ///send OTP
+
+
+  static Future<dynamic> callOtpVerify(Map<String, dynamic> verifyJson ,) async {
+    print("Otp Success $verifyJson");
+    var responseData;
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/otp-verify'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        body: verifyJson, // key-value format for x-www-form-urlencoded
+      );
+      print("OTP Success" + response.body);
+      if (response.statusCode == 200) {
+        responseData = JSON.jsonDecode(response.body);
+        return responseData;
+      }
+    }
+    catch(e){
+      print("Error in login $e");
+    }
+  }
+
+
+  ///resend otp
+
+  static Future<dynamic> resendOTP(Map<String, String> data) async {
+    print("Sending Resend OTP Request: $data");
+    print("POST $baseUrl/app/user/resend_otp");
+
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/resend_otp'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        body: data,
+      );
+
+      print("API Response: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final decoded = convert.jsonDecode(response.body);
+        return decoded;
+      } else {
+        print("Failed: Status Code ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      print("Error in resendOTP: $e");
+      return null;
+    }
+  }
+
+  /// sub-partner list
+  static Future<dynamic> SubPartner(Map<String, String> data) async {
+    print("Sending SubPartner Request: $data");
+    print("POST $baseUrl/app/user/list_my_sub_partner");
+
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/list_my_sub_partner'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        // body: data,
+      );
+
+      print("API Response: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final decoded = convert.jsonDecode(response.body);
+        return decoded;
+      } else {
+        print("Failed: Status Code ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      print("Error in SubPartner: $e");
+      return null;
+    }
+  }
+
+  /// Shop owners list
+  static Future<dynamic> ShopOwners(Map<String, String> data) async {
+    print("Sending SubPartner Request: $data");
+    print("POST $baseUrl/app/user/list_my_shop_owners");
+
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/list_my_shop_owners'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        // body: data,
+      );
+
+      print("API Response: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final decoded = convert.jsonDecode(response.body);
+        return decoded;
+      } else {
+        print("Failed: Status Code ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      print("Error in SubPartner: $e");
+      return null;
+    }
+  }
+
+  /// Freelancers list
+  static Future<dynamic> Freelancers(Map<String, String> data) async {
+    print("Sending SubPartner Request: $data");
+    print("POST $baseUrl/app/user/list_my_freelancers");
+
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/list_my_freelancers'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        // body: data,
+      );
+
+      print("API Response: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final decoded = convert.jsonDecode(response.body);
+        return decoded;
+      } else {
+        print("Failed: Status Code ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      print("Error in SubPartner: $e");
+      return null;
+    }
+  }
+
+
+  static Future<dynamic> callUserRegister(Map<String, dynamic> registerJson) async {
+    print("register Success $registerJson");
+    var responseData;
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/register'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        body: registerJson, // key-value format for x-www-form-urlencoded
+      );
+      print("register Success" + response.body);
+      if (response.statusCode == 200) {
+        responseData = JSON.jsonDecode(response.body);
+        return responseData;
+      }
+    }
+    catch(e){
+      print("Error in register $e");
+    }
+  }
+
+  ///call add sub partner details Api
+
+
+
+  static Future<dynamic> callAddSubPartner(Map<String, dynamic> registerJson) async {
+    print("register Success $registerJson");
+    print("POST Add Sub Partner $baseUrl/app/user/add_subpartner");
+    var responseData;
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/add_subpartner'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        body: registerJson, // key-value format for x-www-form-urlencoded
+      );
+      print("Add Sub Partner Success" + response.body);
+      if (response.statusCode == 200) {
+        responseData = JSON.jsonDecode(response.body);
+        return responseData;
+      }
+    }
+    catch(e){
+      print("Error in register $e");
+    }
+  }
+
+  ///call add Shop owner details Api
+
+
+
+  static Future<dynamic> callShopOwner(Map<String, dynamic> registerJson) async {
+    print("register Success $registerJson");
+    print("POST Add Shop Owner $baseUrl/app/user/add_shop_owner_freelancer");
+    var responseData;
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/add_shop_owner_freelancer'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        body: registerJson, // key-value format for x-www-form-urlencoded
+      );
+      print("Add Shop Owner Success" + response.body);
+      if (response.statusCode == 200) {
+        responseData = JSON.jsonDecode(response.body);
+        return responseData;
+      }
+    }
+    catch(e){
+      print("Error in register $e");
+    }
+  }
+
+  ///call add Freelancer details Api
+
+
+
+  static Future<dynamic> callFreelancer(Map<String, dynamic> registerJson) async {
+    print("register Success $registerJson");
+    print("Add Freelancer $baseUrl/app/user/add_shop_owner_freelancer");
+    var responseData;
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/app/user/add_shop_owner_freelancer'),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer $token',
+        },
+        body: registerJson, // key-value format for x-www-form-urlencoded
+      );
+      print("Add Freelancer Success" + response.body);
+      if (response.statusCode == 200) {
+        responseData = JSON.jsonDecode(response.body);
+        return responseData;
+      }
+    }
+    catch(e){
+      print("Error in register $e");
+    }
+  }
+}
