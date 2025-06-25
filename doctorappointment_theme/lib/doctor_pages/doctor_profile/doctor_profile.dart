@@ -15,6 +15,8 @@ import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../ApiService/ApiService.dart';
+import '../../main.dart';
 import 'doctor_Referral.dart';
 import 'doctor_patients.dart';
 import 'ebikewallet.dart';
@@ -27,14 +29,14 @@ class DoctorProfile extends StatefulWidget {
   State<DoctorProfile> createState() => _DoctorProfileState();
 }
 
-class _DoctorProfileState extends State<DoctorProfile> {
+class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
   dynamic size;
   double height = 0.00;
   double width = 0.00;
   final themedata = Get.put(DoctorThemecontroler());
   bool isdark = true;
   File? _pickedImage;
-
+  final profileController = Get.put(DoctorProfileController());
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
@@ -42,8 +44,26 @@ class _DoctorProfileState extends State<DoctorProfile> {
     if (image != null) {
       setState(() {
         _pickedImage = File(image.path);
+        profileController.updateProfileImage(context: context , imageprofile:_pickedImage );
       });
     }
+  }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    profileController.fetchProfile(); // ✅ Refresh profile on return
+    super.didPopNext();
   }
   @override
   Widget build(BuildContext context) {
@@ -57,330 +77,332 @@ class _DoctorProfileState extends State<DoctorProfile> {
         surfaceTintColor: DoctorColor.white,
         title: Text("Profile".tr,style: isemibold.copyWith(fontSize: 20,color: themedata.isdark?DoctorColor.white:DoctorColor.black),),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
-          child: Column(
-            children: [
-              Center(
-                child: Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 80,
-                      backgroundColor: DoctorColor.transparent,
-                      backgroundImage:  _pickedImage != null
-                          ? FileImage(_pickedImage!)
-                          : AssetImage(DoctorPngimage.profileimg),
-                    ),
-                    Positioned(
-                        right: 20,
-                        bottom: 5,
-                        child: GestureDetector(
-                          onTap: _pickImage,
-                          child: Container(
-                            height: height/26,
-                            width: height/26,
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5),bottomRight: Radius.circular(5)),
-                                color: themedata.isdark?DoctorColor.white :DoctorColor.black
+      body: Obx((){
+        final profile = profileController.profileData;
+        final imageUrl = profileController.profileImageUrl.value;
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
+            child: Column(
+              children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 80,
+                        backgroundColor: DoctorColor.transparent,
+                        backgroundImage:  _pickedImage != null
+                            ? FileImage(_pickedImage!)
+                            : (imageUrl.isNotEmpty
+                            ? NetworkImage(imageUrl)
+                            : AssetImage(DoctorPngimage.profileimg) as ImageProvider),
+                      ),
+                      Positioned(
+                          right: 20,
+                          bottom: 5,
+                          child: GestureDetector(
+                            onTap: _pickImage,
+                            child: Container(
+                              height: height/26,
+                              width: height/26,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5),bottomRight: Radius.circular(5)),
+                                  color: themedata.isdark?DoctorColor.white :DoctorColor.black
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(DoctorPngimage.edit,height: height/46,color: themedata.isdark?DoctorColor.black :DoctorColor.white),
+                              ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(DoctorPngimage.edit,height: height/46,color: themedata.isdark?DoctorColor.black :DoctorColor.white),
-                            ),
+                          ))
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/46,),
+                Text(profile['name'],style: ibold.copyWith(fontSize: 16,),),
+                SizedBox(height: height/200,),
+                Text(profile['mobile_number'],style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),),
+                SizedBox(height: height/36,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                   Get.to(DoctorEditprofile(profileData: profile,));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.useredit,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/26,),
+                      Text("Edit_Profile".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),
+                SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    // Navigator.push(context, MaterialPageRoute(
+                    //   builder: (context) {
+                    //     return SubpartnerList(title: "My Sub-Partners");
+                    //   },
+                    // ));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.iconsp,height: height/36, width: width/20, color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/20,),
+                      Text("My Sub-Partners".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),
+                SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    // Navigator.push(context, MaterialPageRoute(
+                    //   builder: (context) {
+                    //     return SubpartnerList(title: "Freelancer");
+                    //   },
+                    // ));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.iconSO,height: height / 36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/20,),
+                      Text("My Shop owners/Freelancer".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),
+                SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return Mykyc();
+                      },
+                    ));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.iconKYC,height: height / 36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/20,),
+                      Text("My KYC".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),
+
+
+                /*SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const DoctorFavorites();
+                      },
+                    ));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.unlike,height: height/46,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/20,),
+                      Text("Favorite".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),*/
+
+
+                SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return Ebikewallet();
+                      },
+                    ));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.iconWallet,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/26,),
+                      Text("Wallet".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),
+                SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return DoctorReferral();
+                      },
+                    ));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.iconReferral,height: height/30,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/26,),
+                      Text("Referral".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),
+
+                SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return DoctorCms("privacy");
+                      },
+                    ));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.imgprivacy,height: height/32,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black,),
+                      SizedBox(width: width/26,),
+                      Text("Help and Support".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),
+                SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return DoctorCms("terms");
+                      },
+                    ));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.security,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/26,),
+                      Text("Terms_Conditions".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),
+                /*SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    _showbottomsheet();
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.swap,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/26,),
+                      Text("Change_layout".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height/120,),
+                const Divider(),
+                SizedBox(height: height/120,),
+                InkWell(
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.darkmode,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black,),
+                      SizedBox(width: width/26,),
+                      Text("DarkMode".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      SizedBox(
+                        height: height / 22,
+                        width: width / 8,
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Switch(
+                            activeColor: DoctorColor.primary,
+                            onChanged: (state) {
+                              themedata.changeThem(state);
+                              setState(() {
+                                isdark = state;
+                              });
+                              themedata.update();
+                            },
+                            value: themedata.isdark,
                           ),
-                        ))
-                  ],
-                ),
-              ),
-              SizedBox(height: height/46,),
-              Text("Dharmendra Bachheriya".tr,style: ibold.copyWith(fontSize: 16,),),
-              SizedBox(height: height/200,),
-              Text("+91-8306402805".tr,style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),),
-              SizedBox(height: height/36,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const DoctorEditprofile();
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.useredit,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/26,),
-                    Text("Edit_Profile".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-              SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return SubpartnerList(title: "My Sub-Partners");
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.iconsp,height: height/36, width: width/20, color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/20,),
-                    Text("My Sub-Partners".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-              SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return SubpartnerList(title: "Freelancer");
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.iconSO,height: height / 36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/20,),
-                    Text("My Shop owners/Freelancer".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-              SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return Mykyc();
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.iconKYC,height: height / 36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/20,),
-                    Text("My KYC".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-
-
-              /*SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const DoctorFavorites();
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.unlike,height: height/46,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/20,),
-                    Text("Favorite".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),*/
-
-
-              SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return Ebikewallet();
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.iconWallet,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/26,),
-                    Text("Wallet".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-               SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return DoctorReferral();
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.iconReferral,height: height/30,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/26,),
-                    Text("Referral".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-
-              SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return DoctorCms("privacy");
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.imgprivacy,height: height/32,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black,),
-                    SizedBox(width: width/26,),
-                    Text("Help and Support".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-              SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return DoctorCms("terms");
-                    },
-                  ));
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.security,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/26,),
-                    Text("Terms_Conditions".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-              /*SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  _showbottomsheet();
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.swap,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/26,),
-                    Text("Change_layout".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
-                ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),
-              SizedBox(height: height/120,),
-              InkWell(
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.darkmode,height: height/36,color:themedata.isdark?DoctorColor.white:DoctorColor.black,),
-                    SizedBox(width: width/26,),
-                    Text("DarkMode".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    SizedBox(
-                      height: height / 22,
-                      width: width / 8,
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Switch(
-                          activeColor: DoctorColor.primary,
-                          onChanged: (state) {
-                            themedata.changeThem(state);
-                            setState(() {
-                              isdark = state;
-                            });
-                            themedata.update();
-                          },
-                          value: themedata.isdark,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: height/120,),
-              const Divider(),*/
-              SizedBox(height: height/120,),
-              InkWell(
-                splashColor: DoctorColor.transparent,
-                highlightColor: DoctorColor.transparent,
-                onTap: () {
-                  logout();
-                },
-                child: Row(
-                  children: [
-                    Image.asset(DoctorPngimage.logout,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
-                    SizedBox(width: width/26,),
-                    Text("Log Out".tr,style: iregular.copyWith(fontSize: 16,),),
-                    const Spacer(),
-                    Icon(Icons.arrow_forward_ios,size: height/46,),
-                  ],
+                SizedBox(height: height/120,),
+                const Divider(),*/
+                SizedBox(height: height/120,),
+                InkWell(
+                  splashColor: DoctorColor.transparent,
+                  highlightColor: DoctorColor.transparent,
+                  onTap: () {
+                    logout();
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(DoctorPngimage.logout,height: height/36,width: width/20,color:themedata.isdark?DoctorColor.white:DoctorColor.black ,),
+                      SizedBox(width: width/26,),
+                      Text("Log Out".tr,style: iregular.copyWith(fontSize: 16,),),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios,size: height/46,),
+                    ],
+                  ),
                 ),
-              ),
 
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -565,4 +587,47 @@ class _DoctorProfileState extends State<DoctorProfile> {
         });
   }
 
+}
+class DoctorProfileController extends GetxController {
+  var isLoading = false.obs;
+  var profileData = <String, dynamic>{}.obs;
+  var profileImageUrl = ''.obs;
+
+  @override
+  void onInit() {
+    fetchProfile();
+    super.onInit();
+  }
+
+  Future<void> fetchProfile() async {
+    isLoading.value = true;
+    try {
+      final response = await ApiService.callUserProfile();
+      if (response != null && response['statusCode'] == 200) {
+        profileData.value = Map<String, dynamic>.from(response['data']); // ✅ Safe casting
+
+        final image = response['data']['profile_image'];
+        final url = response['profile_url'];
+        if (image != null && image != '') {
+          profileImageUrl.value = url + image;
+        } else {
+          profileImageUrl.value = '';
+        }
+      } else {
+        Get.snackbar("Error", response?['message'] ?? "Failed to load profile");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Something went wrong");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+  Future<void>updateProfileImage({required BuildContext context,required File? imageprofile})async{
+    final response = await ApiService.uploadProfileImage(imageprofile!);
+    if (response != null && response['status'] == true) {
+      fetchProfile();
+    } else {
+      Get.snackbar("Error", response['message'] ?? "OTP verification failed");
+    }
+  }
 }

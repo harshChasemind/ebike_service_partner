@@ -2,6 +2,7 @@ import 'package:doctorappointment/doctor_globalclass/doctor_color.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:doctorappointment/doctor_pages/doctor_authentication/doctor_signin.dart';
+import 'package:doctorappointment/doctor_pages/doctor_home/freelancerdetails.dart';
 import 'package:doctorappointment/doctor_theme/doctor_themecontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import '../ApiService/ApiService.dart';
 import '../doctor_pages/doctor_home/add_freelancer.dart';
 import '../doctor_pages/doctor_home/doctor_details.dart';
 import '../doctor_pages/doctor_home/add_sub_partner.dart';
+import '../doctor_pages/doctor_home/doctor_details_backup.dart';
 
 class FreelancerList extends StatefulWidget {
   final String title;
@@ -32,7 +34,7 @@ class _FreelancerListState extends State<FreelancerList> {
   void initState() {
     super.initState();
     // Replace '1' with actual user ID
-    controller.fetchSubPartners('1');
+    controller.fetchSubPartners("");
   }
 
   @override
@@ -84,6 +86,10 @@ class _FreelancerListState extends State<FreelancerList> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  controller: controller.filterController,
+                  onChanged: (value){
+                    controller.fetchSubPartnersFilter(value);
+                  },
                   scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                   style: iregular.copyWith(fontSize: 14, color: DoctorColor.black),
                   decoration: InputDecoration(
@@ -118,7 +124,7 @@ class _FreelancerListState extends State<FreelancerList> {
                     final partner = controller.subPartners[index];
 
                     return GestureDetector(
-                      onTap: () => Get.to(() => DoctorDetails(title: partner['name'] ?? '')),
+                      onTap: () => Get.to(() => Freelancerdetails(userId: partner['parent_id'])),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
@@ -187,7 +193,7 @@ class _FreelancerListState extends State<FreelancerList> {
                                     children: [
                                       Image.asset(DoctorPngimage.iconsp, height: height / 60),
                                       const SizedBox(width: 4),
-                                      const Text("Sub-Partner"),
+                                      const Text("Freelancer"),
                                     ],
                                   ),
                                   Row(
@@ -229,22 +235,27 @@ class _FreelancerListState extends State<FreelancerList> {
 
 
 class FreelancersController extends GetxController {
+  TextEditingController filterController = TextEditingController();
   var isLoading = false.obs;
   var subPartners = [].obs;
 
-  Future<void> fetchSubPartners(String userId) async {
+  Future<void> fetchSubPartners(String filter) async {
     isLoading.value = true;
 
-    final response = await ApiService.Freelancers({
-      "user_id": userId,
-    });
+    final response = await ApiService.Freelancers(filter);
 
     isLoading.value = false;
 
     if (response != null && response is Map && response['status'] == true) {
       subPartners.value = response['data'];
-    } else if (response != null && response.containsKey('message')) {
-      Get.snackbar("Error", response['message']);
+    } else {
+      Get.snackbar("Error", "Failed to fetch sub partners");
+    }
+  }
+  Future<void> fetchSubPartnersFilter(String filter) async {
+    final response = await ApiService.Freelancers(filter);
+    if (response != null && response is Map && response['status'] == true) {
+      subPartners.value = response['data'];
     } else {
       Get.snackbar("Error", "Failed to fetch sub partners");
     }

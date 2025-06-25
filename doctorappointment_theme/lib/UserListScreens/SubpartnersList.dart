@@ -31,7 +31,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
   void initState() {
     super.initState();
     // Replace '1' with actual user ID
-    controller.fetchSubPartners('1');
+    controller.fetchSubPartners("");
   }
 
   @override
@@ -83,6 +83,10 @@ class _SubpartnerListState extends State<SubpartnerList> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  controller: controller.filterController,
+                  onChanged: (value){
+                    controller.fetchSubPartnersFilter(value);
+                  },
                   scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                   style: iregular.copyWith(fontSize: 14, color: DoctorColor.black),
                   decoration: InputDecoration(
@@ -117,7 +121,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
                     final partner = controller.subPartners[index];
 
                     return GestureDetector(
-                      onTap: () => Get.to(() => DoctorDetails(title: partner['name'] ?? '')),
+                      onTap: () => Get.to(() => SubPartnerDetails(title: partner['name'] ?? '', userId: partner['parent_id'] ,)),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
@@ -228,19 +232,29 @@ class _SubpartnerListState extends State<SubpartnerList> {
 
 
 class SubPartnerController extends GetxController {
+  TextEditingController filterController = TextEditingController();
   var isLoading = false.obs;
   var subPartners = [].obs;
 
-  Future<void> fetchSubPartners(String userId) async {
+  Future<void> fetchSubPartners(String filter) async {
     isLoading.value = true;
 
-    final response = await ApiService.SubPartner({
-      "user_id": userId,
-    });
+    final response = await ApiService.SubPartner(filter);
 
     isLoading.value = false;
 
-    if (response != null && response is Map && response['status'] == true) {
+    if (response != null && response is Map && response['statusCode'] == 200) {
+      subPartners.value = response['data'];
+    } else if (response != null && response.containsKey('message')) {
+      Get.snackbar("Error", response['message']);
+    } else {
+      Get.snackbar("Error", "Failed to fetch sub partners");
+    }
+  }
+  Future<void> fetchSubPartnersFilter(String filter) async {
+    final response = await ApiService.SubPartner(filter);
+
+    if (response != null && response is Map && response['statusCode'] == 200) {
       subPartners.value = response['data'];
     } else if (response != null && response.containsKey('message')) {
       Get.snackbar("Error", response['message']);

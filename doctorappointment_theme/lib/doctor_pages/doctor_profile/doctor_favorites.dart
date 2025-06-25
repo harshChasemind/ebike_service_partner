@@ -93,9 +93,9 @@ class _DoctorFavoritesState extends State<DoctorFavorites> {
                           splashColor: DoctorColor.transparent,
                           highlightColor: DoctorColor.transparent,
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return const DoctorDetails(title: "patel",);
-                            },));
+                            // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            //   return const DoctorDetails(title: "patel",);
+                            // },));
                           },
                           child: Container(
                             decoration: BoxDecoration(
