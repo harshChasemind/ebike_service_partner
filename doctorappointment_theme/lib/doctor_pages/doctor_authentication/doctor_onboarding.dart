@@ -164,21 +164,21 @@ class _DoctorOnboardingState extends State<DoctorOnboarding> {
               splashColor: DoctorColor.transparent,
               highlightColor: DoctorColor.transparent,
               onTap: () {
-                // if (selectedIndex < pages.length - 1) {
-                //   selectedIndex++;
-                //   pageController.animateToPage(
-                //     selectedIndex,
-                //     duration: const Duration(milliseconds: 500),
-                //     curve: Curves.ease,
-                //   );
-                //   setState(() {});
-                // } else {
-                //   Navigator.push(context, MaterialPageRoute(
-                //     builder: (context) {
-                //       return DoctorSignin();
-                //     },
-                //   ));
-                // }
+                if (selectedIndex < pages.length - 1) {
+                  selectedIndex++;
+                  pageController.animateToPage(
+                    selectedIndex,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.ease,
+                  );
+                  setState(() {});
+                } else {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return DoctorSignin(userId);
+                    },
+                  ));
+                }
               },
               child: Container(
                 height: height / 15,

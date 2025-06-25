@@ -5,7 +5,7 @@ import 'package:doctorappointment/doctor_translation/stringtranslation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -35,6 +35,7 @@ class _MyAppState extends State<MyApp> {
       translations: DoctorApptranslation(),
       locale: const Locale('en', 'US'),
       home: const DoctorSplash(),
+      navigatorObservers: [routeObserver],
     );
   }
 }

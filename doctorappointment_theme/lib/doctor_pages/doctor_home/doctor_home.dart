@@ -300,16 +300,16 @@ class _DoctorHomeState extends State<DoctorHome> {
                       child: Container(
                         width: width / 2.5,
                         decoration: BoxDecoration(
-                          color: DoctorColor.white,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 2,
-                              blurRadius: 8,
-                              offset: Offset(2, 4), // changes position of shadow
-                            ),
-                          ]
+                            color: DoctorColor.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 8,
+                                offset: Offset(2, 4), // changes position of shadow
+                              ),
+                            ]
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -649,8 +649,8 @@ class _DoctorHomeState extends State<DoctorHome> {
           height: 50,
           width: 50,
           decoration: BoxDecoration(
-            color: DoctorColor.primary,
-            borderRadius: BorderRadius.circular(100)
+              color: DoctorColor.primary,
+              borderRadius: BorderRadius.circular(100)
           ),
           child: Icon(Icons.add , color: Colors.white, size: 30,),
         ),

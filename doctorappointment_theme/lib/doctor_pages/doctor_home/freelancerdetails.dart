@@ -11,31 +11,29 @@ import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 // import 'FullScreenImageViewer.dart';
 
-class SubPartnerDetails extends StatefulWidget {
-  final String title;
+class Freelancerdetails extends StatefulWidget {
   final String userId; // Add userId parameter
 
-  const SubPartnerDetails({
+  const Freelancerdetails({
     Key? key,
-    required this.title,
     required this.userId, // Make it required
   }) : super(key: key);
 
   @override
-  State<SubPartnerDetails> createState() => _SubPartnerDetailsState();
+  State<Freelancerdetails> createState() => _FreelancerdetailsState();
 }
 
-class _SubPartnerDetailsState extends State<SubPartnerDetails> {
+class _FreelancerdetailsState extends State<Freelancerdetails> {
   dynamic size;
   double height = 0.00;
   double width = 0.00;
   final themedata = Get.put(DoctorThemecontroler());
-  final controller = Get.put(SubPartnerDetailsController());
+  final controller = Get.put(ShopOwnerDetailsController());
 
   @override
   void initState() {
     super.initState();
-    controller.fetchSubPartnerDetails(widget.userId); // Use passed userId
+    controller.callFreeLancerDetail(widget.userId); // Use passed userId
   }
 
   List<Map<String, String>> reviewList = [
@@ -200,7 +198,7 @@ class _SubPartnerDetailsState extends State<SubPartnerDetails> {
       appBar: AppBar(
         surfaceTintColor: DoctorColor.white,
         title: Text(
-          "Sub Partner Details",
+          "Shop Owner Details",
           style: isemibold.copyWith(
               fontSize: 20,
               color: themedata.isdark ? DoctorColor.white : DoctorColor.black
@@ -516,19 +514,19 @@ class _SubPartnerDetailsState extends State<SubPartnerDetails> {
   }
 }
 
-class SubPartnerDetailsController extends GetxController {
+class ShopOwnerDetailsController extends GetxController {
   var isLoading = false.obs;
   var subPartnerDetails = {}.obs;
   var subPartnerDetailsReviews = [].obs;
   var subPartnerDetailsStatics = {}.obs;
   var errorMessage = ''.obs;
 
-  Future<void> fetchSubPartnerDetails(String userId) async {
+  Future<void> callFreeLancerDetail(String userId) async {
     try {
       isLoading.value = true;
       errorMessage.value = '';
 
-      final response = await ApiService.SubPartnerDetails({
+      final response = await ApiService.callfreelancerDetail({
         "user_id": userId,
       });
 

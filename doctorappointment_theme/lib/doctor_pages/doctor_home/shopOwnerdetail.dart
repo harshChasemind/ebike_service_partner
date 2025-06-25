@@ -11,31 +11,29 @@ import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 // import 'FullScreenImageViewer.dart';
 
-class SubPartnerDetails extends StatefulWidget {
-  final String title;
+class ShopOwnerDetails extends StatefulWidget {
   final String userId; // Add userId parameter
 
-  const SubPartnerDetails({
+  const ShopOwnerDetails({
     Key? key,
-    required this.title,
     required this.userId, // Make it required
   }) : super(key: key);
 
   @override
-  State<SubPartnerDetails> createState() => _SubPartnerDetailsState();
+  State<ShopOwnerDetails> createState() => _ShopOwnerDetailsState();
 }
 
-class _SubPartnerDetailsState extends State<SubPartnerDetails> {
+class _ShopOwnerDetailsState extends State<ShopOwnerDetails> {
   dynamic size;
   double height = 0.00;
   double width = 0.00;
   final themedata = Get.put(DoctorThemecontroler());
-  final controller = Get.put(SubPartnerDetailsController());
+  final controller = Get.put(ShopOwnerDetailsController());
 
   @override
   void initState() {
     super.initState();
-    controller.fetchSubPartnerDetails(widget.userId); // Use passed userId
+    controller.callShopOwnerDetail(widget.userId); // Use passed userId
   }
 
   List<Map<String, String>> reviewList = [
@@ -200,7 +198,7 @@ class _SubPartnerDetailsState extends State<SubPartnerDetails> {
       appBar: AppBar(
         surfaceTintColor: DoctorColor.white,
         title: Text(
-          "Sub Partner Details",
+          "Shop Owner Details",
           style: isemibold.copyWith(
               fontSize: 20,
               color: themedata.isdark ? DoctorColor.white : DoctorColor.black
@@ -344,7 +342,7 @@ class _SubPartnerDetailsState extends State<SubPartnerDetails> {
                                 children: [
                                   Image.asset(DoctorPngimage.iconsp, height: 30, width: 30),
                                   SizedBox(width: 10),
-                                  Text("Sub-Partner", style: imedium.copyWith(fontSize: 14))
+                                  Text("ShopOwner", style: imedium.copyWith(fontSize: 14))
                                 ],
                               ),
                             ),
@@ -422,49 +420,58 @@ class _SubPartnerDetailsState extends State<SubPartnerDetails> {
 
                 // KYC Section
                 SizedBox(height: height/36),
-                Text("Kyc", style: isemibold.copyWith(fontSize: 20)),
-                SizedBox(height: height/56),
-                if (partner["aadhaar_front"] != null) ...[
-                  Text("Aadhar Card", style: iregular.copyWith(fontSize: 16)),
-                  SizedBox(height: height/56),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Visibility(
+                  visible: partner == null,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildDocumentImage(
-                        imageUrl: ApiService.kycDocimageurl+partner['aadhaar_front'],
-                        placeholder: "assets/assetN/AadharcardDummy.png",
-                        tag: 'aadhar_front',
-                      ),
-                      _buildDocumentImage(
-                        imageUrl: ApiService.kycDocimageurl+partner['aadhaar_front'],
-                        placeholder: "assets/assetN/AadharcardDummy.png",
-                        tag: 'aadhar_back',
-                      ),
+                      Text("Kyc", style: isemibold.copyWith(fontSize: 20)),
+                      SizedBox(height: height/56),
+                      if (partner["aadhaar_front"] != null || partner.isNotEmpty) ...[
+                        Text("Aadhar Card", style: iregular.copyWith(fontSize: 16)),
+                        SizedBox(height: height/56),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _buildDocumentImage(
+                              imageUrl: ApiService.kycDocimageurl+partner['aadhaar_front'],
+                              placeholder: "assets/assetN/AadharcardDummy.png",
+                              tag: 'aadhar_front',
+                            ),
+                            _buildDocumentImage(
+                              imageUrl: ApiService.kycDocimageurl+partner['aadhaar_front'],
+                              placeholder: "assets/assetN/AadharcardDummy.png",
+                              tag: 'aadhar_back',
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: height/70),
+                      ],
+
+                      if (partner['pan_card_image'] != null) ...[
+                        Text("Pan Card", style: iregular.copyWith(fontSize: 16)),
+                        SizedBox(height: height/56),
+                        _buildDocumentImage(
+                          imageUrl: ApiService.kycDocimageurl+partner['pan_card_image'],
+                          placeholder: "assets/assetN/PanCardDummy.png",
+                          tag: 'pan_card',
+                        ),
+                        SizedBox(height: height/70),
+                      ],
+
+                      if (partner['udyam_aadhar_certificate'] != null ) ...[
+                        Text("Business certificate", style: iregular.copyWith(fontSize: 16)),
+                        SizedBox(height: height/56),
+                        _buildDocumentImage(
+                          imageUrl:  ApiService.kycDocimageurl+partner['udyam_aadhar_certificate'],
+                          placeholder: "assets/assetN/BusinessDummy.png",
+                          tag: 'business_cert',
+                        ),
+                      ],
                     ],
                   ),
-                  SizedBox(height: height/70),
-                ],
+                ),
 
-                if (partner['pan_card_image'] != null) ...[
-                  Text("Pan Card", style: iregular.copyWith(fontSize: 16)),
-                  SizedBox(height: height/56),
-                  _buildDocumentImage(
-                    imageUrl: ApiService.kycDocimageurl+partner['pan_card_image'],
-                    placeholder: "assets/assetN/PanCardDummy.png",
-                    tag: 'pan_card',
-                  ),
-                  SizedBox(height: height/70),
-                ],
-
-                if (partner['udyam_aadhar_certificate'] != null ) ...[
-                  Text("Business certificate", style: iregular.copyWith(fontSize: 16)),
-                  SizedBox(height: height/56),
-                  _buildDocumentImage(
-                    imageUrl:  ApiService.kycDocimageurl+partner['udyam_aadhar_certificate'],
-                    placeholder: "assets/assetN/BusinessDummy.png",
-                    tag: 'business_cert',
-                  ),
-                ],
 
                 // Reviews Section
                 SizedBox(height: height/36),
@@ -516,19 +523,19 @@ class _SubPartnerDetailsState extends State<SubPartnerDetails> {
   }
 }
 
-class SubPartnerDetailsController extends GetxController {
+class ShopOwnerDetailsController extends GetxController {
   var isLoading = false.obs;
   var subPartnerDetails = {}.obs;
   var subPartnerDetailsReviews = [].obs;
   var subPartnerDetailsStatics = {}.obs;
   var errorMessage = ''.obs;
 
-  Future<void> fetchSubPartnerDetails(String userId) async {
+  Future<void> callShopOwnerDetail(String userId) async {
     try {
       isLoading.value = true;
       errorMessage.value = '';
 
-      final response = await ApiService.SubPartnerDetails({
+      final response = await ApiService.callShopOwnerDetail({
         "user_id": userId,
       });
 
@@ -537,6 +544,7 @@ class SubPartnerDetailsController extends GetxController {
         subPartnerDetailsStatics.value = response['statics_count'] ?? {};
         subPartnerDetailsReviews.value = response['reviews'];
         print("Reviews ${subPartnerDetailsReviews.value}");
+        print("ReviewsDe ${subPartnerDetails.value}");
       } else {
         errorMessage.value = response['message'] ?? "Failed to fetch sub partner details";
       }

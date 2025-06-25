@@ -11,6 +11,8 @@ import '../ApiService/ApiService.dart';
 import '../doctor_pages/doctor_home/add_shop_owners.dart';
 import '../doctor_pages/doctor_home/doctor_details.dart';
 import '../doctor_pages/doctor_home/add_sub_partner.dart';
+import '../doctor_pages/doctor_home/doctor_details_backup.dart';
+import '../doctor_pages/doctor_home/shopOwnerdetail.dart';
 
 class ShopOwnersList extends StatefulWidget {
   final String title;
@@ -27,12 +29,11 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
 
   final themedata = Get.put(DoctorThemecontroler());
   final controller = Get.put(ShopOwnersController());
-
   @override
   void initState() {
     super.initState();
     // Replace '1' with actual user ID
-    controller.fetchSubPartners('1');
+    controller.fetchSubPartners("");
   }
 
   @override
@@ -84,6 +85,10 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  controller: controller.filterController,
+                  onChanged: (value){
+                    controller.fetchSubPartnersFilter(value);
+                  },
                   scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                   style: iregular.copyWith(fontSize: 14, color: DoctorColor.black),
                   decoration: InputDecoration(
@@ -116,9 +121,8 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
                   itemCount: controller.subPartners.length,
                   itemBuilder: (context, index) {
                     final partner = controller.subPartners[index];
-
                     return GestureDetector(
-                      onTap: () => Get.to(() => SubPartnerDetails(title: partner['name'] ?? '')),
+                      onTap: () => Get.to(() => ShopOwnerDetails(userId:partner['parent_id'] ,)),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
@@ -187,7 +191,7 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
                                     children: [
                                       Image.asset(DoctorPngimage.iconsp, height: height / 60),
                                       const SizedBox(width: 4),
-                                      const Text("Sub-Partner"),
+                                      const Text("Shop Owner"),
                                     ],
                                   ),
                                   Row(
@@ -229,22 +233,27 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
 
 
 class ShopOwnersController extends GetxController {
+  TextEditingController filterController = TextEditingController();
   var isLoading = false.obs;
   var subPartners = [].obs;
 
-  Future<void> fetchSubPartners(String userId) async {
+  Future<void> fetchSubPartners(String Text) async {
     isLoading.value = true;
 
-    final response = await ApiService.ShopOwners({
-      "user_id": userId,
-    });
+    final response = await ApiService.ShopOwners(Text);
 
     isLoading.value = false;
 
     if (response != null && response is Map && response['statusCode'] == 200) {
       subPartners.value = response['data'];
-    } else if (response != null && response.containsKey('message')) {
-      Get.snackbar("Error", response['message']);
+    }  else {
+      Get.snackbar("Error", "Failed to fetch sub partners");
+    }
+  }
+  Future<void> fetchSubPartnersFilter(String Text) async {
+    final response = await ApiService.ShopOwners(Text);
+    if (response != null && response is Map && response['statusCode'] == 200) {
+      subPartners.value = List<Map<String, dynamic>>.from(response['data']);
     } else {
       Get.snackbar("Error", "Failed to fetch sub partners");
     }
