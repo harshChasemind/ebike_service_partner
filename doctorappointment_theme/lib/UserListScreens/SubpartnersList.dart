@@ -121,7 +121,7 @@ class _SubpartnerListState extends State<SubpartnerList> {
                     final partner = controller.subPartners[index];
 
                     return GestureDetector(
-                      onTap: () => Get.to(() => SubPartnerDetails(title: partner['name'] ?? '', userId: partner['parent_id'] ,)),
+                      onTap: () => Get.to(() => SubPartnerDetails(title: partner['name'] ?? '', userId: partner['_id'] ,)),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(

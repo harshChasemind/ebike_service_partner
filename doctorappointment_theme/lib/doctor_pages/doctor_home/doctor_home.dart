@@ -641,20 +641,6 @@ class _DoctorHomeState extends State<DoctorHome> {
           ),
         ),
       ),
-      floatingActionButton: GestureDetector(
-        onTap: (){
-          Get.to(PartnerAccount());
-        },
-        child: Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-              color: DoctorColor.primary,
-              borderRadius: BorderRadius.circular(100)
-          ),
-          child: Icon(Icons.add , color: Colors.white, size: 30,),
-        ),
-      ),
     );
   }
 }

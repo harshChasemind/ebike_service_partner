@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doctorappointment/UserListScreens/ShopOwners.dart';
 import 'package:doctorappointment/UserListScreens/SubpartnersList.dart';
 import 'package:doctorappointment/doctor_pages/doctor_authentication/doctor_onboarding.dart';
 import 'package:doctorappointment/doctor_pages/doctor_profile/doctor_cms.dart';
@@ -78,6 +79,11 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
         title: Text("Profile".tr,style: isemibold.copyWith(fontSize: 20,color: themedata.isdark?DoctorColor.white:DoctorColor.black),),
       ),
       body: Obx((){
+        if (profileController.isLoading.value) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         final profile = profileController.profileData;
         final imageUrl = profileController.profileImageUrl.value;
         return SingleChildScrollView(
@@ -151,6 +157,7 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
                     //     return SubpartnerList(title: "My Sub-Partners");
                     //   },
                     // ));
+                    Get.to(SubpartnerList(title: ""));
                   },
                   child: Row(
                     children: [
@@ -174,6 +181,7 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
                     //     return SubpartnerList(title: "Freelancer");
                     //   },
                     // ));
+                    Get.to(ShopOwnersList(title: ""));
                   },
                   child: Row(
                     children: [

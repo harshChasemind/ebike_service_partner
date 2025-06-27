@@ -228,35 +228,6 @@ class _DoctorSignupState extends State<DoctorSignup> {
                 ),
                 SizedBox(height: height/36,),
                 TextFormField(
-                    controller: controller._businessNameController,
-                    validator: (value) => controller.validateNotEmpty(value, "Business Name"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                    decoration: InputDecoration(
-                      hintText: 'Busiess Name'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textgrey),
-                      ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.red)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
-                SizedBox(height: height/36,),
-                TextFormField(
                     controller:controller._addressController,
                     validator: (value) => controller.validateNotEmpty(value, "Address"),
                     scrollPadding: EdgeInsets.only(

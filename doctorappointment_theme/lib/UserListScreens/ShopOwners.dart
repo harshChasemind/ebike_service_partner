@@ -122,7 +122,7 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
                   itemBuilder: (context, index) {
                     final partner = controller.subPartners[index];
                     return GestureDetector(
-                      onTap: () => Get.to(() => ShopOwnerDetails(userId:partner['parent_id'] ,)),
+                      onTap: () => Get.to(() => ShopOwnerDetails(userId:partner['_id'] ,)),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(

@@ -421,8 +421,18 @@ class _SubPartnerDetailsState extends State<SubPartnerDetails> {
                 ),
 
                 // KYC Section
-                SizedBox(height: height/36),
-                Text("Kyc", style: isemibold.copyWith(fontSize: 20)),
+                Visibility(
+                  visible:partner["aadhaar_front"] != null || partner['pan_card_image'] != null || partner['udyam_aadhar_certificate'] != null  ,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: height/36),
+                      Text("Kyc", style: isemibold.copyWith(fontSize: 20)),
+                    ],
+                  ),
+                ),
+
                 SizedBox(height: height/56),
                 if (partner["aadhaar_front"] != null) ...[
                   Text("Aadhar Card", style: iregular.copyWith(fontSize: 16)),

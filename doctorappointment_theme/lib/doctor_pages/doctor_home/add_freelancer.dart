@@ -495,7 +495,7 @@ class DoctorAddFreelancerController extends GetxController {
     Map<String , Object> registerUserJson = {
       "name": name,
       "email": email,
-      "user_type": "Freelancer",
+      "user_type": "freelancer",
       "mobile_number" : mobile,
       "gender": gender,
       "address": address,
@@ -508,6 +508,13 @@ class DoctorAddFreelancerController extends GetxController {
     isLoading.value = false;
 
     if (response != null && response['statusCode'] == 200) {
+      _nameController.clear();
+      emailController.clear();
+      _mobileController.clear();
+      _addressController.clear();
+      _cityController.clear();
+      _stateController.clear();
+      _pincodeController.clear();
       Get.to(DoctorDashboard(0));
     } else {
       Get.snackbar("Error", response['message'] ?? "OTP verification failed");
