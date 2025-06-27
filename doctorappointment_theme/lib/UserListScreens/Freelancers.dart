@@ -198,9 +198,9 @@ class _FreelancerListState extends State<FreelancerList> {
                                   ),
                                   Row(
                                     children: [
-                                      const Icon(Icons.circle, size: 12, color: Colors.green),
+                                      Icon(Icons.circle, size: 12,  color: partner['kyc_status'] == false ? Colors.yellow[800] : Colors.green),
                                       const SizedBox(width: 4),
-                                      Text(partner['status'] ?? 'Active'),
+                                      Text(partner['kyc_status'] == false ? 'InActive' : 'Active'),
                                     ],
                                   ),
                                 ],

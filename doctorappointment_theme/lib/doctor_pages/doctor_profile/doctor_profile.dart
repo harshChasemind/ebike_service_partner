@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:doctorappointment/UserListScreens/ShopOwners.dart';
 import 'package:doctorappointment/UserListScreens/SubpartnersList.dart';
 import 'package:doctorappointment/doctor_pages/doctor_authentication/doctor_onboarding.dart';
 import 'package:doctorappointment/doctor_pages/doctor_profile/doctor_cms.dart';
@@ -17,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../ApiService/ApiService.dart';
+import '../../UserListScreens/ShopOwners.dart';
 import '../../main.dart';
 import 'doctor_Referral.dart';
 import 'doctor_patients.dart';
@@ -79,14 +79,12 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
         title: Text("Profile".tr,style: isemibold.copyWith(fontSize: 20,color: themedata.isdark?DoctorColor.white:DoctorColor.black),),
       ),
       body: Obx((){
-        if (profileController.isLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
         final profile = profileController.profileData;
         final imageUrl = profileController.profileImageUrl.value;
-        return SingleChildScrollView(
+        return profileController.isLoading.value
+            ? Center(
+          child: CircularProgressIndicator(),
+        ):  SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
             child: Column(
@@ -152,12 +150,11 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
                   splashColor: DoctorColor.transparent,
                   highlightColor: DoctorColor.transparent,
                   onTap: () {
-                    // Navigator.push(context, MaterialPageRoute(
-                    //   builder: (context) {
-                    //     return SubpartnerList(title: "My Sub-Partners");
-                    //   },
-                    // ));
-                    Get.to(SubpartnerList(title: ""));
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return SubpartnerList(title: "My Sub-Partners");
+                      },
+                    ));
                   },
                   child: Row(
                     children: [
@@ -173,15 +170,14 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
                 const Divider(),
                 SizedBox(height: height/120,),
                 InkWell(
-                  splashColor: DoctorColor.transparent,
+                  splashColor: DoctorColor.transparent, 
                   highlightColor: DoctorColor.transparent,
                   onTap: () {
-                    // Navigator.push(context, MaterialPageRoute(
-                    //   builder: (context) {
-                    //     return SubpartnerList(title: "Freelancer");
-                    //   },
-                    // ));
-                    Get.to(ShopOwnersList(title: ""));
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return ShopOwnersList(title: "Shop Owners",);
+                      },
+                    ));
                   },
                   child: Row(
                     children: [
@@ -568,7 +564,7 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
                           highlightColor: DoctorColor.transparent,
                           onTap: () {
                             // Get.to(() => const DoctorSignin());
-                            Get.to(() => const DoctorOnboarding());
+                            Get.offAll(DoctorOnboarding());
                           },
                           child: Container(
                             height: height / 20,

@@ -29,6 +29,7 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
   TextEditingController _otpController = TextEditingController();
   final controller = Get.put(DoctorVerifyOtpController());
   String _otp = "";
+  String otpError = "";
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -50,6 +51,7 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
             Text("Enter the the code we just sent you on your registered Mobile No.".tr,textAlign: TextAlign.center,style: iregular.copyWith(fontSize: 14),).paddingSymmetric(horizontal: 40),
             SizedBox(height: height/26,),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -93,6 +95,16 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
                     appContext: context,
                   ),
                 ),
+                Obx(() => Visibility(
+                  visible: controller.otpError.value.isNotEmpty,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      controller.otpError.value,
+                      style: iregular.copyWith(fontSize: 12, color: Colors.red),
+                    ),
+                  ),
+                )),
                 SizedBox(height: height/26,),
                 InkWell(
                   splashColor: DoctorColor.transparent,
@@ -102,7 +114,7 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
 
                     // ✅ Basic validation: length + digits
                     if (otpText.length < 4 || !RegExp(r'^\d{4}$').hasMatch(otpText)) {
-                      Get.snackbar("Invalid OTP", "Please enter a 4-digit numeric OTP");
+                        controller.otpError.value = "Please enter a 4-digit numeric OTP";
                       return;
                     }
 
@@ -131,23 +143,31 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Didnt_get_the_Code".tr, style: iregular.copyWith(fontSize: 14)),
-                    SizedBox(width: width / 96),
+                    Text(
+                      "Didnt_get_the_Code".tr,
+                      style: iregular.copyWith(fontSize: 14),
+                    ),
+                    SizedBox(
+                      width: width / 96,
+                    ),
                     InkWell(
-                      splashColor: DoctorColor.transparent,
-                      highlightColor: DoctorColor.transparent,
-                      onTap: () {
-                        if (widget.userId != null && widget.userId!.isNotEmpty) {
-                          controller.resendOtp(widget.userId!, context);
-                        } else {
-                          Get.snackbar("Error", "User ID not available");
-                        }
-                      },
-                      child: Text("Resend".tr,
-                          style: imedium.copyWith(fontSize: 14, color: Colors.blue)),
-                    )
+                        splashColor: DoctorColor.transparent,
+                        highlightColor: DoctorColor.transparent,
+                        onTap: () {
+                          /*Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return const DoctorSignup();
+                    },
+                  ));*/
+                          controller.resendOtp(widget.userId, context);
+                        },
+                        child: Text(
+                          "Resend".tr,
+                          style: imedium.copyWith(
+                              fontSize: 14, color: Colors.blue),
+                        )),
                   ],
-                ),
+                )
               ],
             )
           ],
@@ -157,9 +177,11 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
   }
 }
 class DoctorVerifyOtpController extends GetxController{
-  final formKey = GlobalKey<FormState>();
+  final formKeyVeryfyOtp = GlobalKey<FormState>();
   // final otpController = TextEditingController();
   var isLoading = false.obs;
+  var otpError = "".obs;
+
   Future<void>verifyOtp(
       {
         required BuildContext context,
@@ -174,7 +196,7 @@ class DoctorVerifyOtpController extends GetxController{
     final response = await ApiService.callOtpVerify(otpVerifyJson);
     isLoading.value = false;
 
-    if (response != null && response['statusCode'] == 200) {
+    if (response != null && response['statusCode'] == 200 && response['data'] != null) {
       String token = response['data']['token'];
       int isRegisterd = response['data']['is_registered'];
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -188,13 +210,10 @@ class DoctorVerifyOtpController extends GetxController{
       }
       // Get.offAll(() => DoctorDashboard()); // or any screen you want
     } else {
-      Get.snackbar("Error", response['message'] ?? "OTP verification failed");
+      otpError.value = "Enter valid OTP";
+      print(otpError.value);
     }
   }
-
-
-  // var isLoading = false.obs;
-
   Future<void> resendOtp(String userId, BuildContext context) async {
     isLoading.value = true;
     final response = await ApiService.resendOTP({"_id": userId});
@@ -208,19 +227,6 @@ class DoctorVerifyOtpController extends GetxController{
       Get.snackbar("Error", "Something went wrong while resending OTP");
     }
   }
-
-  // Future<void> verifyOtp(String userId, String otp, BuildContext context) async {
-  //   isLoading.value = true;
-  //   final response = await ApiService.resendOTP({"_id": userId, "otp": otp});
-  //   isLoading.value = false;
-  //
-  //   if (response != null && response['statusCode'] == 200) {
-  //     Get.snackbar("Success", "OTP verified successfully");
-  //     Get.offAll(() => DoctorDashboard(0)); // ← Make sure constructor accepts String
-  //   } else {
-  //     Get.snackbar("Error", response['message'] ?? "OTP verification failed");
-  //   }
-  // }
 
 
 // @override

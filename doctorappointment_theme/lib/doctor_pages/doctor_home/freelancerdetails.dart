@@ -129,7 +129,7 @@ class _FreelancerdetailsState extends State<Freelancerdetails> {
                     fit: BoxFit.cover,
                     placeholder: (context, url) => CircularProgressIndicator(strokeWidth: 2),
                     errorWidget: (context, url, error) => Image.asset(
-                      'assets/images/user1.jpg',
+                      DoctorPngimage.up1,
                       width: 50,
                       height: 50,
                       fit: BoxFit.cover,
@@ -492,34 +492,34 @@ class _FreelancerdetailsState extends State<Freelancerdetails> {
           ),
         );
       }),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 30.0),
-        child: InkWell(
-          splashColor: DoctorColor.transparent,
-          highlightColor: DoctorColor.transparent,
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) {
-                return const DoctorBookAppointment();
-              },
-            ));
-          },
-          child: Container(
-            height: height / 15,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: DoctorColor.primary),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: width/22),
-              child: Center(
-                child: Text("Book_Appointment".tr,
-                    style: imedium.copyWith(
-                        fontSize: 16, color: DoctorColor.white)),
-              ),
-            ),
-          ),
-        ),
-      ),
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(left: 30.0),
+      //   child: InkWell(
+      //     splashColor: DoctorColor.transparent,
+      //     highlightColor: DoctorColor.transparent,
+      //     onTap: () {
+      //       Navigator.push(context, MaterialPageRoute(
+      //         builder: (context) {
+      //           return const DoctorBookAppointment();
+      //         },
+      //       ));
+      //     },
+      //     child: Container(
+      //       height: height / 15,
+      //       decoration: BoxDecoration(
+      //           borderRadius: BorderRadius.circular(50),
+      //           color: DoctorColor.primary),
+      //       child: Padding(
+      //         padding: EdgeInsets.symmetric(horizontal: width/22),
+      //         child: Center(
+      //           child: Text("Book_Appointment".tr,
+      //               style: imedium.copyWith(
+      //                   fontSize: 16, color: DoctorColor.white)),
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

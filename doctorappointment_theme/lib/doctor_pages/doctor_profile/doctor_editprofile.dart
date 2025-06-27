@@ -30,6 +30,62 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
 
   List<String> types = ['Shop Owner', 'Freelancer'];
   List<String> genders = ['Male', 'Female', 'Other'];
+  final List<String> cityList = [
+    "Ahmedabad",
+    "Bangalore",
+    "Chennai",
+    "Delhi",
+    "Dhenkanal",
+    "Faridabad",
+    "Ghaziabad",
+    "Gr Noida",
+    "Gurgaon",
+    "Howrah",
+    "Hyderabad",
+    "Jaipur",
+    "Kolkata",
+    "Mohali",
+    "Mumbai",
+    "Noida",
+    "Patna",
+    "Portblair",
+    "Pune",
+    "Surat",
+    "Suratgarh",
+    "Thane",
+    "Zirakpur"
+  ];
+  final List<String> stateList = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Delhi",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal"
+  ];
   @override
   void initState() {
     super.initState();
@@ -39,8 +95,8 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
     controller._nameController.text = widget.profileData['name'] ?? '';
     controller._dateController.text = widget.profileData['dob'] ?? '';
     controller._addressController.text = widget.profileData['address'] ?? '';
-    controller._cityController.text = widget.profileData['city'] ?? '';
-    controller._stateController.text = widget.profileData['state'] ?? '';
+    controller.cityValue.value = widget.profileData['city'] ?? '';
+    controller.stateValue.value= widget.profileData['state'] ?? '';
     controller._pincodeController.text = widget.profileData['pincode'] ?? '';
     controller._businessNameController.text = widget.profileData['business_name'] ?? '';
     selectedGender = widget.profileData['gender'];
@@ -270,68 +326,105 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                           borderSide: const BorderSide(color: DoctorColor.border)),
                     )),
                 SizedBox(height: height/36,),
-                TextFormField(
-                    controller:controller._cityController,
-                    validator: (value) => controller.validateNotEmpty(value, "City"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                    decoration: InputDecoration(
-                      hintText: 'City'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
+                DropdownButtonFormField<String>(
+                  value: controller.cityValue.value.isNotEmpty ? controller.cityValue.value : null,
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  onChanged: (value) {
+                    controller.cityValue.value = value ?? '';
+                  },
+                  validator: (value) =>
+                      controller.validateNotEmpty(value, "City"),
+                  decoration: InputDecoration(
+                    hintText: 'City'.tr,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                    filled: true,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        DoctorPngimage.iconBuilding,
+                        height: height / 36,
+                        color: DoctorColor.textgrey,
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.red)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
+                    ),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.red)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border)),
+                  ),
+                  items: cityList.map((city) {
+                    return DropdownMenuItem<String>(
+                      value: city,
+                      child: Text(
+                        city,
+                        style: iregular.copyWith(fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                ),
                 SizedBox(height: height/36,),
-                TextFormField(
-                    controller:controller._stateController,
-                    validator: (value) => controller.validateNotEmpty(value, "State"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                    decoration: InputDecoration(
-                      hintText: 'State'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
+                DropdownButtonFormField<String>(
+                  value: controller.stateValue.value.isNotEmpty ? controller.stateValue.value : null,
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  onChanged: (value) {
+                    controller.stateValue.value = value ?? '';
+                  },
+                  validator: (value) => controller.validateNotEmpty(value, "State"),
+                  decoration: InputDecoration(
+                    hintText: 'State'.tr,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                    filled: true,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        DoctorPngimage.iconBuilding,
+                        height: height / 36,
+                        color: DoctorColor.textgrey,
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.red)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
+                    ),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.red)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border)),
+                  ),
+                  items: stateList.map((state) {
+                    return DropdownMenuItem<String>(
+                      value: state,
+                      child: Text(
+                        state,
+                        style: iregular.copyWith(fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                ),
                 SizedBox(height: height/36,),
                 TextFormField(
                     controller:controller._pincodeController,
-                    validator: (value) => controller.validateNotEmpty(value, "Pincode"),
+                    maxLength: 6,
                     keyboardType: TextInputType.number,
+                    validator: (value) => controller.validateNotEmpty(value, "Pincode"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
@@ -339,6 +432,7 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                       hintText: 'Pincode'.tr,
                       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
                       filled: true,
+                      counterText: '',
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
@@ -372,8 +466,8 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                           dob: controller._dateController.text,
                           gender: selectedGender ?? "male",
                           address: controller._addressController.text,
-                          city: controller._cityController.text,
-                          state: controller._stateController.text,
+                          city: controller.cityValue.value,
+                          state: controller.stateValue.value,
                           pincode: controller._pincodeController.text);
                     }
                   },
@@ -401,11 +495,12 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
     );
   }
   void dobPicker () async{
+    final DateTime today = DateTime.now(); // ✅ Declare today
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+        initialDate: DateTime(today.year - 18, today.month, today.day),
+        firstDate: DateTime(1950, 8),
+        lastDate: DateTime(today.year - 18, today.month, today.day)
     );
 
     if (pickedDate != null) {
@@ -430,6 +525,8 @@ class ebikeEditProfile extends GetxController{
   final TextEditingController _businessNameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var isLoading = false.obs;
+  var cityValue = ''.obs;
+  var stateValue = ''.obs;
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required';
