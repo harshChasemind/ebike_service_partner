@@ -136,6 +136,8 @@ class _AddFreeancerAccountState extends State<AddFreeancerAccount> {
                 SizedBox(height: height/36,),
                 TextFormField(
                     controller: controller._mobileController,
+                    maxLength: 10,
+                    keyboardType: TextInputType.number,
                     validator: controller.validateMobile,
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -144,6 +146,7 @@ class _AddFreeancerAccountState extends State<AddFreeancerAccount> {
                       hintText: 'your_mobile_no'.tr,
                       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
                       filled: true,
+                      counterText: '',
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Image.asset(DoctorPngimage.iconMobile,height: height/36,),
@@ -281,6 +284,8 @@ class _AddFreeancerAccountState extends State<AddFreeancerAccount> {
                 SizedBox(height: height/36,),
                 TextFormField(
                     controller:controller._pincodeController,
+                    maxLength: 6,
+                    keyboardType: TextInputType.number,
                     validator: (value) => controller.validateNotEmpty(value, "Pincode"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -289,6 +294,7 @@ class _AddFreeancerAccountState extends State<AddFreeancerAccount> {
                       hintText: 'Pincode'.tr,
                       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
                       filled: true,
+                      counterText: '',
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textgrey),

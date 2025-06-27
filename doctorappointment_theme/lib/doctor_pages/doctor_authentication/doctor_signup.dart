@@ -28,7 +28,7 @@ class _DoctorSignupState extends State<DoctorSignup> {
   String? selectedType;
   String? selectedGender;
 
-  List<String> types = ['Sub Partner', 'Partner'];
+  List<String> types = ['Partner'];
   List<String> genders = ['Male', 'Female', 'Other'];
 
   @override
@@ -416,12 +416,15 @@ class _DoctorSignupState extends State<DoctorSignup> {
       ),
     );
   }
+
   void dobPicker () async{
+    final DateTime today = DateTime.now(); // ✅ Declare today
+
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+        initialDate: DateTime(today.year - 18, today.month, today.day),
+        firstDate: DateTime(1950, 8),
+        lastDate: DateTime(today.year - 18, today.month, today.day)
     );
 
     if (pickedDate != null) {

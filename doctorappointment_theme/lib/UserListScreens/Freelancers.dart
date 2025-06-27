@@ -246,7 +246,7 @@ class FreelancersController extends GetxController {
 
     isLoading.value = false;
 
-    if (response != null && response is Map && response['status'] == true) {
+    if (response != null && response is Map && response['statusCode'] == 200) {
       subPartners.value = response['data'];
     } else {
       Get.snackbar("Error", "Failed to fetch sub partners");
@@ -254,7 +254,7 @@ class FreelancersController extends GetxController {
   }
   Future<void> fetchSubPartnersFilter(String filter) async {
     final response = await ApiService.Freelancers(filter);
-    if (response != null && response is Map && response['status'] == true) {
+    if (response != null && response is Map && response['statusCode'] == 200) {
       subPartners.value = response['data'];
     } else {
       Get.snackbar("Error", "Failed to fetch sub partners");

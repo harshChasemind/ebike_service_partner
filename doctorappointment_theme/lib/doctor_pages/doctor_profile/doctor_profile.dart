@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../ApiService/ApiService.dart';
+import '../../UserListScreens/ShopOwners.dart';
 import '../../main.dart';
 import 'doctor_Referral.dart';
 import 'doctor_patients.dart';
@@ -146,11 +147,11 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
                   splashColor: DoctorColor.transparent,
                   highlightColor: DoctorColor.transparent,
                   onTap: () {
-                    // Navigator.push(context, MaterialPageRoute(
-                    //   builder: (context) {
-                    //     return SubpartnerList(title: "My Sub-Partners");
-                    //   },
-                    // ));
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return SubpartnerList(title: "My Sub-Partners");
+                      },
+                    ));
                   },
                   child: Row(
                     children: [
@@ -166,14 +167,14 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
                 const Divider(),
                 SizedBox(height: height/120,),
                 InkWell(
-                  splashColor: DoctorColor.transparent,
+                  splashColor: DoctorColor.transparent, 
                   highlightColor: DoctorColor.transparent,
                   onTap: () {
-                    // Navigator.push(context, MaterialPageRoute(
-                    //   builder: (context) {
-                    //     return SubpartnerList(title: "Freelancer");
-                    //   },
-                    // ));
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return ShopOwnersList(title: "Shop Owners",);
+                      },
+                    ));
                   },
                   child: Row(
                     children: [

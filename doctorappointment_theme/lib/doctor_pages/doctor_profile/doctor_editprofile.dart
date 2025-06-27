@@ -330,8 +330,9 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                 SizedBox(height: height/36,),
                 TextFormField(
                     controller:controller._pincodeController,
-                    validator: (value) => controller.validateNotEmpty(value, "Pincode"),
+                    maxLength: 6,
                     keyboardType: TextInputType.number,
+                    validator: (value) => controller.validateNotEmpty(value, "Pincode"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
@@ -339,6 +340,7 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                       hintText: 'Pincode'.tr,
                       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
                       filled: true,
+                      counterText: '',
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
@@ -401,11 +403,12 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
     );
   }
   void dobPicker () async{
+    final DateTime today = DateTime.now(); // ✅ Declare today
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+        initialDate: DateTime(today.year - 18, today.month, today.day),
+        firstDate: DateTime(1950, 8),
+        lastDate: DateTime(today.year - 18, today.month, today.day)
     );
 
     if (pickedDate != null) {
