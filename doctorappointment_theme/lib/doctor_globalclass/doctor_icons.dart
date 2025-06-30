@@ -1,5 +1,6 @@
 class DoctorPngimage {
   static String splash = "assets/assetN/2.jpg";
+  static String splash2 = "assets/assetN/partners_icon_splash.png";
   static String srcreen1 = "assets/doctor_asset/doctor_pngimage/srcreen1.png";
   static String screen2 = "assets/doctor_asset/doctor_pngimage/screen2.png";
   static String screen3 = "assets/doctor_asset/doctor_pngimage/screen3.png";

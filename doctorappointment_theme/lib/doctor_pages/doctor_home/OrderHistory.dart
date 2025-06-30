@@ -81,7 +81,8 @@ class _OrderhistoryState extends State<Orderhistory> {
         appBar: AppBar(
           surfaceTintColor:
               themedata.isdark ? DoctorColor.black : DoctorColor.white,
-          title: Text("Order History" , style: imedium.copyWith(fontSize: 16),),
+          // title: Text("Order History" , style: imedium.copyWith(fontSize: 16),),
+          title: Text("Coming Soon", style: imedium.copyWith(fontSize: 16,color: Colors.red),),
           // leading: Icon(Icons.arrow_back , size: 20,),
           actions: [
             InkWell(

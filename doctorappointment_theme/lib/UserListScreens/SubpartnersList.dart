@@ -45,7 +45,10 @@ class _SubpartnerListState extends State<SubpartnerList> {
       appBar: AppBar(
         surfaceTintColor: themedata.isdark ? DoctorColor.black : DoctorColor.white,
         title: const Text("Sub-Partner"),
-        leading: const Icon(Icons.arrow_back, size: 20),
+        // leading: const Icon(Icons.arrow_back, size: 20),
+        leading: Navigator.of(context).canPop() ? IconButton(onPressed: (){
+          Navigator.of(context).pop();
+        }, icon: Icon(Icons.arrow_back,size: 20)) : null,
         actions: [
           Stack(
             children: [

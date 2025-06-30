@@ -47,7 +47,10 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
       appBar: AppBar(
         surfaceTintColor: themedata.isdark ? DoctorColor.black : DoctorColor.white,
         title: const Text("Shop-Owners"),
-        leading: const Icon(Icons.arrow_back, size: 20),
+        // leading: const Icon(Icons.arrow_back, size: 20),
+        leading: Navigator.of(context).canPop() ? IconButton(onPressed: (){
+          Navigator.of(context).pop();
+        }, icon: Icon(Icons.arrow_back,size: 20)) : null,
         actions: [
           Stack(
             children: [

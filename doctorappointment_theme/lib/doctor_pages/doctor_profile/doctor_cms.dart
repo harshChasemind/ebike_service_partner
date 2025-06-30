@@ -29,11 +29,12 @@ class _KidsCmsState extends State<DoctorCms> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         surfaceTintColor: DoctorColor.white,
-        title: Text(widget.type == "privacy"
-            ? "Privacy_policy".tr
-            : widget.type == "terms"
-            ? "Terms_Conditions".tr
-            : "About_Us".tr,style: isemibold.copyWith(fontSize: 20),),
+        // title: Text(widget.type == "privacy"
+        //     ? "Privacy_policy".tr
+        //     : widget.type == "terms"
+        //     ? "Terms_Conditions".tr
+        //     : "About_Us".tr,style: isemibold.copyWith(fontSize: 20),),
+        title: Text("Coming Soon",style: isemibold.copyWith(fontSize: 20,color: Colors.red),),
       ),
 
       body: Padding(

@@ -41,8 +41,12 @@ class _EbikewalletState extends State<Ebikewallet> {
         appBar: AppBar(
           surfaceTintColor:
               themedata.isdark ? DoctorColor.black : DoctorColor.white,
-          title: Text("Wallet"),
-          leading: Icon(Icons.arrow_back , size: 20,),
+          // title: Text("Wallet"),
+          title: Text("Coming Soon",style: imedium.copyWith(fontSize: 16,color: Colors.red),),
+          // leading: Icon(Icons.arrow_back , size: 20,),
+          leading: Navigator.of(context).canPop() ? IconButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, icon: Icon(Icons.arrow_back,size: 20)) : null,
           actions: [
         Stack(
           children: [
