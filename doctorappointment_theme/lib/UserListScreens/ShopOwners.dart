@@ -122,7 +122,7 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
                   itemBuilder: (context, index) {
                     final partner = controller.subPartners[index];
                     return GestureDetector(
-                      onTap: () => Get.to(() => ShopOwnerDetails(userId:partner['parent_id'] ,)),
+                      onTap: () => Get.to(() => ShopOwnerDetails(userId:partner['_id'] ,)),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
@@ -196,9 +196,9 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
                                   ),
                                   Row(
                                     children: [
-                                      const Icon(Icons.circle, size: 12, color: Colors.green),
+                                      Icon(Icons.circle, size: 12,  color: partner['kyc_status'] == false ? Colors.yellow[800] : Colors.green),
                                       const SizedBox(width: 4),
-                                      Text(partner['status'] ?? 'Active'),
+                                      Text(partner['kyc_status'] == false ? 'InActive' : 'Active'),
                                     ],
                                   ),
                                 ],

@@ -31,7 +31,62 @@ class _PartnerAccountState extends State<PartnerAccount> {
 
   List<String> types = ['Shop Owner', 'Freelancer'];
   List<String> genders = ['Male', 'Female', 'Other'];
-
+  final List<String> cityList = [
+    "Ahmedabad",
+    "Bangalore",
+    "Chennai",
+    "Delhi",
+    "Dhenkanal",
+    "Faridabad",
+    "Ghaziabad",
+    "Gr Noida",
+    "Gurgaon",
+    "Howrah",
+    "Hyderabad",
+    "Jaipur",
+    "Kolkata",
+    "Mohali",
+    "Mumbai",
+    "Noida",
+    "Patna",
+    "Portblair",
+    "Pune",
+    "Surat",
+    "Suratgarh",
+    "Thane",
+    "Zirakpur"
+  ];
+  final List<String> stateList = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Delhi",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal"
+  ];
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
@@ -75,6 +130,12 @@ class _PartnerAccountState extends State<PartnerAccount> {
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.red)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
                     )),
                 SizedBox(height: height/36,),
 
@@ -97,6 +158,12 @@ class _PartnerAccountState extends State<PartnerAccount> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
                       focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.red)),
+                      border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
                     )),
@@ -158,39 +225,51 @@ class _PartnerAccountState extends State<PartnerAccount> {
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.red)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
                     )),
                 SizedBox(height: height/36,),
 
                 // Gender Dropdown
 
-                Container(
-                  decoration: BoxDecoration(
-                    color: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: DoctorColor.border),
+                DropdownButtonFormField<String>(
+                  decoration:  InputDecoration(
+                    fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:  BorderSide(color: DoctorColor.border)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:  BorderSide(color: DoctorColor.border)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:  BorderSide(color: DoctorColor.red)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:  BorderSide(color: DoctorColor.border)),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                    hint: Text(
-                      'Select Gender',
-                      style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
-                    ),
-                    value: selectedGender,
-                    items: genders.map((gender) {
-                      return DropdownMenuItem(
-                        value: gender,
-                        child: Text(gender, style: iregular.copyWith(fontSize: 14)),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedGender = value;
-                      });
-                    },
+                  hint: Text(
+                    'Select Gender',
+                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
                   ),
+                  value: selectedGender,
+                  validator: (value) => controller.validateNotEmpty(value, "Gender"),
+                  items: genders.map((gender) {
+                    return DropdownMenuItem(
+                      value: gender,
+                      child: Text(gender, style: iregular.copyWith(fontSize: 14)),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedGender = value;
+                    });
+                  },
                 ),
                 // TextFormField(
                 //     scrollPadding: EdgeInsets.only(
@@ -225,62 +304,116 @@ class _PartnerAccountState extends State<PartnerAccount> {
                       filled: true,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textgrey),
+                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
                       ),
                       hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
                       focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.red)),
+                      border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
                     )),
                 SizedBox(height: height/36,),
-                TextFormField(
-                    controller:controller._cityController,
-                    validator: (value) => controller.validateNotEmpty(value, "City"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                    decoration: InputDecoration(
-                      hintText: 'City'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textgrey),
+                DropdownButtonFormField<String>(
+                  value: controller.cityValue.value.isNotEmpty ? controller.cityValue.value : null,
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  onChanged: (value) {
+                    controller.cityValue.value = value ?? '';
+                  },
+                  validator: (value) =>
+                      controller.validateNotEmpty(value, "City"),
+                  decoration: InputDecoration(
+                    hintText: 'City'.tr,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                    filled: true,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        DoctorPngimage.iconBuilding,
+                        height: height / 36,
+                        color: DoctorColor.textgrey,
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
+                    ),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.red)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border)),
+                  ),
+                  items: cityList.map((city) {
+                    return DropdownMenuItem<String>(
+                      value: city,
+                      child: Text(
+                        city,
+                        style: iregular.copyWith(fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                ),
                 SizedBox(height: height/36,),
-                TextFormField(
-                    controller:controller._stateController,
-                    validator: (value) => controller.validateNotEmpty(value, "State"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                    decoration: InputDecoration(
-                      hintText: 'State'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textgrey),
+                DropdownButtonFormField<String>(
+                  value: controller.stateValue.value.isNotEmpty ? controller.stateValue.value : null,
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  onChanged: (value) {
+                    controller.stateValue.value = value ?? '';
+                  },
+                  validator: (value) => controller.validateNotEmpty(value, "State"),
+                  decoration: InputDecoration(
+                    hintText: 'State'.tr,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                    filled: true,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        DoctorPngimage.iconBuilding,
+                        height: height / 36,
+                        color: DoctorColor.textgrey,
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
+                    ),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.red)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border)),
+                  ),
+                  items: stateList.map((state) {
+                    return DropdownMenuItem<String>(
+                      value: state,
+                      child: Text(
+                        state,
+                        style: iregular.copyWith(fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                ),
                 SizedBox(height: height/36,),
                 TextFormField(
                     controller:controller._pincodeController,
@@ -297,13 +430,19 @@ class _PartnerAccountState extends State<PartnerAccount> {
                       counterText: '',
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textgrey),
+                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
                       ),
                       hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
                       focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.border)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: DoctorColor.red)),
+                      border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
                     )),
@@ -324,8 +463,8 @@ class _PartnerAccountState extends State<PartnerAccount> {
                           // dob: controller._dateController.text,
                           gender: selectedGender ?? "male",
                           address: controller._addressController.text,
-                          city: controller._cityController.text,
-                          state: controller._stateController.text,
+                          city: controller.cityValue.value,
+                          state: controller.stateValue.value,
                           pincode: controller._pincodeController.text.toInt());
                     }
                   },
@@ -461,6 +600,8 @@ class DoctorAddSUbPartnerController extends GetxController {
   final TextEditingController _pincodeController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var isLoading = false.obs;
+  var cityValue = ''.obs;
+  var stateValue = ''.obs;
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required';
@@ -514,6 +655,13 @@ class DoctorAddSUbPartnerController extends GetxController {
     isLoading.value = false;
 
     if (response != null && response['statusCode'] == 200) {
+      _nameController.clear();
+      emailController.clear();
+      _mobileController.clear();
+      _addressController.clear();
+      _cityController.clear();
+      _stateController.clear();
+      _pincodeController.clear();
       Get.to(DoctorDashboard(0));
     } else {
       Get.snackbar("Error", response['message'] ?? "OTP verification failed");

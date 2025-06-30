@@ -13,7 +13,7 @@ class DoctorColor{
   // static const bgcolor = Color(0xffF9FAFB);
   static const bgcolor = Color(0xffe8eaec);
   static const border = Color(0xffD1D5DB);
-  static const red = Color(0xffE52323);
+  static const red = Color(0xffef3d3d);
   static const lightgray = Color(0xffF3F4F6);
   static const background = Color(0xfff6f8f8);
   static const blueBG = Color(0xff283891);

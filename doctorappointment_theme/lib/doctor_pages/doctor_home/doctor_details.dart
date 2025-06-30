@@ -131,7 +131,7 @@ class _SubPartnerDetailsState extends State<SubPartnerDetails> {
                     fit: BoxFit.cover,
                     placeholder: (context, url) => CircularProgressIndicator(strokeWidth: 2),
                     errorWidget: (context, url, error) => Image.asset(
-                      'assets/images/user1.jpg',
+                      DoctorPngimage.up1,
                       width: 50,
                       height: 50,
                       fit: BoxFit.cover,
@@ -421,8 +421,18 @@ class _SubPartnerDetailsState extends State<SubPartnerDetails> {
                 ),
 
                 // KYC Section
-                SizedBox(height: height/36),
-                Text("Kyc", style: isemibold.copyWith(fontSize: 20)),
+                Visibility(
+                  visible:partner["aadhaar_front"] != null || partner['pan_card_image'] != null || partner['udyam_aadhar_certificate'] != null  ,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: height/36),
+                      Text("Kyc", style: isemibold.copyWith(fontSize: 20)),
+                    ],
+                  ),
+                ),
+
                 SizedBox(height: height/56),
                 if (partner["aadhaar_front"] != null) ...[
                   Text("Aadhar Card", style: iregular.copyWith(fontSize: 16)),

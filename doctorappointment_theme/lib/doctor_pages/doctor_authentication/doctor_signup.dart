@@ -30,7 +30,62 @@ class _DoctorSignupState extends State<DoctorSignup> {
 
   List<String> types = ['Partner'];
   List<String> genders = ['Male', 'Female', 'Other'];
-
+  final List<String> cityList = [
+    "Ahmedabad",
+    "Bangalore",
+    "Chennai",
+    "Delhi",
+    "Dhenkanal",
+    "Faridabad",
+    "Ghaziabad",
+    "Gr Noida",
+    "Gurgaon",
+    "Howrah",
+    "Hyderabad",
+    "Jaipur",
+    "Kolkata",
+    "Mohali",
+    "Mumbai",
+    "Noida",
+    "Patna",
+    "Portblair",
+    "Pune",
+    "Surat",
+    "Suratgarh",
+    "Thane",
+    "Zirakpur"
+  ];
+  final List<String> stateList = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Delhi",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal"
+  ];
   @override
   Widget build(BuildContext context) {
 
@@ -228,35 +283,6 @@ class _DoctorSignupState extends State<DoctorSignup> {
                 ),
                 SizedBox(height: height/36,),
                 TextFormField(
-                    controller: controller._businessNameController,
-                    validator: (value) => controller.validateNotEmpty(value, "Business Name"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                    decoration: InputDecoration(
-                      hintText: 'Busiess Name'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textgrey),
-                      ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.red)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
-                SizedBox(height: height/36,),
-                TextFormField(
                     controller:controller._addressController,
                     validator: (value) => controller.validateNotEmpty(value, "Address"),
                     scrollPadding: EdgeInsets.only(
@@ -285,66 +311,103 @@ class _DoctorSignupState extends State<DoctorSignup> {
                           borderSide: const BorderSide(color: DoctorColor.border)),
                     )),
                 SizedBox(height: height/36,),
-                TextFormField(
-                    controller:controller._cityController,
-                    validator: (value) => controller.validateNotEmpty(value, "City"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                    decoration: InputDecoration(
-                      hintText: 'City'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
+                DropdownButtonFormField<String>(
+                  value: controller.cityValue.value.isNotEmpty ? controller.cityValue.value : null,
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  onChanged: (value) {
+                    controller.cityValue.value = value ?? '';
+                  },
+                  validator: (value) =>
+                      controller.validateNotEmpty(value, "City"),
+                  decoration: InputDecoration(
+                    hintText: 'City'.tr,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                    filled: true,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        DoctorPngimage.iconBuilding,
+                        height: height / 36,
+                        color: DoctorColor.textgrey,
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.red)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
+                    ),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.red)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border)),
+                  ),
+                  items: cityList.map((city) {
+                    return DropdownMenuItem<String>(
+                      value: city,
+                      child: Text(
+                        city,
+                        style: iregular.copyWith(fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                ),
                 SizedBox(height: height/36,),
-                TextFormField(
-                    controller:controller._stateController,
-                    validator: (value) => controller.validateNotEmpty(value, "State"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                    decoration: InputDecoration(
-                      hintText: 'State'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
+                DropdownButtonFormField<String>(
+                  value: controller.stateValue.value.isNotEmpty ? controller.stateValue.value : null,
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  onChanged: (value) {
+                    controller.stateValue.value = value ?? '';
+                  },
+                  validator: (value) => controller.validateNotEmpty(value, "State"),
+                  decoration: InputDecoration(
+                    hintText: 'State'.tr,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                    filled: true,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        DoctorPngimage.iconBuilding,
+                        height: height / 36,
+                        color: DoctorColor.textgrey,
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.red)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
+                    ),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.red)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border)),
+                  ),
+                  items: stateList.map((state) {
+                    return DropdownMenuItem<String>(
+                      value: state,
+                      child: Text(
+                        state,
+                        style: iregular.copyWith(fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                ),
                 SizedBox(height: height/36,),
                 TextFormField(
                     controller:controller._pincodeController,
+                    maxLength: 6,
                     validator: (value) => controller.validateNotEmpty(value, "Pincode"),
                     keyboardType: TextInputType.number,
                     scrollPadding: EdgeInsets.only(
@@ -388,8 +451,8 @@ class _DoctorSignupState extends State<DoctorSignup> {
                           dob: controller._dateController.text,
                           gender: selectedGender ?? "male",
                           address: controller._addressController.text,
-                          city: controller._cityController.text,
-                          state: controller._stateController.text,
+                          city: controller.cityValue.value,
+                          state: controller.stateValue.value,
                           pincode: controller._pincodeController.text.toInt());
                     }
                   },
@@ -449,6 +512,8 @@ class DoctorSignupController extends GetxController {
   final TextEditingController _businessNameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var isLoading = false.obs;
+  var cityValue = ''.obs;
+  var stateValue = ''.obs;
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required';
@@ -461,6 +526,8 @@ class DoctorSignupController extends GetxController {
   String? validateNotEmpty(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
       return "$fieldName is required";
+    } else if(fieldName== "Pincode" && value.length !=6){
+      return "Only 6 digit pincode allowed";
     }
     return null;
   }

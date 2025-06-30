@@ -35,7 +35,7 @@ class _DoctorSigninState extends State<DoctorSignin> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width / 36, vertical: height / 36),
           child: Form(
-            key: controller.formKey,
+            key: controller.formKeySignIN,
             child: Column(
               children: [
                 SizedBox(height: height / 24),
@@ -125,7 +125,7 @@ class _DoctorSigninState extends State<DoctorSignin> {
 }
 
 class DoctorSigninController extends GetxController {
-  final formKey = GlobalKey<FormState>();
+  final formKeySignIN = GlobalKey<FormState>();
   final mobileController = TextEditingController();
   var isLoading = false.obs;
 
@@ -139,7 +139,7 @@ class DoctorSigninController extends GetxController {
   }
 
   Future<void> sendOtp(BuildContext context) async {
-    if (!formKey.currentState!.validate()) return;
+    if (!formKeySignIN.currentState!.validate()) return;
 
     isLoading.value = true;
     final response = await ApiService.login(
@@ -149,10 +149,12 @@ class DoctorSigninController extends GetxController {
 
     isLoading.value = false;
     if (response != null && response is Map && response['statusCode'] == 200) {
+
       // You can store the ID if needed
       String userId = response['data']['_id'];
       print("User ID: $userId");
-      Get.to(() => DoctorVerifyotp(userId: userId, mobileNumber: mobileController.text.trim(),));
+      await Get.to(() => DoctorVerifyotp(userId: userId, mobileNumber: mobileController.text.trim(),));
+      mobileController.clear();
     } else if (response != null && response is Map && response.containsKey('message')) {
       Get.snackbar("Error", response['message']);
     } else {

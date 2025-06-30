@@ -115,8 +115,10 @@ class _MykycState extends State<Mykyc> {
               padding: EdgeInsets.symmetric(
                   horizontal: width / 36, vertical: height / 36),
               child: Form(
-                key: controller.formKey,
-                child: Column(children: [
+                key: controller.formKeyKyc,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                   SizedBox(
                     height: height / 36,
                   ),
@@ -185,20 +187,26 @@ class _MykycState extends State<Mykyc> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: viewFileAadhar,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Image.asset(DoctorPngimage.iconeye,
-                              height: height / 30),
+                      Visibility(
+                        visible: selectedFilePathAadhar != null,
+                        child: GestureDetector(
+                          onTap: viewFileAadhar,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Image.asset(DoctorPngimage.iconeye,
+                                height: height / 30),
+                          ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: deleteFileAadhar,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Image.asset(DoctorPngimage.icondelete,
-                              height: height / 30),
+                      Visibility(
+                        visible: selectedFilePathAadhar != null,
+                        child: GestureDetector(
+                          onTap: deleteFileAadhar,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Image.asset(DoctorPngimage.icondelete,
+                                height: height / 30),
+                          ),
                         ),
                       ),
                     ],
@@ -208,7 +216,7 @@ class _MykycState extends State<Mykyc> {
                       padding: const EdgeInsets.only(top: 5, left: 12),
                       child: Text(
                         aadharFrontError!,
-                        style: TextStyle(color: Colors.red, fontSize: 12),
+                        style: TextStyle(color: Colors.red[900], fontSize: 12),
                       ),
                     ),
                   SizedBox(
@@ -234,18 +242,24 @@ class _MykycState extends State<Mykyc> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: viewFileAadharBack,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Image.asset(DoctorPngimage.iconeye, height: height / 30),
+                      Visibility(
+                        visible: selectedFilePathAadharBack != null,
+                        child: GestureDetector(
+                          onTap: viewFileAadharBack,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Image.asset(DoctorPngimage.iconeye, height: height / 30),
+                          ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: deleteFileAadharBack,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Image.asset(DoctorPngimage.icondelete, height: height / 30),
+                      Visibility(
+                        visible: selectedFilePathAadharBack != null,
+                        child: GestureDetector(
+                          onTap: deleteFileAadharBack,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Image.asset(DoctorPngimage.icondelete, height: height / 30),
+                          ),
                         ),
                       ),
                     ],
@@ -255,7 +269,7 @@ class _MykycState extends State<Mykyc> {
                       padding: const EdgeInsets.only(top: 5, left: 12),
                       child: Text(
                         aadharBackError!,
-                        style: TextStyle(color: Colors.red, fontSize: 12),
+                        style: TextStyle(color: Colors.red[900], fontSize: 12),
                       ),
                     ),
                   SizedBox(
@@ -321,36 +335,47 @@ class _MykycState extends State<Mykyc> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: viewFile,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Image.asset(DoctorPngimage.iconeye, height: height / 30),
+                      Visibility(
+                        visible: selectedFilePath != null,
+                        child: GestureDetector(
+                          onTap: viewFile,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Image.asset(DoctorPngimage.iconeye, height: height / 30),
+                          ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: deleteFile,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Image.asset(DoctorPngimage.icondelete, height: height / 30),
+                      Visibility(
+                        visible: selectedFilePath != null,
+                        child: GestureDetector(
+                          onTap: deleteFile,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Image.asset(DoctorPngimage.icondelete, height: height / 30),
+                          ),
                         ),
                       ),
                     ],
                   ),
                   if (panCardError != null)
                     Padding(
-                      padding: const EdgeInsets.only(top: 5, left: 0,right: 10), // aligns with start of Row
+                      padding: const EdgeInsets.only(top: 5, left: 12,right: 10), // aligns with start of Row
                       child: SizedBox(
                         width: width / 1.3, // match the input width
                         child: Text(
                           panCardError!,
-                          style: const TextStyle(color: Colors.red, fontSize: 12),
+                          style:  TextStyle(color: Colors.red[900], fontSize: 12),
                         ),
                       ),
                     ),
                   SizedBox(
                     height: height / 26,
                   ),
+                  selectedFilePath != null
+                      && selectedFilePathAadharBack != null
+                      && selectedFilePathAadhar != null
+                      &&controller.panCardNumber.text != ""
+                      &&controller.AadharNumber.text != "" ?
                   InkWell(
                     splashColor: DoctorColor.transparent,
                     highlightColor: DoctorColor.transparent,
@@ -361,7 +386,7 @@ class _MykycState extends State<Mykyc> {
                         panCardError = selectedFilePath == null ? "Please upload PAN Card" : null;
                       });
 
-                      if (controller.formKey.currentState!.validate() &&
+                      if (controller.formKeyKyc.currentState!.validate() &&
                           selectedFilePath != null &&
                           selectedFilePathAadhar != null &&
                           selectedFilePathAadharBack != null) {
@@ -389,7 +414,27 @@ class _MykycState extends State<Mykyc> {
                         ),
                       ),
                     ),
-                  ),
+                  ) :  InkWell(
+                    splashColor: DoctorColor.transparent,
+                    highlightColor: DoctorColor.transparent,
+                    onTap: () {
+                      
+                    },
+                    child: Container(
+                      height: height / 15,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: DoctorColor.blueBG.withOpacity(0.5)),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width / 22),
+                        child: Center(
+                          child: Text("Submit".tr,
+                              style: imedium.copyWith(
+                                  fontSize: 16, color: DoctorColor.white)),
+                        ),
+                      ),
+                    ),
+                  )
                 ]),
               ))),
     );
@@ -457,7 +502,7 @@ class EbikeKyc extends GetxController {
   final TextEditingController udyamAadharNumber = TextEditingController();
   final TextEditingController AadharNumber = TextEditingController();
   final TextEditingController panCardNumber = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  final formKeyKyc = GlobalKey<FormState>();
   final mobileController = TextEditingController();
   var isLoading = false.obs;
   //
@@ -472,6 +517,14 @@ class EbikeKyc extends GetxController {
   String? validateNotEmpty(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
       return "$fieldName is required";
+    } else if (fieldName == "Aadhar Number") {
+      if (!RegExp(r'^\d+$').hasMatch(value)) {
+        return "Only numbers are allowed";
+      }
+    }else if (fieldName == "Aadhar Number" && value.length != 12) {
+      if (!RegExp(r'^\d{12}$').hasMatch(value)) {
+        return "Aadhar Number must be exactly 12 digits";
+      }
     }
     return null;
   }
@@ -491,10 +544,11 @@ class EbikeKyc extends GetxController {
       AadharcardNumber: AadharCardNumber,
       PanCardNum: PanCardNumber,
     );
-    isLoading.value = false;
+    isLoading.value = true;
 
     if (response != null && response['success'] == true) {
       // Get.to(DoctorDashboard("0"));
+      isLoading.value = false;
       Get.back();
     } else {
       Get.snackbar("Error", response['message'] ?? "OTP verification failed");

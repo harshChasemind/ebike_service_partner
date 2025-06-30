@@ -81,7 +81,10 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
       body: Obx((){
         final profile = profileController.profileData;
         final imageUrl = profileController.profileImageUrl.value;
-        return SingleChildScrollView(
+        return profileController.isLoading.value
+            ? Center(
+          child: CircularProgressIndicator(),
+        ):  SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
             child: Column(
@@ -561,7 +564,7 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
                           highlightColor: DoctorColor.transparent,
                           onTap: () {
                             // Get.to(() => const DoctorSignin());
-                            Get.to(() => const DoctorOnboarding());
+                            Get.offAll(DoctorOnboarding());
                           },
                           child: Container(
                             height: height / 20,
