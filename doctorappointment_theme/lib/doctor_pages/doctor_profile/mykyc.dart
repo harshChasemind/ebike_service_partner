@@ -187,20 +187,26 @@ class _MykycState extends State<Mykyc> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: viewFileAadhar,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Image.asset(DoctorPngimage.iconeye,
-                              height: height / 30),
+                      Visibility(
+                        visible: selectedFilePathAadhar != null,
+                        child: GestureDetector(
+                          onTap: viewFileAadhar,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Image.asset(DoctorPngimage.iconeye,
+                                height: height / 30),
+                          ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: deleteFileAadhar,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Image.asset(DoctorPngimage.icondelete,
-                              height: height / 30),
+                      Visibility(
+                        visible: selectedFilePathAadhar != null,
+                        child: GestureDetector(
+                          onTap: deleteFileAadhar,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Image.asset(DoctorPngimage.icondelete,
+                                height: height / 30),
+                          ),
                         ),
                       ),
                     ],
@@ -236,18 +242,24 @@ class _MykycState extends State<Mykyc> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: viewFileAadharBack,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Image.asset(DoctorPngimage.iconeye, height: height / 30),
+                      Visibility(
+                        visible: selectedFilePathAadharBack != null,
+                        child: GestureDetector(
+                          onTap: viewFileAadharBack,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Image.asset(DoctorPngimage.iconeye, height: height / 30),
+                          ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: deleteFileAadharBack,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Image.asset(DoctorPngimage.icondelete, height: height / 30),
+                      Visibility(
+                        visible: selectedFilePathAadharBack != null,
+                        child: GestureDetector(
+                          onTap: deleteFileAadharBack,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Image.asset(DoctorPngimage.icondelete, height: height / 30),
+                          ),
                         ),
                       ),
                     ],
@@ -323,18 +335,24 @@ class _MykycState extends State<Mykyc> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: viewFile,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Image.asset(DoctorPngimage.iconeye, height: height / 30),
+                      Visibility(
+                        visible: selectedFilePath != null,
+                        child: GestureDetector(
+                          onTap: viewFile,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Image.asset(DoctorPngimage.iconeye, height: height / 30),
+                          ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: deleteFile,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Image.asset(DoctorPngimage.icondelete, height: height / 30),
+                      Visibility(
+                        visible: selectedFilePath != null,
+                        child: GestureDetector(
+                          onTap: deleteFile,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Image.asset(DoctorPngimage.icondelete, height: height / 30),
+                          ),
                         ),
                       ),
                     ],
@@ -353,7 +371,11 @@ class _MykycState extends State<Mykyc> {
                   SizedBox(
                     height: height / 26,
                   ),
-                  controller.isLoading.value == false ?
+                  selectedFilePath != null
+                      && selectedFilePathAadharBack != null
+                      && selectedFilePathAadhar != null
+                      &&controller.panCardNumber.text != ""
+                      &&controller.AadharNumber.text != "" ?
                   InkWell(
                     splashColor: DoctorColor.transparent,
                     highlightColor: DoctorColor.transparent,
@@ -392,7 +414,7 @@ class _MykycState extends State<Mykyc> {
                         ),
                       ),
                     ),
-                  ) : InkWell(
+                  ) :  InkWell(
                     splashColor: DoctorColor.transparent,
                     highlightColor: DoctorColor.transparent,
                     onTap: () {
@@ -412,7 +434,7 @@ class _MykycState extends State<Mykyc> {
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ]),
               ))),
     );
