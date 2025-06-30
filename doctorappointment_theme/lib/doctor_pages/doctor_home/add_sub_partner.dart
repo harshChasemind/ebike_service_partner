@@ -57,35 +57,20 @@ class _PartnerAccountState extends State<PartnerAccount> {
     "Zirakpur"
   ];
   final List<String> stateList = [
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Delhi",
-    "Goa",
     "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jharkhand",
     "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
     "Tamil Nadu",
-    "Telangana",
-    "Tripura",
+    "Delhi",
+    "Odisha",
+    "Haryana",
     "Uttar Pradesh",
-    "Uttarakhand",
-    "West Bengal"
+    "West Bengal",
+    "Telangana",
+    "Rajasthan",
+    "Punjab",
+    "Maharashtra",
+    "Bihar",
+    "Andaman & Nicobar",
   ];
   @override
   Widget build(BuildContext context) {
@@ -322,58 +307,12 @@ class _PartnerAccountState extends State<PartnerAccount> {
                     )),
                 SizedBox(height: height/36,),
                 DropdownButtonFormField<String>(
-                  value: controller.cityValue.value.isNotEmpty ? controller.cityValue.value : null,
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
-                  onChanged: (value) {
-                    controller.cityValue.value = value ?? '';
-                  },
-                  validator: (value) =>
-                      controller.validateNotEmpty(value, "City"),
-                  decoration: InputDecoration(
-                    hintText: 'City'.tr,
-                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
-                    filled: true,
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Image.asset(
-                        DoctorPngimage.iconBuilding,
-                        height: height / 36,
-                        color: DoctorColor.textblack,
-                      ),
-                    ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: DoctorColor.border),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: DoctorColor.border),
-
-                    ),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: DoctorColor.red)),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: DoctorColor.border)),
-                  ),
-                  items: cityList.map((city) {
-                    return DropdownMenuItem<String>(
-                      value: city,
-                      child: Text(
-                        city,
-                        style: iregular.copyWith(fontSize: 14),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                SizedBox(height: height/36,),
-                DropdownButtonFormField<String>(
                   value: controller.stateValue.value.isNotEmpty ? controller.stateValue.value : null,
                   style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   onChanged: (value) {
                     controller.stateValue.value = value ?? '';
+                    controller.cityValue.value = '';
+                    controller.filteredCities.value = controller.stateCityMap[value] ?? [];
                   },
                   validator: (value) => controller.validateNotEmpty(value, "State"),
                   decoration: InputDecoration(
@@ -409,6 +348,54 @@ class _PartnerAccountState extends State<PartnerAccount> {
                       value: state,
                       child: Text(
                         state,
+                        style: iregular.copyWith(fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(height: height/36,),
+                DropdownButtonFormField<String>(
+                  value: controller.cityValue.value.isNotEmpty ? controller.cityValue.value : null,
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
+                  onChanged: (value) {
+                    controller.cityValue.value = value ?? '';
+                  },
+                  validator: (value) => controller.validateNotEmpty(value, "City"),
+                  decoration: InputDecoration(
+                    hintText: 'City'.tr,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
+                    filled: true,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        DoctorPngimage.iconBuilding,
+                        height: height / 36,
+                        color: DoctorColor.textblack,
+                      ),
+                    ),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.red),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: DoctorColor.border),
+                    ),
+                  ),
+                  items: controller.filteredCities.map((city) {
+                    return DropdownMenuItem<String>(
+                      value: city,
+                      child: Text(
+                        city,
                         style: iregular.copyWith(fontSize: 14),
                       ),
                     );
@@ -602,6 +589,23 @@ class DoctorAddSUbPartnerController extends GetxController {
   var isLoading = false.obs;
   var cityValue = ''.obs;
   var stateValue = ''.obs;
+  var filteredCities = <String>[].obs;
+  final Map<String, List<String>> stateCityMap = {
+    "Gujarat": ["Ahmedabad", "Surat"],
+    "Karnataka": ["Bangalore"],
+    "Tamil Nadu": ["Chennai"],
+    "Delhi": ["Delhi"],
+    "Odisha": ["Dhenkanal"],
+    "Haryana": ["Faridabad", "Gurgaon"],
+    "Uttar Pradesh": ["Ghaziabad", "Gr Noida", "Noida"],
+    "West Bengal": ["Howrah", "Kolkata"],
+    "Telangana": ["Hyderabad"],
+    "Rajasthan": ["Jaipur", "Suratgarh"],
+    "Punjab": ["Mohali", "Zirakpur"],
+    "Maharashtra": ["Mumbai", "Pune", "Thane"],
+    "Bihar": ["Patna"],
+    "Andaman & Nicobar": ["Portblair"],
+  };
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required';
@@ -673,6 +677,13 @@ class DoctorAddSUbPartnerController extends GetxController {
     if (formKey.currentState!.validate()) {
       // Do something with the valid email
       print('Valid email: ${emailController.text}');
+    }
+  }
+  @override
+  void onInit() {
+    super.onInit();
+    if (stateValue.value.isNotEmpty) {
+      filteredCities.value = stateCityMap[stateValue.value] ?? [];
     }
   }
 }

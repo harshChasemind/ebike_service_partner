@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:doctorappointment/UserListScreens/SubpartnersList.dart';
 import 'package:doctorappointment/doctor_pages/doctor_home/doctor_list.dart';
 import 'package:doctorappointment/doctor_theme/doctor_themecontroller.dart';
@@ -7,6 +9,7 @@ import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
 
+import '../../ApiService/ApiService.dart';
 import '../../UserListScreens/Freelancers.dart';
 import '../../UserListScreens/ShopOwners.dart';
 import '../doctor_profile/doctor_notification.dart';
@@ -28,7 +31,7 @@ class _DoctorHomeState extends State<DoctorHome> {
   final themedata = Get.put(DoctorThemecontroler());
   var pageController = PageController();
   var selectedIndex = 0;
-
+  final profileController = Get.put(DoctorHomeController());
   List img = [
     DoctorPngimage.c,
     DoctorPngimage.c2,
@@ -94,10 +97,14 @@ class _DoctorHomeState extends State<DoctorHome> {
                       SizedBox(
                         width: width / 46,
                       ),
-                      Text(
-                        "Jaipur".tr,
-                        style: isemibold.copyWith(fontSize: 14),
-                      ),
+                      Obx(() {
+                        final location =
+                            profileController.profileData['city'] ?? 'Jaipur';
+                        return Text(
+                          location.toString(),
+                          style: isemibold.copyWith(fontSize: 14),
+                        );
+                      }),
                       SizedBox(
                         width: width / 56,
                       ),
@@ -332,7 +339,16 @@ class _DoctorHomeState extends State<DoctorHome> {
                           ),
                         ),
                       )),
-                  Container(
+                  InkWell(
+                    onTap: (){
+                      /*Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return const DoctorList();
+                        },));*/
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return  ShopOwnersList(title: "Shop Owners",);
+                      },));
+                    },
+                    child: Container(
                     width: width / 2.5,
                     decoration: BoxDecoration(
                         color: DoctorColor.white,
@@ -346,16 +362,7 @@ class _DoctorHomeState extends State<DoctorHome> {
                           ),
                         ]
                     ),
-                    child: InkWell(
-                        onTap: (){
-                          /*Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return const DoctorList();
-                        },));*/
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return  ShopOwnersList(title: "Shop Owners",);
-                          },));
-                        },
-                        child: Padding(
+                    child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
@@ -642,5 +649,51 @@ class _DoctorHomeState extends State<DoctorHome> {
         ),
       ),
     );
+  }
+}
+class DoctorHomeController extends GetxController {
+  var isLoading = false.obs;
+  var profileData = <String, dynamic>{}.obs;
+  var profileImageUrl = ''.obs;
+
+  @override
+  void onInit() {
+    fetchProfile();
+    super.onInit();
+  }
+
+  Future<void> fetchProfile() async {
+    isLoading.value = true;
+    try {
+      final response = await ApiService.callUserProfile();
+      if (response != null && response['statusCode'] == 200) {
+        profileData.value =
+        Map<String, dynamic>.from(response['data']); // ✅ Safe casting
+
+        final image = response['data']['profile_image'];
+        final url = response['profile_url'];
+        if (image != null && image != '') {
+          profileImageUrl.value = url + image;
+        } else {
+          profileImageUrl.value = '';
+        }
+      } else {
+        Get.snackbar("Error", response?['message'] ?? "Failed to load profile");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Something went wrong");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> updateProfileImage(
+      {required BuildContext context, required File? imageprofile}) async {
+    final response = await ApiService.uploadProfileImage(imageprofile!);
+    if (response != null && response['status'] == true) {
+      fetchProfile();
+    } else {
+      Get.snackbar("Error", response['message'] ?? "OTP verification failed");
+    }
   }
 }

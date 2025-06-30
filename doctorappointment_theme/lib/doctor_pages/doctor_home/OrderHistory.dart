@@ -83,6 +83,7 @@ class _OrderhistoryState extends State<Orderhistory> {
               themedata.isdark ? DoctorColor.black : DoctorColor.white,
           // title: Text("Order History" , style: imedium.copyWith(fontSize: 16),),
           title: Text("Coming Soon", style: imedium.copyWith(fontSize: 16,color: Colors.red),),
+          automaticallyImplyLeading: false,
           // leading: Icon(Icons.arrow_back , size: 20,),
           actions: [
             InkWell(

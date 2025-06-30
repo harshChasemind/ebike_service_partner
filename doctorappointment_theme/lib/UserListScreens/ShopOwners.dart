@@ -178,7 +178,7 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
                                           children: [
                                             Image.asset(DoctorPngimage.location, height: height / 45),
                                             const SizedBox(width: 4),
-                                            Text(partner['address'] ?? ''),
+                                            Container(width: width / 2.1,child: Text(partner['address'] ?? '')),
                                           ],
                                         ),
                                       ],

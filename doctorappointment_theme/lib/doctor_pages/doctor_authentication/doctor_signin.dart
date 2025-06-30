@@ -31,6 +31,7 @@ class _DoctorSigninState extends State<DoctorSignin> {
     width = size.width;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width / 36, vertical: height / 36),
@@ -63,10 +64,10 @@ class _DoctorSigninState extends State<DoctorSignin> {
                   // onChanged: (text){
                   //   print(controller.mobileController.text);
                   // },
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   decoration: InputDecoration(
                     hintText: 'your_mobile_no'.tr,
-                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
                     filled: true,
                     counterText: '',
                     prefixIcon: Padding(
@@ -74,9 +75,10 @@ class _DoctorSigninState extends State<DoctorSignin> {
                       child: Image.asset(
                         DoctorPngimage.iconMobile,
                         height: height / 36,
+                        color: DoctorColor.black,
                       ),
                     ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: DoctorColor.border)),
