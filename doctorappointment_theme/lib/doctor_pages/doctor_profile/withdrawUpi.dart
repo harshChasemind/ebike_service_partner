@@ -28,9 +28,14 @@ class _WithdrawmoneyUpiState extends State<WithdrawmoneyUpi> {
         surfaceTintColor:
             themedata.isdark ? DoctorColor.black : DoctorColor.white,
         title: Text("Withdrawal"),
-        leading: Icon(
-          Icons.arrow_back,
-          size: 20,
+        leading: GestureDetector(
+          onTap: (){
+            Get.back();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            size: 20,
+          ),
         ),
         actions: [
           Stack(

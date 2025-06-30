@@ -47,7 +47,11 @@ class _ShopOwnersListState extends State<ShopOwnersList> {
       appBar: AppBar(
         surfaceTintColor: themedata.isdark ? DoctorColor.black : DoctorColor.white,
         title: const Text("Shop-Owners"),
-        leading: const Icon(Icons.arrow_back, size: 20),
+        leading: GestureDetector(
+            onTap: (){
+              Get.back();
+            },
+            child: const Icon(Icons.arrow_back, size: 20)),
         actions: [
           Stack(
             children: [

@@ -42,7 +42,6 @@ class _EbikewalletState extends State<Ebikewallet> {
           surfaceTintColor:
               themedata.isdark ? DoctorColor.black : DoctorColor.white,
           title: Text("Wallet"),
-          leading: Icon(Icons.arrow_back , size: 20,),
           actions: [
         Stack(
           children: [

@@ -115,16 +115,16 @@ class _DoctorSignupState extends State<DoctorSignup> {
                     validator: (value) => controller.validateNotEmpty(value, "Name"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
                       hintText: 'Your_Name'.tr,
                       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
                       filled: true,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.user,height: height/36,),
+                        child: Image.asset(DoctorPngimage.user,height: height/36,color: DoctorColor.textblack),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -145,16 +145,16 @@ class _DoctorSignupState extends State<DoctorSignup> {
                     validator: controller.validateEmail,
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
                       hintText: 'Your_Email'.tr,
                       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
                       filled: true,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.email,height: height/36,),
+                        child: Image.asset(DoctorPngimage.email,height: height/36,color: DoctorColor.textblack),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -192,7 +192,7 @@ class _DoctorSignupState extends State<DoctorSignup> {
                   validator: (value) => controller.validateNotEmpty(value, "Account Type"),
                   hint: Text(
                     'Select Type',
-                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   ),
                   value: selectedType,
                   items: types.map((type) {
@@ -217,7 +217,7 @@ class _DoctorSignupState extends State<DoctorSignup> {
                   validator: (value) => controller.validateNotEmpty(value, "Date of birth"),
                   scrollPadding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   decoration: InputDecoration(
                     hintText: 'Date of Birth'.tr,
                     fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
@@ -226,7 +226,7 @@ class _DoctorSignupState extends State<DoctorSignup> {
                       padding: const EdgeInsets.all(15),
                       child: Image.asset(DoctorPngimage.calendar, height: height / 36),
                     ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: DoctorColor.border)),
@@ -265,7 +265,7 @@ class _DoctorSignupState extends State<DoctorSignup> {
                   ),
                   hint: Text(
                     'Select Gender',
-                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   ),
                   value: selectedGender,
                   validator: (value) => controller.validateNotEmpty(value, "Gender"),
@@ -287,16 +287,16 @@ class _DoctorSignupState extends State<DoctorSignup> {
                     validator: (value) => controller.validateNotEmpty(value, "Address"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
                       hintText: 'Address'.tr,
                       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
                       filled: true,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
+                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textblack),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -313,7 +313,7 @@ class _DoctorSignupState extends State<DoctorSignup> {
                 SizedBox(height: height/36,),
                 DropdownButtonFormField<String>(
                   value: controller.cityValue.value.isNotEmpty ? controller.cityValue.value : null,
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   onChanged: (value) {
                     controller.cityValue.value = value ?? '';
                   },
@@ -328,10 +328,10 @@ class _DoctorSignupState extends State<DoctorSignup> {
                       child: Image.asset(
                         DoctorPngimage.iconBuilding,
                         height: height / 36,
-                        color: DoctorColor.textgrey,
+                        color: DoctorColor.textblack,
                       ),
                     ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: DoctorColor.border),
@@ -361,7 +361,7 @@ class _DoctorSignupState extends State<DoctorSignup> {
                 SizedBox(height: height/36,),
                 DropdownButtonFormField<String>(
                   value: controller.stateValue.value.isNotEmpty ? controller.stateValue.value : null,
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   onChanged: (value) {
                     controller.stateValue.value = value ?? '';
                   },
@@ -375,10 +375,10 @@ class _DoctorSignupState extends State<DoctorSignup> {
                       child: Image.asset(
                         DoctorPngimage.iconBuilding,
                         height: height / 36,
-                        color: DoctorColor.textgrey,
+                        color: DoctorColor.textblack,
                       ),
                     ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: DoctorColor.border),
@@ -412,16 +412,16 @@ class _DoctorSignupState extends State<DoctorSignup> {
                     keyboardType: TextInputType.number,
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
                       hintText: 'Pincode'.tr,
                       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
                       filled: true,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
+                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textblack),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),

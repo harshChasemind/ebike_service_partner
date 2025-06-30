@@ -71,6 +71,7 @@ class _MykycState extends State<Mykyc> {
     width = size.width;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         surfaceTintColor:
             themedata.isdark ? DoctorColor.black : DoctorColor.white,
@@ -88,7 +89,7 @@ class _MykycState extends State<Mykyc> {
         //   Stack(
         //     children: [
         //       CircleAvatar(
-        //         backgroundColor: DoctorColor.bgcolor,
+        //         backgroundColor: DoctorColor.white,
         //         radius: 22,
         //         child: Image.asset(
         //           DoctorPngimage.notification,
@@ -130,19 +131,19 @@ class _MykycState extends State<Mykyc> {
                       scrollPadding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
                       style: iregular.copyWith(
-                          fontSize: 14, color: DoctorColor.textgrey),
+                          fontSize: 14, color: DoctorColor.textblack),
                       decoration: InputDecoration(
                         hintText: 'Aadhar Card No'.tr,
                         fillColor: themedata.isdark
                             ? DoctorColor.lightblack
-                            : DoctorColor.bgcolor,
+                            : DoctorColor.white,
                         filled: true,
                         // prefixIcon: Padding(
                         //   padding: const EdgeInsets.all(15),
                         //   child: Image.asset(DoctorPngimage.calendar,height: height/36,),
                         // ),
                         hintStyle: iregular.copyWith(
-                            fontSize: 14, color: DoctorColor.textgrey),
+                            fontSize: 14, color: DoctorColor.textblack),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
@@ -168,10 +169,10 @@ class _MykycState extends State<Mykyc> {
                       GestureDetector(
                         onTap: pickFileAadhar,
                         child: Container(
-                          width: width / 1.3,
+                          width: selectedFilePathAadhar != null ? width / 1.3 : width / 1.06,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: DoctorColor.bgcolor,
+                            color: DoctorColor.white,
                             border: Border.all(
                               color: DoctorColor.border,
                               width: 0.7,
@@ -182,7 +183,7 @@ class _MykycState extends State<Mykyc> {
                             child: Text(
                               selectedFileNameAadhar ?? "Upload Aadhar Front",
                               style: iregular.copyWith(
-                                  fontSize: 14, color: DoctorColor.textgrey),
+                                  fontSize: 14, color: DoctorColor.textblack),
                             ),
                           ),
                         ),
@@ -227,17 +228,17 @@ class _MykycState extends State<Mykyc> {
                       GestureDetector(
                         onTap: pickFileAadharBack,
                         child: Container(
-                          width: width / 1.3,
+                          width:  selectedFilePathAadharBack != null ?  width / 1.3 : width / 1.06,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: DoctorColor.bgcolor,
+                            color: DoctorColor.white,
                             border: Border.all(color: DoctorColor.border, width: 0.7),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Text(
                               selectedFileNameAadharBack ?? "Upload Aadhar Back",
-                              style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                              style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                             ),
                           ),
                         ),
@@ -282,19 +283,19 @@ class _MykycState extends State<Mykyc> {
                       scrollPadding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
                       style: iregular.copyWith(
-                          fontSize: 14, color: DoctorColor.textgrey),
+                          fontSize: 14, color: DoctorColor.textblack),
                       decoration: InputDecoration(
                         hintText: 'PAN Card No'.tr,
                         fillColor: themedata.isdark
                             ? DoctorColor.lightblack
-                            : DoctorColor.bgcolor,
+                            : DoctorColor.white,
                         filled: true,
                         // prefixIcon: Padding(
                         //   padding: const EdgeInsets.all(15),
                         //   child: Image.asset(DoctorPngimage.calendar,height: height/36,),
                         // ),
                         hintStyle: iregular.copyWith(
-                            fontSize: 14, color: DoctorColor.textgrey),
+                            fontSize: 14, color: DoctorColor.textblack),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
@@ -320,17 +321,17 @@ class _MykycState extends State<Mykyc> {
                       GestureDetector(
                         onTap: pickFile,
                         child: Container(
-                          width: width / 1.3,
+                          width: selectedFilePath != null ?  width / 1.3 : width / 1.06 ,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: DoctorColor.bgcolor,
+                            color: DoctorColor.white,
                             border: Border.all(color: DoctorColor.border, width: 0.7),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Text(
                               selectedFileName ?? "Upload Pan Card",
-                              style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                              style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                             ),
                           ),
                         ),

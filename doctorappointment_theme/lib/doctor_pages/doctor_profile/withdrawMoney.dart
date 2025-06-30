@@ -30,9 +30,14 @@ class _WithdrawmoneyState extends State<Withdrawmoney> {
         surfaceTintColor:
             themedata.isdark ? DoctorColor.black : DoctorColor.white,
         title: Text("Withdrawal"),
-        leading: Icon(
-          Icons.arrow_back,
-          size: 20,
+        leading: GestureDetector(
+          onTap: (){
+            Get.back();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            size: 20,
+          ),
         ),
         actions: [
           Stack(

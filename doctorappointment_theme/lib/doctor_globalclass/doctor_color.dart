@@ -9,6 +9,7 @@ class DoctorColor{
   static const primary2 = Color(0xff0d3761);
   static const lightDark = Color(0xff4B5563);
   static const textgrey = Color(0xff9CA3AF);
+  static const textblack = Color(0xff0e0a0a);
   static const lightblack = Color(0xff23262F);
   // static const bgcolor = Color(0xffF9FAFB);
   static const bgcolor = Color(0xffe8eaec);

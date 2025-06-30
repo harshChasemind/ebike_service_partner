@@ -272,14 +272,14 @@ class _DoctorHomeState extends State<DoctorHome> {
               Row(
                 children: [
                   Text(
-                    "Categories".tr,
+                    "Dashboard".tr,
                     style: ibold.copyWith(fontSize: 16),
                   ),
                   const Spacer(),
-                  Text(
-                    "See_All".tr,
-                    style: imedium.copyWith(fontSize: 14),
-                  ),
+                  // Text(
+                  //   "See_All".tr,
+                  //   style: imedium.copyWith(fontSize: 14),
+                  // ),
                 ],
               ),
               SizedBox(
@@ -416,8 +416,8 @@ class _DoctorHomeState extends State<DoctorHome> {
                               children: [
                                 Image.asset(
                                   DoctorPngimage.c3,
-                                  height: height / 12,
-                                  width: height / 12,
+                                  height: height / 16,
+                                  width: height / 16,
                                   fit: BoxFit.fill,
                                 ),
                                 SizedBox(

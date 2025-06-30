@@ -114,16 +114,16 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                     validator: (value) => controller.validateNotEmpty(value, "Name"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
                       hintText: 'Your_Name'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
+                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
                       filled: true,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.user,height: height/36,),
+                        child: Image.asset(DoctorPngimage.user,height: height/36,color: DoctorColor.textblack),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -144,16 +144,16 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                     validator: controller.validateEmail,
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
                       hintText: 'Your_Email'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
+                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
                       filled: true,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.email,height: height/36,),
+                        child: Image.asset(DoctorPngimage.email,height: height/36,color: DoctorColor.textblack),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -173,7 +173,7 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                 // // Select Type Dropdown
                 // Container(
                 //   decoration: BoxDecoration(
-                //     color: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                //     color: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
                 //     borderRadius: BorderRadius.circular(10),
                 //     border: Border.all(color: DoctorColor.border),
                 //   ),
@@ -184,7 +184,7 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                 //     ),
                 //     hint: Text(
                 //       'Select Type',
-                //       style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                //       style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                 //     ),
                 //     value: selectedType,
                 //     items: types.map((type) {
@@ -208,17 +208,17 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                     validator: controller.validateMobile,
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
                       hintText: 'your_mobile_no'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
+                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
                       filled: true,
                       counterText: '',
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconMobile,height: height/36,),
+                        child: Image.asset(DoctorPngimage.iconMobile,height: height/36,color: DoctorColor.textblack),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -238,7 +238,7 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
 
                 DropdownButtonFormField<String>(
                   decoration:  InputDecoration(
-                    fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -255,7 +255,7 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                   ),
                   hint: Text(
                     'Select Gender',
-                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   ),
                   value: selectedGender,
                   validator: (value) => controller.validateNotEmpty(value, "Gender"),
@@ -274,16 +274,16 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                 // TextFormField(
                 //     scrollPadding: EdgeInsets.only(
                 //         bottom: MediaQuery.of(context).viewInsets.bottom),
-                //     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                //     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                 //     decoration: InputDecoration(
                 //       hintText: 'Business Name'.tr,
-                //       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
+                //       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
                 //       filled: true,
                 //       prefixIcon: Padding(
                 //         padding: const EdgeInsets.all(15),
-                //         child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textgrey),
+                //         child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textblack),
                 //       ),
-                //       hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                //       hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                 //       enabledBorder: OutlineInputBorder(
                 //           borderRadius: BorderRadius.circular(10),
                 //           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -297,16 +297,16 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                     validator: (value) => controller.validateNotEmpty(value, "Address"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
                       hintText: 'Address'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
+                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
                       filled: true,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
+                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textblack),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -323,7 +323,7 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                 SizedBox(height: height/36,),
                 DropdownButtonFormField<String>(
                   value: controller.cityValue.value.isNotEmpty ? controller.cityValue.value : null,
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   onChanged: (value) {
                     controller.cityValue.value = value ?? '';
                   },
@@ -331,17 +331,17 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                       controller.validateNotEmpty(value, "City"),
                   decoration: InputDecoration(
                     hintText: 'City'.tr,
-                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
                     filled: true,
                     prefixIcon: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Image.asset(
                         DoctorPngimage.iconBuilding,
                         height: height / 36,
-                        color: DoctorColor.textgrey,
+                        color: DoctorColor.textblack,
                       ),
                     ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: DoctorColor.border),
@@ -371,24 +371,24 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                 SizedBox(height: height/36,),
                 DropdownButtonFormField<String>(
                   value: controller.stateValue.value.isNotEmpty ? controller.stateValue.value : null,
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                   onChanged: (value) {
                     controller.stateValue.value = value ?? '';
                   },
                   validator: (value) => controller.validateNotEmpty(value, "State"),
                   decoration: InputDecoration(
                     hintText: 'State'.tr,
-                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.bgcolor,
+                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
                     filled: true,
                     prefixIcon: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Image.asset(
                         DoctorPngimage.iconBuilding,
                         height: height / 36,
-                        color: DoctorColor.textgrey,
+                        color: DoctorColor.textblack,
                       ),
                     ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textgrey),
+                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: DoctorColor.border),
@@ -422,17 +422,17 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                     validator: (value) => controller.validateNotEmpty(value, "Pincode"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
                       hintText: 'Pincode'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.bgcolor,
+                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
                       filled: true,
                       counterText: '',
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textgrey),
+                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textblack),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textgrey),
+                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -495,7 +495,7 @@ class _AddShopOwnerAccountState extends State<AddShopOwnerAccount> {
                 //     Text(
                 //       "or".tr,
                 //       style: imedium.copyWith(
-                //           fontSize: 16, color: DoctorColor.textgrey),
+                //           fontSize: 16, color: DoctorColor.textblack),
                 //     ),
                 //     Container(
                 //         height: height / 500,

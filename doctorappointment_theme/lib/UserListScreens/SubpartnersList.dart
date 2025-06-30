@@ -45,7 +45,11 @@ class _SubpartnerListState extends State<SubpartnerList> {
       appBar: AppBar(
         surfaceTintColor: themedata.isdark ? DoctorColor.black : DoctorColor.white,
         title: const Text("Sub-Partner"),
-        leading: const Icon(Icons.arrow_back, size: 20),
+        leading: GestureDetector(
+            onTap : (){
+              Get.back();
+        },
+            child: const Icon(Icons.arrow_back, size: 20)),
         actions: [
           Stack(
             children: [
