@@ -32,8 +32,8 @@ class _DoctorSplashState extends State<DoctorSplash> {
       body: Stack(
         children: [
           Image.asset(
-            DoctorPngimage.splash,
-            fit: BoxFit.fill,
+            DoctorPngimage.splash2,
+            // fit: BoxFit.fill,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
           ),

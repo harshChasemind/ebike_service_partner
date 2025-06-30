@@ -42,7 +42,8 @@ class _DoctorReferralState extends State<DoctorReferral> {
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: DoctorColor.white,
-        title: Text("Referral".tr,style: isemibold.copyWith(fontSize: 20),),
+        // title: Text("Referral".tr,style: isemibold.copyWith(fontSize: 20),),
+        title: Text("Coming Soon".tr,style: isemibold.copyWith(fontSize: 20,color: Colors.red),),
         leading: Navigator.of(context).canPop() ? IconButton(onPressed: (){
           Navigator.of(context).pop();
         }, icon: Icon(Icons.arrow_back)) : null,

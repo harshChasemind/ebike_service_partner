@@ -48,7 +48,10 @@ class _FreelancerListState extends State<FreelancerList> {
       appBar: AppBar(
         surfaceTintColor: themedata.isdark ? DoctorColor.black : DoctorColor.white,
         title: const Text("Freelancers"),
-        leading: const Icon(Icons.arrow_back, size: 20),
+        // leading: const Icon(Icons.arrow_back, size: 20),
+        leading: Navigator.of(context).canPop() ? IconButton(onPressed: (){
+          Navigator.of(context).pop();
+        }, icon: Icon(Icons.arrow_back,size: 20)) : null,
         actions: [
           Stack(
             children: [
