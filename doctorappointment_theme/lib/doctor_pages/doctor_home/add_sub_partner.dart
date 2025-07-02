@@ -655,7 +655,8 @@ class DoctorAddSUbPartnerController extends GetxController {
       "pincode": pincode.toString(),
     };
     isLoading.value = true;
-    final response = await ApiService.callAddSubPartner(registerUserJson);
+    ApiService apiService = new ApiService();
+    final response = await apiService.callAddSubPartner(registerUserJson);
     isLoading.value = false;
 
     if (response != null && response['statusCode'] == 200) {

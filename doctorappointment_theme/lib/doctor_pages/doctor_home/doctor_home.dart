@@ -8,7 +8,10 @@ import 'package:doctorappointment/doctor_globalclass/doctor_color.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
-
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../ApiService/ApiService.dart';
 import '../../UserListScreens/Freelancers.dart';
 import '../../UserListScreens/ShopOwners.dart';
@@ -98,8 +101,9 @@ class _DoctorHomeState extends State<DoctorHome> {
                         width: width / 46,
                       ),
                       Obx(() {
-                        final location =
-                            profileController.profileData['city'] ?? 'Jaipur';
+                        // final location =
+                        //     profileController.profileData['city'] ?? 'Jaipur';
+                        final location = profileController.currentCity.value;
                         return Text(
                           location.toString(),
                           style: isemibold.copyWith(fontSize: 14),
@@ -655,17 +659,68 @@ class DoctorHomeController extends GetxController {
   var isLoading = false.obs;
   var profileData = <String, dynamic>{}.obs;
   var profileImageUrl = ''.obs;
+  var currentCity = 'Fetching...'.obs;
 
   @override
   void onInit() {
     fetchProfile();
+    getUserCity();
     super.onInit();
   }
+  Future<void> getUserCity() async {
+    print('🔍 Checking if location services are enabled...');
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      print('❌ Location services are disabled.');
+      currentCity.value = 'Location disabled';
+      return;
+    }
 
+    print('📍 Requesting location permission...');
+    var status = await Permission.location.request();
+
+    if (status.isDenied) {
+      print('❌ Location permission denied.');
+      currentCity.value = 'Permission denied';
+      return;
+    } else if (status.isPermanentlyDenied) {
+      print('🚫 Location permission permanently denied. Opening app settings...');
+      currentCity.value = 'Permission permanently denied';
+      openAppSettings(); // Opens device settings
+      return;
+    }
+
+    try {
+      print('📡 Getting current position...');
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      print('✅ Position obtained: Lat=${position.latitude}, Lng=${position.longitude}');
+
+      print('🌍 Reverse geocoding to get city...');
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        final city = placemarks.first.locality ?? 'Unknown';
+        print('🏙️ City found: $city');
+        currentCity.value = city;
+      } else {
+        print('⚠️ No placemarks found.');
+        currentCity.value = 'Unknown';
+      }
+    } catch (e) {
+      print('❗ Exception while getting location: $e');
+      currentCity.value = profileData['city'];
+    }
+  }
   Future<void> fetchProfile() async {
     isLoading.value = true;
     try {
-      final response = await ApiService.callUserProfile();
+      ApiService apiService = new ApiService();
+      final response = await apiService.callUserProfile();
       if (response != null && response['statusCode'] == 200) {
         profileData.value =
         Map<String, dynamic>.from(response['data']); // ✅ Safe casting
@@ -689,7 +744,8 @@ class DoctorHomeController extends GetxController {
 
   Future<void> updateProfileImage(
       {required BuildContext context, required File? imageprofile}) async {
-    final response = await ApiService.uploadProfileImage(imageprofile!);
+    ApiService apiService = new ApiService();
+    final response = await apiService.uploadProfileImage(imageprofile!);
     if (response != null && response['status'] == true) {
       fetchProfile();
     } else {

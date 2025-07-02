@@ -1,6 +1,7 @@
 import 'dart:convert' as JSON;
 import 'dart:convert' as convert;
 import 'dart:io';
+import 'package:doctorappointment/doctor_globalclass/doctor_color.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -9,14 +10,14 @@ class ApiService {
   static String imageurl = "https://e-bike.69clubs.site/uploads/profile/";
   static String kycDocimageurl = "https://e-bike.69clubs.site/uploads/kyc_documents/";
   static const String baseUrl = "https://e-bike.69clubs.site";
-  static String token = "";
+  final String token = DoctorColor.token;
 
 // static String My_Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk5NTUxM2E0M2MwYTFkODRlY2U2YTEiLCJ1c2VyTmFtZSI6ImZmZ3kiLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXN0IiwiZW1haWwiOiJmZ3JAbWFpbGluYXRvci5jb20iLCJtb2JpbGUiOjg4NTU2NjY1ODgsImFjY291bnRUeXBlIjoxLCJyZWdpc3RlclN0YXR1cyI6MSwic3RhdHVzIjoxLCJpc3VzZXJ2ZXJpZmllZCI6ZmFsc2UsInByb2ZpbGVfaW1hZ2UiOiJuby11c2VyLnBuZyIsImp0aSI6IjYzOTk1NTEzYTQzYzBhMWQ4NGVjZTZhMV8wNDk4ODQiLCJpYXQiOjE2NzA5OTMxNzEsImV4cCI6MTY3MzU4NTE3MX0.mFtaQXY0y2Ty2TnPD2N3TWdNoVZBWxIf9mI3R5RlWRY";
 // final String My_Token = ColorConstant.token;
   Map<String, String> HeaderNoToken = {'Content-Type': 'application/json'};
 
 //For Login APi
-  static Future<dynamic> login(Map<String, String> mobileNumber) async {
+   Future login(Map<String, String> mobileNumber) async {
     print("Login Success $mobileNumber");
     print("$baseUrl/app/user/login");
     var responseData;
@@ -41,7 +42,7 @@ class ApiService {
 
   ///send OTP
 
-  static Future<dynamic> callOtpVerify(
+  Future callOtpVerify(
     Map<String, dynamic> verifyJson,
   ) async {
     print("Otp Success $verifyJson");
@@ -67,7 +68,7 @@ class ApiService {
 
   ///resend otp
 
-  static Future<dynamic> resendOTP(Map<String, String> data) async {
+  Future resendOTP(Map<String, String> data) async {
     print("Sending Resend OTP Request: $data");
     print("POST $baseUrl/app/user/resend_otp");
 
@@ -97,7 +98,7 @@ class ApiService {
   }
 
   /// sub-partner list
-  static Future<dynamic> SubPartner(String filter) async {
+  Future SubPartner(String filter) async {
     print("Sending SubPartner Request: $token");
     print("POST $baseUrl/app/user/list_my_sub_partner");
 
@@ -127,7 +128,7 @@ class ApiService {
   }
 
   /// Shop owners list
-  static Future<dynamic> ShopOwners(String filter) async {
+  Future ShopOwners(String filter) async {
     print("Sending SubPartner Request: $filter");
     print("POST $baseUrl/app/user/list_my_shop_owners");
 
@@ -157,7 +158,7 @@ class ApiService {
   }
 
   /// Freelancers list
-  static Future<dynamic> Freelancers(String data) async {
+  Future Freelancers(String data) async {
     print("Sending SubPartner Request: $data");
     print("POST $baseUrl/app/user/list_my_freelancers");
 
@@ -186,7 +187,7 @@ class ApiService {
     }
   }
 
-  static Future<dynamic> callUserRegister(
+  Future callUserRegister(
       Map<String, dynamic> registerJson) async {
     print("register Success $registerJson");
     var responseData;
@@ -211,7 +212,7 @@ class ApiService {
 
   ///call add sub partner details Api
 
-  static Future<dynamic> callAddSubPartner(
+  Future callAddSubPartner(
       Map<String, dynamic> registerJson) async {
     print("register Success $registerJson");
     print("POST Add Sub Partner $baseUrl/app/user/add_subpartner");
@@ -237,7 +238,7 @@ class ApiService {
 
   ///call add Shop owner details Api
 
-  static Future<dynamic> callShopOwner(
+  Future callShopOwner(
       Map<String, dynamic> registerJson) async {
     print("register Success $registerJson");
     print("POST Add Shop Owner $baseUrl/app/user/add_shop_owner_freelancer");
@@ -263,7 +264,7 @@ class ApiService {
 
   ///call add Freelancer details Api
 
-  static Future<dynamic> callFreelancer(
+  Future callFreelancer(
       Map<String, dynamic> registerJson) async {
     print("register Success $registerJson");
     print("Add Freelancer $baseUrl/app/user/add_shop_owner_freelancer");
@@ -287,7 +288,8 @@ class ApiService {
     }
   }
 
-  static Future<dynamic> callUserProfile() async {
+  Future callUserProfile() async {
+    print("Tokennnnn $token");
     var responseData;
     try {
       final response = await http.post(
@@ -308,9 +310,10 @@ class ApiService {
     }
   }
 
-  static Future<dynamic> callUserEdit(
+  Future callUserEdit(
     Map<String, dynamic> editJson,
   ) async {
+    print("Tokennnnn $token");
     print("register Success $editJson");
     var responseData;
     try {
@@ -332,7 +335,8 @@ class ApiService {
     }
   }
 
-  static Future<dynamic> uploadProfileImage(File imageFile) async {
+  Future uploadProfileImage(File imageFile) async {
+    print("Tokennnnn $token");
     var uri = Uri.parse(
         '$baseUrl/app/user/profile_photo_update'); // Update this with your endpoint
     var request = http.MultipartRequest('POST', uri);
@@ -365,13 +369,14 @@ class ApiService {
     }
   }
 
-  static Future<dynamic> callKycCertificate({
+  Future callKycCertificate({
     required String AadharcardNumber,
     required File AadharFront,
     required File AadharBack,
     required String PanCardNum,
     required File Pancard,
   }) async {
+    print("Tokennnnn $token");
     var uri = Uri.parse(
         '$baseUrl/app/user/upload_kyc_documents'); // Update this with your endpoint
     var request = http.MultipartRequest('POST', uri);
@@ -415,7 +420,8 @@ class ApiService {
       return null;
     }
   }
-  static Future<dynamic> SubPartnerDetails(Map<String, String> data) async {
+  Future SubPartnerDetails(Map<String, String> data) async {
+    print("Tokennnnn $token");
     print("Sending SubPartner Request: $data");
     print("POST $baseUrl/app/user/sub_partner_detail");
     var responseData;
@@ -439,7 +445,8 @@ class ApiService {
       print("Error in SubPartnerDetails: $e");
     }
   }
-  static Future<dynamic> callShopOwnerDetail(Map<String, String> data) async {
+  Future callShopOwnerDetail(Map<String, String> data) async {
+    print("Tokennnnn $token");
     print("Sending SubPartner Request: $data");
     print("POST $baseUrl/app/user/shop_owner_detail");
     var responseData;
@@ -463,7 +470,8 @@ class ApiService {
       print("Error in SubPartnerDetails: $e");
     }
   }
-  static Future<dynamic> callfreelancerDetail(Map<String, String> data) async {
+  Future callfreelancerDetail(Map<String, String> data) async {
+    print("Tokennnnn $token");
     print("Sending SubPartner Request: $data");
     print("POST $baseUrl/app/user/freelancer_detail");
     var responseData;

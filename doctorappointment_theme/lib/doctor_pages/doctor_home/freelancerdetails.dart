@@ -535,8 +535,8 @@ class ShopOwnerDetailsController extends GetxController {
     try {
       isLoading.value = true;
       errorMessage.value = '';
-
-      final response = await ApiService.callfreelancerDetail({
+      ApiService apiService = new ApiService();
+      final response = await apiService.callfreelancerDetail({
         "user_id": userId,
       });
 

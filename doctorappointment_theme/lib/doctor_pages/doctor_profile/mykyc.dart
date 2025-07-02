@@ -538,7 +538,8 @@ class EbikeKyc extends GetxController {
     required String PanCardNumber,
     required File Pancard,
   }) async {
-    final response = await ApiService.callKycCertificate(
+    ApiService apiService = new ApiService();
+    final response = await apiService.callKycCertificate(
       Pancard: Pancard,
       AadharBack: AadharBack,
       AadharFront: AadharFront,

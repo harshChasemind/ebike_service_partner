@@ -657,7 +657,8 @@ class DoctorAddFreelancerController extends GetxController {
       "pincode": pincode.toString(),
     };
     isLoading.value = true;
-    final response = await ApiService.callFreelancer(registerUserJson);
+    ApiService apiService = new ApiService();
+    final response = await apiService.callFreelancer(registerUserJson);
     isLoading.value = false;
 
     if (response != null && response['statusCode'] == 200) {

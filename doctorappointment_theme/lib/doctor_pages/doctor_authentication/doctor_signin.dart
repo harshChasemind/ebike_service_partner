@@ -5,6 +5,7 @@ import 'package:doctorappointment/doctor_pages/doctor_authentication/doctor_veri
 import 'package:doctorappointment/doctor_theme/doctor_themecontroller.dart';
 // import 'package:doctorappointment/doctor_services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../apiservice/apiservice.dart';
@@ -144,8 +145,12 @@ class DoctorSigninController extends GetxController {
     if (!formKeySignIN.currentState!.validate()) return;
 
     isLoading.value = true;
-    final response = await ApiService.login(
-      {"mobile_number": mobileController.text.trim()},
+    ApiService apiService = new ApiService();
+    final response = await apiService.login(
+      {
+        "mobile_number": mobileController.text.trim(),
+        "app_type" : "partner_app"
+      },
     );
     print("Responseeeee ${mobileController.text}");
 
@@ -157,10 +162,15 @@ class DoctorSigninController extends GetxController {
       print("User ID: $userId");
       await Get.to(() => DoctorVerifyotp(userId: userId, mobileNumber: mobileController.text.trim(),));
       mobileController.clear();
-    } else if (response != null && response is Map && response.containsKey('message')) {
-      Get.snackbar("Error", response['message']);
-    } else {
-      Get.snackbar("Error", "Something went wrong while sending OTP");
+    } else if(response != null && response is Map && response['statusCode'] == 403) {
+      Fluttertoast.showToast(
+        msg: "This number already registered for Shop owners app",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black38,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     }
   }
 

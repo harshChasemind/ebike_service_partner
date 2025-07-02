@@ -132,7 +132,7 @@ class _DoctorVerifyotpState extends State<DoctorVerifyotp> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: width/22),
                       child: Center(
-                        child: Text("Verify Otp".tr,
+                        child: Text("Verify OTP".tr,
                             style: imedium.copyWith(
                                 fontSize: 16, color: DoctorColor.white)),
                       ),
@@ -193,7 +193,8 @@ class DoctorVerifyOtpController extends GetxController{
       "otp": otp,
     };
     isLoading.value = true;
-    final response = await ApiService.callOtpVerify(otpVerifyJson);
+    ApiService apiService = new ApiService();
+    final response = await apiService.callOtpVerify(otpVerifyJson);
     isLoading.value = false;
 
     if (response != null && response['statusCode'] == 200 && response['data'] != null) {
@@ -201,8 +202,9 @@ class DoctorVerifyOtpController extends GetxController{
       int isRegisterd = response['data']['is_registered'];
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.setString("token", token);
-      ApiService.token = token;
-      print("token=== ${ApiService.token}");
+      sharedPreferences.setBool("isLogin", true);
+     DoctorColor.token = sharedPreferences.getString("token")!;
+      print("token=== ${DoctorColor.token}");
       if(isRegisterd == 0){
         Get.to(DoctorSignup());
       }else{
@@ -216,7 +218,8 @@ class DoctorVerifyOtpController extends GetxController{
   }
   Future<void> resendOtp(String userId, BuildContext context) async {
     isLoading.value = true;
-    final response = await ApiService.resendOTP({"_id": userId});
+    ApiService apiService = new ApiService();
+    final response = await apiService.resendOTP({"_id": userId});
     isLoading.value = false;
 
     if (response != null && response['statusCode'] == 200) {

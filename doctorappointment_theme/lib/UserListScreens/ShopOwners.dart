@@ -242,8 +242,8 @@ class ShopOwnersController extends GetxController {
 
   Future<void> fetchSubPartners(String Text) async {
     isLoading.value = true;
-
-    final response = await ApiService.ShopOwners(Text);
+    ApiService apiService = new ApiService();
+    final response = await apiService.ShopOwners(Text);
 
     isLoading.value = false;
 
@@ -254,7 +254,8 @@ class ShopOwnersController extends GetxController {
     }
   }
   Future<void> fetchSubPartnersFilter(String Text) async {
-    final response = await ApiService.ShopOwners(Text);
+    ApiService apiService = new ApiService();
+    final response = await apiService.ShopOwners(Text);
     if (response != null && response is Map && response['statusCode'] == 200) {
       subPartners.value = List<Map<String, dynamic>>.from(response['data']);
     } else {

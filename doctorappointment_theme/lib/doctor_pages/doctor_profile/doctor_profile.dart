@@ -14,6 +14,7 @@ import 'package:doctorappointment/doctor_globalclass/doctor_fontstyle.dart';
 import 'package:doctorappointment/doctor_globalclass/doctor_icons.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../ApiService/ApiService.dart';
 import '../../UserListScreens/ShopOwners.dart';
@@ -512,6 +513,7 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
   }
 
   logout() {
+    final profileController = Get.put(DoctorProfileController());
     showModalBottomSheet(
         context: context,
         backgroundColor: themedata.isdark ?DoctorColor.black : DoctorColor.background,
@@ -562,8 +564,9 @@ class _DoctorProfileState extends State<DoctorProfile> with RouteAware {
                         InkWell(
                           splashColor: DoctorColor.transparent,
                           highlightColor: DoctorColor.transparent,
-                          onTap: () {
+                          onTap: () async {
                             // Get.to(() => const DoctorSignin());
+                            await profileController.callLogOut();
                             Get.offAll(DoctorOnboarding());
                           },
                           child: Container(
@@ -606,7 +609,8 @@ class DoctorProfileController extends GetxController {
   Future<void> fetchProfile() async {
     isLoading.value = true;
     try {
-      final response = await ApiService.callUserProfile();
+      ApiService apiService = new ApiService();
+      final response = await apiService.callUserProfile();
       if (response != null && response['statusCode'] == 200) {
         profileData.value = Map<String, dynamic>.from(response['data']); // ✅ Safe casting
 
@@ -627,11 +631,17 @@ class DoctorProfileController extends GetxController {
     }
   }
   Future<void>updateProfileImage({required BuildContext context,required File? imageprofile})async{
-    final response = await ApiService.uploadProfileImage(imageprofile!);
+    ApiService apiService = new ApiService();
+    final response = await apiService.uploadProfileImage(imageprofile!);
     if (response != null && response['status'] == true) {
       fetchProfile();
     } else {
       Get.snackbar("Error", response['message'] ?? "OTP verification failed");
     }
+  }
+  callLogOut() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool("isLogin", false);
+    print(sharedPreferences.get("isLogin"));
   }
 }

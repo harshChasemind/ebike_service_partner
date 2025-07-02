@@ -565,10 +565,13 @@ class DoctorSignupController extends GetxController {
       "pincode": pincode.toString(),
     };
     isLoading.value = true;
-    final response = await ApiService.callUserRegister(registerUserJson);
+    ApiService apiService = new ApiService();
+    final response = await apiService.callUserRegister(registerUserJson);
     isLoading.value = false;
 
     if (response != null && response['statusCode'] == 200) {
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setBool("isLogin", true);
       Get.to(DoctorDashboard(0));
     } else {
       Get.snackbar("Error", response['message'] ?? "OTP verification failed");

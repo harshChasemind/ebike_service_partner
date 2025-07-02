@@ -243,8 +243,8 @@ class SubPartnerController extends GetxController {
 
   Future<void> fetchSubPartners(String filter) async {
     isLoading.value = true;
-
-    final response = await ApiService.SubPartner(filter);
+    ApiService apiService = new ApiService();
+    final response = await apiService.SubPartner(filter);
 
     isLoading.value = false;
 
@@ -257,7 +257,8 @@ class SubPartnerController extends GetxController {
     }
   }
   Future<void> fetchSubPartnersFilter(String filter) async {
-    final response = await ApiService.SubPartner(filter);
+    ApiService apiService = new ApiService();
+    final response = await apiService.SubPartner(filter);
 
     if (response != null && response is Map && response['statusCode'] == 200) {
       subPartners.value = response['data'];

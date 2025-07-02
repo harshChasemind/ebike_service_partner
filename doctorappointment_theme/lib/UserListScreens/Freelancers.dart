@@ -244,8 +244,8 @@ class FreelancersController extends GetxController {
 
   Future<void> fetchSubPartners(String filter) async {
     isLoading.value = true;
-
-    final response = await ApiService.Freelancers(filter);
+    ApiService apiService = new ApiService();
+    final response = await apiService.Freelancers(filter);
 
     isLoading.value = false;
 
@@ -256,7 +256,8 @@ class FreelancersController extends GetxController {
     }
   }
   Future<void> fetchSubPartnersFilter(String filter) async {
-    final response = await ApiService.Freelancers(filter);
+    ApiService apiService = new ApiService();
+    final response = await apiService.Freelancers(filter);
     if (response != null && response is Map && response['statusCode'] == 200) {
       subPartners.value = response['data'];
     } else {

@@ -537,8 +537,8 @@ class SubPartnerDetailsController extends GetxController {
     try {
       isLoading.value = true;
       errorMessage.value = '';
-
-      final response = await ApiService.SubPartnerDetails({
+      ApiService apiService = new ApiService();
+      final response = await apiService.SubPartnerDetails({
         "user_id": userId,
       });
 

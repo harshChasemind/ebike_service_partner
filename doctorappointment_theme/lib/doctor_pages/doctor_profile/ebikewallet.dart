@@ -131,8 +131,24 @@ class _EbikewalletState extends State<Ebikewallet> {
                         height: height / 36,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          GestureDetector(
+                            onTap: (){
+                              // Get.to(Withdrawmoney());
+                            },
+                            child: Container(
+                              width: width / 2,
+                              decoration: BoxDecoration(
+                                color: DoctorColor.blueBG,
+                                borderRadius: BorderRadius.circular(16)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: Center(child: Text("Download Statement" , style: imedium.copyWith(fontSize: 16 , color: Colors.white),)),
+                              ),
+                            ),
+                          ),
                           GestureDetector(
                             onTap: (){
                               Get.to(Withdrawmoney());

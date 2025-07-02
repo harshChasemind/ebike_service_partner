@@ -71,6 +71,14 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
     "Bihar",
     "Andaman & Nicobar",
   ];
+  String capitalizeWords(String? input) {
+    if (input == null || input.trim().isEmpty) return '';
+    return input
+        .trim()
+        .split(' ')
+        .map((word) => word[0].toUpperCase() + word.substring(1).toLowerCase())
+        .join(' ');
+  }
   @override
   void initState() {
     super.initState();
@@ -80,11 +88,15 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
     controller._nameController.text = widget.profileData['name'] ?? '';
     controller._dateController.text = widget.profileData['dob'] ?? '';
     controller._addressController.text = widget.profileData['address'] ?? '';
-    controller.cityValue.value = widget.profileData['city'] ?? '';
-    controller.stateValue.value= widget.profileData['state'] ?? '';
+    controller.cityValue.value = capitalizeWords(widget.profileData['city']);
+    controller.stateValue.value = capitalizeWords(widget.profileData['state']);
     controller._pincodeController.text = widget.profileData['pincode'] ?? '';
     controller._businessNameController.text = widget.profileData['business_name'] ?? '';
     selectedGender = widget.profileData['gender'];
+    final initialState = controller.stateValue.value;
+    if (initialState.isNotEmpty && controller.stateCityMap.containsKey(initialState)) {
+      controller.filteredCities.value = controller.stateCityMap[initialState]!;
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -113,191 +125,91 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
         //   ),
         // ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
-          child: Form(
-            key: controller.formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                    controller: controller._nameController,
-                    validator: (value) => controller.validateNotEmpty(value, "Name"),
+      body: Obx(()=> SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: width/36,vertical: height/36),
+            child: Form(
+              key: controller.formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                      controller: controller._nameController,
+                      validator: (value) => controller.validateNotEmpty(value, "Name"),
+                      scrollPadding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                      decoration: InputDecoration(
+                        hintText: 'Your_Name'.tr,
+                        fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
+                        filled: true,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Image.asset(DoctorPngimage.user,height: height/36,color: DoctorColor.black,),
+                        ),
+                        hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.red)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                      )),
+                  SizedBox(height: height/36,),
+
+                  TextFormField(
+                      controller: controller.emailController,
+                      validator: controller.validateEmail,
+                      scrollPadding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                      decoration: InputDecoration(
+                        hintText: 'Your_Email'.tr,
+                        fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
+                        filled: true,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Image.asset(DoctorPngimage.email,height: height/36,color: DoctorColor.black,),
+                        ),
+                        hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.red)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                      )),
+                  SizedBox(height: height/36,),
+                  TextFormField(
+                    controller: controller._dateController,
+                    readOnly: true, // prevent keyboard from showing
+                    onTap: ()  {
+                      dobPicker();
+                    },
+                    validator: (value) => controller.validateNotEmpty(value, "Date of birth"),
                     scrollPadding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
-                    decoration: InputDecoration(
-                      hintText: 'Your_Name'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.user,height: height/36,color: DoctorColor.black,),
-                      ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.red)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
-                SizedBox(height: height/36,),
-
-                TextFormField(
-                    controller: controller.emailController,
-                    validator: controller.validateEmail,
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
-                    decoration: InputDecoration(
-                      hintText: 'Your_Email'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
-                      filled: true,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.email,height: height/36,color: DoctorColor.black,),
-                      ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.red)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
-                SizedBox(height: height/36,),
-                TextFormField(
-                  controller: controller._dateController,
-                  readOnly: true, // prevent keyboard from showing
-                  onTap: ()  {
-                    dobPicker();
-                  },
-                  validator: (value) => controller.validateNotEmpty(value, "Date of birth"),
-                  scrollPadding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
-                  decoration: InputDecoration(
-                    hintText: 'Date of Birth'.tr,
-                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
-                    filled: true,
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Image.asset(DoctorPngimage.calendar, height: height / 36,color: DoctorColor.black,),
-                    ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: DoctorColor.border)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: DoctorColor.border)),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: DoctorColor.red)),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: DoctorColor.border)),
-
-                  ),
-                ),
-                SizedBox(height: height/36,),
-
-                // Gender Dropdown
-
-                DropdownButtonFormField<String>(
-                  style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
-                  decoration:  InputDecoration(
-                    fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: DoctorColor.border)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: DoctorColor.border)),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: DoctorColor.red)),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:  BorderSide(color: DoctorColor.border)),
-                  ),
-                  hint: Text(
-                    'Select Gender',
                     style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
-                  ),
-                  value: selectedGender,
-                  validator: (value) => controller.validateNotEmpty(value, "Gender"),
-                  items: genders.map((gender) {
-                    return DropdownMenuItem(
-                      value: gender,
-                      child: Text(gender, style: iregular.copyWith(fontSize: 14)),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedGender = value;
-                    });
-                  },
-                ),
-                // SizedBox(height: height/36,),
-                // TextFormField(
-                //     controller: controller._businessNameController,
-                //     validator: (value) => controller.validateNotEmpty(value, "Business Name"),
-                //     scrollPadding: EdgeInsets.only(
-                //         bottom: MediaQuery.of(context).viewInsets.bottom),
-                //     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
-                //     decoration: InputDecoration(
-                //       hintText: 'Busiess Name'.tr,
-                //       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
-                //       filled: true,
-                //       prefixIcon: Padding(
-                //         padding: const EdgeInsets.all(15),
-                //         child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textblack),
-                //       ),
-                //       hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
-                //       enabledBorder: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(10),
-                //           borderSide: const BorderSide(color: DoctorColor.border)),
-                //       focusedBorder: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(10),
-                //           borderSide: const BorderSide(color: DoctorColor.border)),
-                //       errorBorder: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(10),
-                //           borderSide: const BorderSide(color: DoctorColor.red)),
-                //       border: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(10),
-                //           borderSide: const BorderSide(color: DoctorColor.border)),
-                //     )),
-                SizedBox(height: height/36,),
-                TextFormField(
-                    controller:controller._addressController,
-                    validator: (value) => controller.validateNotEmpty(value, "Address"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                     decoration: InputDecoration(
-                      hintText: 'Address'.tr,
-                      fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
+                      hintText: 'Date of Birth'.tr,
+                      fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
                       filled: true,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textblack),
+                        child: Image.asset(DoctorPngimage.calendar, height: height / 36,color: DoctorColor.black,),
                       ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                      hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
@@ -310,172 +222,273 @@ class _DoctorEditprofileState extends State<DoctorEditprofile> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
-                SizedBox(height: height/36,),
-                DropdownButtonFormField<String>(
-                  value: controller.stateValue.value.isNotEmpty ? controller.stateValue.value : null,
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
-                  onChanged: (value) {
-                    controller.stateValue.value = value ?? '';
-                    controller.cityValue.value = '';
-                    controller.filteredCities.value = controller.stateCityMap[value] ?? [];
-                  },
-                  validator: (value) => controller.validateNotEmpty(value, "State"),
-                  decoration: InputDecoration(
-                    hintText: 'State'.tr,
-                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
-                    filled: true,
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Image.asset(
-                        DoctorPngimage.iconBuilding,
-                        height: height / 36,
-                        color: DoctorColor.textblack,
-                      ),
-                    ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: DoctorColor.border),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: DoctorColor.border),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: DoctorColor.red)),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: DoctorColor.border)),
-                  ),
-                  items: stateList.map((state) {
-                    return DropdownMenuItem<String>(
-                      value: state,
-                      child: Text(
-                        state,
-                        style: iregular.copyWith(fontSize: 14),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                SizedBox(height: height/36,),
-                DropdownButtonFormField<String>(
-                  value: controller.cityValue.value.isNotEmpty ? controller.cityValue.value : null,
-                  style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
-                  onChanged: (value) {
-                    controller.cityValue.value = value ?? '';
-                  },
-                  validator: (value) => controller.validateNotEmpty(value, "City"),
-                  decoration: InputDecoration(
-                    hintText: 'City'.tr,
-                    fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
-                    filled: true,
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Image.asset(
-                        DoctorPngimage.iconBuilding,
-                        height: height / 36,
-                        color: DoctorColor.textblack,
-                      ),
-                    ),
-                    hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: DoctorColor.border),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: DoctorColor.border),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: DoctorColor.red),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: DoctorColor.border),
+
                     ),
                   ),
-                  items: controller.filteredCities.map((city) {
-                    return DropdownMenuItem<String>(
-                      value: city,
-                      child: Text(
-                        city,
-                        style: iregular.copyWith(fontSize: 14),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                SizedBox(height: height/36,),
-                TextFormField(
-                    controller:controller._pincodeController,
-                    maxLength: 6,
-                    keyboardType: TextInputType.number,
-                    validator: (value) => controller.validateNotEmpty(value, "Pincode"),
-                    scrollPadding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                  SizedBox(height: height/36,),
+
+                  // Gender Dropdown
+
+                  DropdownButtonFormField<String>(
                     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
-                    decoration: InputDecoration(
-                      hintText: 'Pincode'.tr,
+                    decoration:  InputDecoration(
                       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
                       filled: true,
-                      counterText: '',
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textblack),
-                      ),
-                      hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
+                          borderSide:  BorderSide(color: DoctorColor.border)),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: DoctorColor.border)),
+                          borderSide:  BorderSide(color: DoctorColor.border)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:  BorderSide(color: DoctorColor.red)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:  BorderSide(color: DoctorColor.border)),
+                    ),
+                    hint: Text(
+                      'Select Gender',
+                      style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
+                    ),
+                    value: selectedGender,
+                    validator: (value) => controller.validateNotEmpty(value, "Gender"),
+                    items: genders.map((gender) {
+                      return DropdownMenuItem(
+                        value: gender,
+                        child: Text(gender, style: iregular.copyWith(fontSize: 14)),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedGender = value;
+                      });
+                    },
+                  ),
+                  // SizedBox(height: height/36,),
+                  // TextFormField(
+                  //     controller: controller._businessNameController,
+                  //     validator: (value) => controller.validateNotEmpty(value, "Business Name"),
+                  //     scrollPadding: EdgeInsets.only(
+                  //         bottom: MediaQuery.of(context).viewInsets.bottom),
+                  //     style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                  //     decoration: InputDecoration(
+                  //       hintText: 'Busiess Name'.tr,
+                  //       fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
+                  //       filled: true,
+                  //       prefixIcon: Padding(
+                  //         padding: const EdgeInsets.all(15),
+                  //         child: Image.asset(DoctorPngimage.iconBusiness,height: height/36,color: DoctorColor.textblack),
+                  //       ),
+                  //       hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                  //       enabledBorder: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(10),
+                  //           borderSide: const BorderSide(color: DoctorColor.border)),
+                  //       focusedBorder: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(10),
+                  //           borderSide: const BorderSide(color: DoctorColor.border)),
+                  //       errorBorder: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(10),
+                  //           borderSide: const BorderSide(color: DoctorColor.red)),
+                  //       border: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(10),
+                  //           borderSide: const BorderSide(color: DoctorColor.border)),
+                  //     )),
+                  SizedBox(height: height/36,),
+                  TextFormField(
+                      controller:controller._addressController,
+                      validator: (value) => controller.validateNotEmpty(value, "Address"),
+                      scrollPadding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                      decoration: InputDecoration(
+                        hintText: 'Address'.tr,
+                        fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
+                        filled: true,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textblack),
+                        ),
+                        hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.red)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                      )),
+                  SizedBox(height: height/36,),
+                  DropdownButtonFormField<String>(
+                    value: controller.stateValue.value.isNotEmpty ? controller.stateValue.value : null,
+                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
+                    onChanged: (value) {
+                      controller.stateValue.value = value ?? '';
+                      controller.cityValue.value = '';
+                      controller.filteredCities.value = controller.stateCityMap[value] ?? [];
+                    },
+                    validator: (value) => controller.validateNotEmpty(value, "State"),
+                    decoration: InputDecoration(
+                      hintText: 'State'.tr,
+                      fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
+                      filled: true,
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Image.asset(
+                          DoctorPngimage.iconBuilding,
+                          height: height / 36,
+                          color: DoctorColor.textblack,
+                        ),
+                      ),
+                      hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border),
+                      ),
                       errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.red)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: DoctorColor.border)),
-                    )),
+                    ),
+                    items: stateList.map((state) {
+                      return DropdownMenuItem<String>(
+                        value: state,
+                        child: Text(
+                          state,
+                          style: iregular.copyWith(fontSize: 14),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(height: height/36,),
+                  DropdownButtonFormField<String>(
+                    value: controller.cityValue.value.isNotEmpty ? controller.cityValue.value : null,
+                    style: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
+                    onChanged: (value) {
+                      controller.cityValue.value = value ?? '';
+                    },
+                    validator: (value) => controller.validateNotEmpty(value, "City"),
+                    decoration: InputDecoration(
+                      hintText: 'City'.tr,
+                      fillColor: themedata.isdark ? DoctorColor.lightblack : DoctorColor.white,
+                      filled: true,
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Image.asset(
+                          DoctorPngimage.iconBuilding,
+                          height: height / 36,
+                          color: DoctorColor.textblack,
+                        ),
+                      ),
+                      hintStyle: iregular.copyWith(fontSize: 14, color: DoctorColor.textblack),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.red),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: DoctorColor.border),
+                      ),
+                    ),
+                    items: controller.filteredCities.map((city) {
+                      return DropdownMenuItem<String>(
+                        value: city,
+                        child: Text(
+                          city,
+                          style: iregular.copyWith(fontSize: 14),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(height: height/36,),
+                  TextFormField(
+                      controller:controller._pincodeController,
+                      maxLength: 6,
+                      keyboardType: TextInputType.number,
+                      validator: (value) => controller.validateNotEmpty(value, "Pincode"),
+                      scrollPadding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      style: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                      decoration: InputDecoration(
+                        hintText: 'Pincode'.tr,
+                        fillColor: themedata.isdark ? DoctorColor.lightblack :DoctorColor.white,
+                        filled: true,
+                        counterText: '',
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Image.asset(DoctorPngimage.iconBuilding,height: height/36,color: DoctorColor.textblack),
+                        ),
+                        hintStyle: iregular.copyWith(fontSize: 14,color: DoctorColor.textblack),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.red)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: DoctorColor.border)),
+                      )),
 
-                SizedBox(height: height/26,),
-                InkWell(
-                  splashColor: DoctorColor.transparent,
-                  highlightColor: DoctorColor.transparent,
-                  onTap: () {
-                    if (controller.formKey.currentState!.validate()) {
-                      // If valid, go to next screen
-                      controller.userEdit(
-                          context: context,
-                          name: controller._nameController.text,
-                          email: controller.emailController.text,
-                          dob: controller._dateController.text,
-                          gender: selectedGender ?? "male",
-                          address: controller._addressController.text,
-                          city: controller.cityValue.value,
-                          state: controller.stateValue.value,
-                          pincode: controller._pincodeController.text);
-                    }
-                  },
-                  child: Container(
-                    height: height / 15,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: DoctorColor.blueBG),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: width/22),
-                      child: Center(
-                        child: Text("Save".tr,
-                            style: imedium.copyWith(
-                                fontSize: 16, color: DoctorColor.white)),
+                  SizedBox(height: height/26,),
+                  InkWell(
+                    splashColor: DoctorColor.transparent,
+                    highlightColor: DoctorColor.transparent,
+                    onTap: () {
+                      if (controller.formKey.currentState!.validate()) {
+                        // If valid, go to next screen
+                        controller.userEdit(
+                            context: context,
+                            name: controller._nameController.text,
+                            email: controller.emailController.text,
+                            dob: controller._dateController.text,
+                            gender: selectedGender ?? "male",
+                            address: controller._addressController.text,
+                            city: controller.cityValue.value,
+                            state: controller.stateValue.value,
+                            pincode: controller._pincodeController.text);
+                      }
+                    },
+                    child: Container(
+                      height: height / 15,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: DoctorColor.blueBG),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width/22),
+                        child: Center(
+                          child: Text("Save".tr,
+                              style: imedium.copyWith(
+                                  fontSize: 16, color: DoctorColor.white)),
+                        ),
                       ),
                     ),
                   ),
-                ),
 
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -570,7 +583,8 @@ class ebikeEditProfile extends GetxController{
       "pincode": pincode.toString(),
     };
     isLoading.value = true;
-    final response = await ApiService.callUserEdit(editUserJson);
+    ApiService apiService = new ApiService();
+    final response = await apiService.callUserEdit(editUserJson);
     isLoading.value = false;
     if (response != null && response['statusCode'] == 200) {
       Get.to(DoctorDashboard(3));

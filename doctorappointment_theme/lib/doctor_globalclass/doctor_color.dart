@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DoctorColor{
+  static String token = "";
   static const grey = Colors.grey;
   static const white = Colors.white;
   static const black = Colors.black;
